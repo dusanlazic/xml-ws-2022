@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zahtev-za-priznanje-ziga>
+    <podnosilac>
+        <ime></ime>
+        <adresa>
+            <ulica></ulica>
+            <broj></broj>
+            <zip-kod></zip-kod>
+            <mesto></mesto>
+            <drzava></drzava>
+        </adresa>
+        <telefon></telefon>
+        <email></email>
+        <faks></faks>
+    </podnosilac>
+    
+    <ponomocnik>
+        <ime></ime>
+        <adresa>
+            <ulica></ulica>
+            <broj></broj>
+            <zip-kod></zip-kod>
+            <mesto></mesto>
+            <drzava></drzava>
+        </adresa>
+        <telefon></telefon>
+        <email></email>
+        <faks></faks>
+    </ponomocnik>
+    
+    <zajednicki-predstavnik>
+        <ime></ime>
+        <adresa>
+            <ulica></ulica>
+            <broj></broj>
+            <zip-kod></zip-kod>
+            <mesto></mesto>
+            <drzava></drzava>
+        </adresa>
+        <telefon></telefon>
+        <email></email>
+        <faks></faks>
+    </zajednicki-predstavnik>
+    
+    <zig>
+        <tip-a>
+            <individualni />
+        </tip-a>
+        <tip-b>
+            <verbalni />
+        </tip-b>
+        <izgled></izgled>
+        <boje>
+            <boja></boja>
+        </boje>
+        <transliteracija></transliteracija>
+        <prevod></prevod>
+        <opis></opis>
+        <klase-robe>
+            <broj></broj>
+        </klase-robe>
+        <pravo-prvenstva></pravo-prvenstva>
+    </zig>
+    
+    <uplata>
+        <takse>
+            <taksa>
+                <naziv></naziv>
+                <iznos></iznos>
+            </taksa>
+        </takse>
+        <potpis></potpis>
+    </uplata>
+    
+    <informacije-zavoda>
+        <prilozi-uz-zahtev>
+            <primer-znaka></primer-znaka>
+            <spisak-robe></spisak-robe>
+            <punomocje></punomocje>
+            <generalno-punomocje></generalno-punomocje>
+            <naknadno-punomocje></naknadno-punomocje>
+            <opsti-akt></opsti-akt>
+            <dokaz-prvenstva></dokaz-prvenstva>
+            <dokaz-uplate></dokaz-uplate>
+        </prilozi-uz-zahtev>
+        <broj-prijave-ziga></broj-prijave-ziga>
+        <datum-podnosenja></datum-podnosenja>
+        
+    </informacije-zavoda>
+    
+    
+    
+</zahtev-za-priznanje-ziga>
