@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
+           vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="www.zavod.com/Zig"
+           xmlns:z="www.zavod.com/Zig">
+    <xs:element name="Zahtevi">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Zahtev" type="z:TZahtev"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TZahtev">
+        <xs:sequence>
+            <xs:element name="Podnosilac" type="z:TLice"/>
+            <xs:element name="Punomocnik" type="z:TLice"/>
+            <xs:element name="Predstavnik" type="z:TLice"/>
+            <xs:element name="Zig" type="z:TZig"/>
+            <xs:element name="Placanje" type="z:TPlacanje"/>
+            <xs:element name="InformacijeZavoda" type="z:TInformacije_Zavoda"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TLice" abstract="true">
+        <xs:sequence>
+            <xs:element name="adresa" type="z:TAdresa"/>
+            <xs:element name="telefon"/>
+            <xs:element name="email"/>
+            <xs:element name="faks"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TFizicko_Lice">
+        <xs:complexContent>
+            <xs:extension base="z:TLice">
+                <xs:sequence>
+                    <xs:element name="ime"/>
+                    <xs:element name="prezime"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TPravno_Lice">
+        <xs:complexContent>
+            <xs:extension base="z:TLice">
+                <xs:sequence>
+                    <xs:element name="poslovno_ime"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TZig">
+        <xs:sequence>
+            <xs:element name="tip_ziga">
+                <xs:complexType>
+                    <xs:choice>
+                        <xs:element name="individualni"/>
+                        <xs:element name="kolektivni"/>
+                        <xs:element name="garantni"/>
+                    </xs:choice>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="tip_znaka">
+                <xs:complexType>
+                    <xs:choice>
+                        <xs:element name="verbalni"/>
+                        <xs:element name="kombinovani"/>
+                        <xs:element name="trodimenzionalni"/>
+                        <xs:element name="druga_vrsta"/>
+                    </xs:choice>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="boja" type="xs:string"/>
+            <xs:element name="transliteracija" type="xs:string"/>
+            <xs:element name="prevod" type="xs:string"/>
+            <xs:element name="opis" type="xs:string"/>
+            <xs:element name="klase_robe">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="klasa">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:positiveInteger">
+                                    <xs:maxInclusive value="45"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="pravo_prvenstva" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TPlacanje">
+        <xs:sequence>
+            <xs:element name="osnovna_taksa" type="xs:float"/>
+            <xs:element name="taksa_klasa" type="xs:float"/>
+            <xs:element name="taksa_grafickog_resenja" type="xs:float"/>
+            <xs:element name="ukupna" type="xs:float"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TInformacije_Zavoda"/>
+    <xs:complexType name="TAdresa">
+        <xs:sequence>
+            <xs:element name="ulica" type="xs:string"/>
+            <xs:element name="broj" type="xs:string"/>
+            <xs:element name="mesto" type="xs:string"/>
+            <xs:element name="drzava" type="xs:string"/>
+            <xs:element name="postanski_broj">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="19000"/>
+                        <xs:maxInclusive value="25000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
