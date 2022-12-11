@@ -64,7 +64,7 @@
             <xs:element name="broj_prijave">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
-                        <xs:pattern value="'A-'*"/>
+                        <xs:pattern value="A-[0-9]+"/>
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>

@@ -1,7 +1,7 @@
 package com.zavod.repository;
 
-import com.zavod.model.autorska.TZahtev;
-import com.zavod.model.autorska.Zahtevi;
+import com.zavod.model.zig.TZahtev;
+import com.zavod.model.zig.Zahtevi;
 import org.springframework.stereotype.Repository;
 
 import javax.xml.bind.JAXBContext;
@@ -13,10 +13,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 @Repository
-public class AutorskaRepositoryImpl implements AutorskaRepository {
+public class ZigRepositoryImpl implements ZigRepository {
 
-    public final String contextPath = "com.zavod.model.autorska";
-    public final String dataPath = "zavod/data/a1.xml";
+    public final String contextPath = "com.zavod.model.zig";
+    public final String dataPath = "zavod/data/z1.xml";
 
     Zahtevi zahtevi;
 
@@ -56,7 +56,7 @@ public class AutorskaRepositoryImpl implements AutorskaRepository {
     private void printZahtevi(Zahtevi zahtevi) {
         for (TZahtev zahtev: zahtevi.getZahtev()) {
             System.out.println(zahtev.getInformacijeZavoda().getBrojPrijave() + " " +
-                                zahtev.getPodnosilac().getIme() + " - " + zahtev.getDelo().getNaslov());
+                    zahtev.getPodnosilac().getEmail() + " - " + zahtev.getZig().getOpis());
         }
     }
 

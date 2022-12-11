@@ -1,7 +1,7 @@
-package com.zavod.annotation;
+package com.zavod.converter;
 
-import com.zavod.model.zig.TZahtev;
-import com.zavod.model.zig.Zahtevi;
+import com.zavod.model.autorska.TZahtev;
+import com.zavod.model.autorska.Zahtevi;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -13,20 +13,19 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
-public class XmlZigMessageConverter extends AbstractHttpMessageConverter<TZahtev> {
+public class XmlAutorskaMessageConverter extends AbstractHttpMessageConverter<TZahtev> {
 
-    public XmlZigMessageConverter() {
+    public XmlAutorskaMessageConverter() {
 
     }
 
-    public XmlZigMessageConverter(MediaType mt) {
+    public XmlAutorskaMessageConverter(MediaType mt) {
         super(mt);
     }
 
-    public XmlZigMessageConverter(MediaType... mt) {
+    public XmlAutorskaMessageConverter(MediaType... mt) {
         super(mt);
     }
 
@@ -56,7 +55,6 @@ public class XmlZigMessageConverter extends AbstractHttpMessageConverter<TZahtev
             Zahtevi zahtevi = new Zahtevi();
             zahtevi.getZahtev().add(zahtev);
             marshaller.marshal(zahtevi, outputMessage.getBody());
-
         } catch (JAXBException | FileNotFoundException e) {
             e.printStackTrace();
         }

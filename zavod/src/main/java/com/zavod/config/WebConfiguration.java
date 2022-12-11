@@ -1,8 +1,8 @@
 package com.zavod.config;
 
 
-import com.zavod.annotation.XmlAutorskaMessageConverter;
-import com.zavod.annotation.XmlZigMessageConverter;
+import com.zavod.converter.XmlAutorskaMessageConverter;
+import com.zavod.converter.XmlZigMessageConverter;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
