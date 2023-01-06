@@ -46,6 +46,11 @@ public class DatabaseHandler {
         return (XMLResource) col.createResource(documentId, XMLResource.RESOURCE_TYPE);
     }
 
+    public static XMLResource getResource() throws XMLDBException {
+        Collection col = getOrCreateCollection(collectionId);;
+        return (XMLResource) col.getResource(documentId);
+    }
+
     private static Collection getOrCreateCollection(String collectionUri) throws XMLDBException {
         return getOrCreateCollection(collectionUri, 0);
     }

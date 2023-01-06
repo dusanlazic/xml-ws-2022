@@ -4,6 +4,7 @@ import com.zavod.api.ResponseOk;
 import com.zavod.model.TZahtev;
 import com.zavod.model.Zahtevi;
 import com.zavod.service.AutorskaService;
+import com.zavod.service.PDFService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,9 @@ public class AutorskaController {
 
     @Autowired
     public AutorskaService autorskaService;
+
+    @Autowired
+    public PDFService pdfService;
 
     @GetMapping(path = "/all")
     public Zahtevi getAll() {
@@ -39,5 +43,10 @@ public class AutorskaController {
         if (zahtevi.isEmpty())
             return null;
         return zahtevi.get(zahtevi.size() - 1);
+    }
+
+    @GetMapping(path = "pdf")
+    public void generatePdf() {
+        pdfService.generateFiles(autorskaService.getAll().getZahtev().get(0));
     }
 }

@@ -15,4 +15,8 @@ public class XUpdateUtil{
     public static String createAppendString(String xpath, String marshalled) {
         return String.format(APPEND, xpath, marshalled);
     }
+
+    public static String clipStringTwo(String s) {
+        return s.substring(s.indexOf("?>") + 2);
+    }
 }

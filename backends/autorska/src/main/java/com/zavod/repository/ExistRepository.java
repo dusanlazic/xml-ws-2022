@@ -22,7 +22,14 @@ public abstract class ExistRepository<C, T> {
     }
 
     public C getAll() {
-        return null;
+        try {
+            Collection collection = DatabaseHandler.getCollection(DatabaseHandler.collectionId);
+            XMLResource resource = DatabaseHandler.getResource();
+            C res = collectionMarshallingService.unmarshall(resource.getContentAsDOM());
+            return res;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void saveAll(C c) {
@@ -49,6 +56,7 @@ public abstract class ExistRepository<C, T> {
             collectionMarshallingService.marshall(c, os);
             resource.setContent(os);
             collection.storeResource(resource);
+            System.out.println("Finished loading.");
         } catch (XMLDBException | FileNotFoundException e) {
             throw new RuntimeException(e);
         }
