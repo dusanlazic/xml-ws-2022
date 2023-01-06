@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
+    vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://www.zavod.com/Autorska"
+    xmlns:a="http://www.zavod.com/Autorska">
+
+    <xs:element name="Zahtevi">
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded" minOccurs="1">
+                <xs:element name="Zahtev" type="a:TZahtev"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TZahtev">
+        <xs:sequence>
+            <xs:element name="Podnosilac" type="a:TLice"/>
+            <xs:element name="Delo" type="a:TDelo"/>
+            <xs:element minOccurs="0" name="Autor" type="a:TLice"/>
+            <xs:element name="Informacije_Zavoda" type="a:TInformacije_Zavoda"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType abstract="true" name="TLice">
+        <xs:sequence>
+            <xs:element name="ime" type="xs:string"/>
+            <xs:element minOccurs="0" name="telefon" type="xs:string"/>
+            <xs:element minOccurs="0" name="email" type="xs:string"/>
+            <xs:element minOccurs="0" name="pseudonim" nillable="true" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TFizicko_Lice">
+        <xs:complexContent>
+            <xs:extension base="a:TLice">
+                <xs:sequence>
+                    <xs:element name="prezime" type="xs:string"/>
+                    <xs:element name="adresa" type="xs:string"/>
+                    <xs:element name="drzavljanstvo" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TPravno_Lice">
+        <xs:complexContent>
+            <xs:extension base="a:TLice">
+                <xs:sequence>
+                    <xs:element name="sediste" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TDelo">
+        <xs:sequence>
+            <xs:element name="naslov" type="xs:string"/>
+            <xs:element name="alternativni_naslov" type="xs:string"/>
+            <xs:element name="vrsta_dela" type="xs:string"/>
+            <xs:element name="forma_zapisa" type="xs:string"/>
+            <xs:element name="radni_odnos" type="xs:boolean"/>
+            <xs:element name="nacin_koriscenja" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TInformacije_Zavoda">
+        <xs:sequence>
+            <xs:element name="opis_dela" type="xs:string"/>
+            <xs:element name="primer_dela"/>
+            <xs:element name="broj_prijave">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="A-[0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="datum_podsnosenja" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

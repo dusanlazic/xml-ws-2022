@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a:Zahtevi xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+           xmlns:a="http://www.zavod.com/Autorska"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.zavod.com/Autorska file:/home/s4ndu/FTN/semestar-7/XML/xml-ws-2022/zavod/data/a1.xsd">
+    <a:Zahtev>
+        <a:Podnosilac xsi:type="a:TPravno_Lice">
+            <a:ime>ime0</a:ime>
+            <a:sediste>sediste0</a:sediste>
+        </a:Podnosilac>
+        <a:Delo>
+            <a:naslov>naslov0</a:naslov>
+            <a:alternativni_naslov>alternativni_naslov0</a:alternativni_naslov>
+            <a:vrsta_dela>vrsta_dela0</a:vrsta_dela>
+            <a:forma_zapisa>forma_zapisa0</a:forma_zapisa>
+            <a:radni_odnos>false</a:radni_odnos>
+            <a:nacin_koriscenja>nacin_koriscenja0</a:nacin_koriscenja>
+        </a:Delo>
+        <a:Informacije_Zavoda>
+            <a:opis_dela>opis_dela0</a:opis_dela>
+            <a:primer_dela>
+            </a:primer_dela>
+            <a:broj_prijave>A-123</a:broj_prijave>
+            <a:datum_podsnosenja>2006-05-04</a:datum_podsnosenja>
+        </a:Informacije_Zavoda>
+    </a:Zahtev>
+    <a:Zahtev>
+        <a:Podnosilac xsi:type="a:TPravno_Lice">
+            <a:ime>ime1</a:ime>
+            <a:sediste>sediste1</a:sediste>
+        </a:Podnosilac>
+        <a:Delo>
+            <a:naslov>naslov1</a:naslov>
+            <a:alternativni_naslov>alternativni_naslov1</a:alternativni_naslov>
+            <a:vrsta_dela>vrsta_dela1</a:vrsta_dela>
+            <a:forma_zapisa>forma_zapisa1</a:forma_zapisa>
+            <a:radni_odnos>false</a:radni_odnos>
+            <a:nacin_koriscenja>nacin_koriscenja1</a:nacin_koriscenja>
+        </a:Delo>
+        <a:Informacije_Zavoda>
+            <a:opis_dela>opis_dela1</a:opis_dela>
+            <a:primer_dela>
+            </a:primer_dela>
+            <a:broj_prijave>A-123</a:broj_prijave>
+            <a:datum_podsnosenja>2006-05-04</a:datum_podsnosenja>
+        </a:Informacije_Zavoda>
+    </a:Zahtev>
+</a:Zahtevi>
