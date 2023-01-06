@@ -108,6 +108,38 @@
                 <h2>
                     POPUNjAVA ZAVOD:
                 </h2>
+                <div class="section1">
+                    <strong>Prilozi uz prijavu:</strong>
+                    <div>
+                        opis autorskog dela (ako je delo podneto na optičkom disku);
+                    </div>
+                    <div>
+                        primer autorskog dela (slika, video zapis, audio zapis)
+                    </div>
+                </div>
+                <br />
+                <br />
+                <br />
+                <div>
+                    <div style="width: 25%; margin-left: 75%;">
+                        <div style="border: 1px solid black; border-width: 1px 0 0 1px; height: 60px; padding: 2%;">
+                            <div>
+                                Broj prijave:
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <xsl:value-of select="//a:Informacije_Zavoda/a:broj_prijave"></xsl:value-of>
+                            </div>
+                        </div>
+                        <div style="border: 1px solid black; border-width: 1px 0 0 1px; height: 60px; padding: 2%;">
+                            <div>
+                                Datum podnosenja:
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <xsl:value-of select="//a:Informacije_Zavoda/a:datum_podsnosenja"></xsl:value-of>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </body>
         </html>
 
