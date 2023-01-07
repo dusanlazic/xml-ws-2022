@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:a="http://www.zavod.com/Autorska" xmlns:pred="http://www.zavod.com/Autorska/pred">
+    <rdf:Description rdf:about="bilosta">
+<pred:Broj_prijave>A-123</pred:Broj_prijave>
+<pred:Naziv>ime0</pred:Naziv>
+<pred:Datum_podnosenja>2006-05-04</pred:Datum_podnosenja>
+</rdf:Description>
+    <rdf:Description rdf:about="bilosta">
+<pred:Broj_prijave>A-321</pred:Broj_prijave>
+<pred:Naziv>ime1</pred:Naziv>
+<pred:Datum_podnosenja>2022-05-11</pred:Datum_podnosenja>
+</rdf:Description>
+</rdf:RDF>

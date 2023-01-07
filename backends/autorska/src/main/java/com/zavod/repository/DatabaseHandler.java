@@ -4,7 +4,6 @@ import com.zavod.util.AuthenticationUtilities;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
-import org.xmldb.api.base.Resource;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
@@ -20,11 +19,11 @@ public class DatabaseHandler {
 
     public static String collectionName = "/Zahtevi";
 
-    private static AuthenticationUtilities.ConnectionProperties conn;
+    private static AuthenticationUtilities.ExistConnectionProperties conn;
 
     public static void establishConnection() {
         try {
-            conn = AuthenticationUtilities.loadProperties();
+            conn = AuthenticationUtilities.loadExistProperties();
             Class<?> cl = Class.forName(conn.driver);
             Database database = (Database) cl.newInstance();
             database.setProperty("create-database", "true");
