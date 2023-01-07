@@ -1,1 +1,24 @@
-<app-novi-zahtev></app-novi-zahtev>
+<mat-sidenav-container class="example-container" autosize>
+	<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
+		<mat-nav-list>
+			<div class="submenu" [ngClass]="{'expanded' : showSubmenu}">
+				<a mat-list-item href="..."><mat-icon>home</mat-icon>&nbsp; Početna</a>
+			</div>
+			<div>
+				<a mat-list-item href="..."><mat-icon>create</mat-icon>&nbsp;Novi zahtev</a>
+				<a mat-list-item href="..."><mat-icon>library_books</mat-icon>&nbsp;Moji zahtevi</a>
+			</div>
+			<div>
+				<a mat-list-item href="..."><mat-icon> person_pin</mat-icon>&nbsp;Moj profil</a>
+			</div>
+			<div style="">
+				<a mat-list-item href="..."><mat-icon>exit_to_app</mat-icon>&nbsp;Izloguj se</a>
+			</div>
+		</mat-nav-list>
+	</mat-sidenav>
+
+	<div class="example-sidenav-content">
+		<app-novi-zahtev></app-novi-zahtev>
+	</div>
+
+</mat-sidenav-container>

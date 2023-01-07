@@ -14,7 +14,10 @@ import { RouterModule } from '@angular/router';
 import { FormlyFieldStepper } from './autorska/novi-zahtev/stepper.type';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { MatStepperModule } from '@angular/material/stepper'
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon'
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,10 @@ import { MatStepperModule } from '@angular/material/stepper'
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatStepperModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatCardModule,
     FormlyModule.forRoot({
       validationMessages: [{ name: 'required', message: 'This field is required' }],
       types: [{ name: 'stepper', component: FormlyFieldStepper, wrappers: [] }],

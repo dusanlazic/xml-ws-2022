@@ -22,7 +22,7 @@ export class NoviZahtevComponent implements OnInit {
       type: 'stepper',
       fieldGroup: [
         {
-          props: { label: 'Personal data' },
+          props: { label: 'Podaci o podnosiocu' },
           fieldGroup: [
             {
               key: 'firstname',
@@ -44,7 +44,7 @@ export class NoviZahtevComponent implements OnInit {
           ],
         },
         {
-          props: { label: 'Destination' },
+          props: { label: 'Podaci o autoru' },
           fieldGroup: [
             {
               key: 'country',
@@ -57,7 +57,7 @@ export class NoviZahtevComponent implements OnInit {
           ],
         },
         {
-          props: { label: 'Day of the trip' },
+          props: { label: 'Podaci o delu' },
           fieldGroup: [
             {
               key: 'day',
