@@ -3,7 +3,8 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                 xmlns:a="http://www.zavod.com/Autorska"
-                xmlns:pred="http://www.zavod.com/Autorska/pred"
+                xmlns="http://www.zavod.com/Autorska"
+                xmlns:pred="http://www.zavod.com/Autorska/pred/"
 >
     <xsl:template match="/">
         <rdf:RDF>
@@ -12,7 +13,7 @@
     </xsl:template>
 
     <xsl:template match="a:Zahtev">
-        <rdf:Description rdf:about="bilosta">
+        <rdf:Description rdf:about="http://www.zavod.com/Autorska/{./a:Informacije_Zavoda/a:broj_prijave}">
             <pred:Broj_prijave>
                 <xsl:value-of select="./a:Informacije_Zavoda/a:broj_prijave"></xsl:value-of>
             </pred:Broj_prijave>

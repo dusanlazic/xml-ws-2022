@@ -15,7 +15,7 @@ public class DatabaseHandler {
     public static String contextPath = "com.zavod.model";
     public static String dataPath = "./data/a1.xml";
     public static String documentId = "a1.xml";
-    public static String collectionId = "/db/sample/autorska";
+    public static String collectionId = "/db/autorska";
 
     public static String collectionName = "/Zahtevi";
 
