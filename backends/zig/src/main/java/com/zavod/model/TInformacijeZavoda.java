@@ -28,7 +28,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="broj_prijave">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;pattern value="Z-[0-9]+ [0-9]{2}"/>
+ *               &lt;pattern value="Ж-[0-9]+/[0-9]{2}"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>

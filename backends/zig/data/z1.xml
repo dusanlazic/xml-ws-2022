@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<z:Zahtevi xmlns:z="www.zavod.com/Zig"
+<z:Zahtevi xmlns:z="http://www.zavod.com/Zig"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="www.zavod.com/Zig file:/home/s4ndu/FTN/semestar-7/XML/xml-ws-2022/zavod/data/z1.xsd">
     <z:Zahtev>
@@ -37,7 +37,7 @@
             <z:ukupno>0.145</z:ukupno>
         </z:Placanje>
         <z:InformacijeZavoda>
-            <z:broj_prijave>Z-491 06</z:broj_prijave>
+            <z:broj_prijave>Ж-491/06</z:broj_prijave>
             <z:datum_podsnosenja>2006-05-04</z:datum_podsnosenja>
             <z:prilozi>
                 <z:primerak_znaka>true</z:primerak_znaka>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:a="http://www.zavod.com/Zig" version="2.0"
+                xmlns:z="http://www.zavod.com/Zig" version="2.0"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://www.zavod.com/Zig file:/home/s4ndu/FTN/semestar-7/XML/xml-ws-2022/zavod/data/z1.xsd">
 
@@ -44,7 +44,7 @@
                             <tr>
                                 <th>Ime</th>
                                 <xsl:choose>
-                                    <xsl:when test="//a:Podnosilac/a:sediste">
+                                    <xsl:when test="//z:Podnosilac/z:sediste">
                                         <th>Sediste</th>
                                     </xsl:when>
                                     <xsl:otherwise>
@@ -57,29 +57,29 @@
                                 <th>Email</th>
                             </tr>
                             <tbody>
-                                <tr><td class="answer"><xsl:value-of select="//a:Podnosilac/a:ime"></xsl:value-of></td>
+                                <tr><td class="answer"><xsl:value-of select="//z:Podnosilac/z:ime"></xsl:value-of></td>
                                 <xsl:choose>
-                                    <xsl:when test="//a:Podnosilac/a:sediste">
-                                        <td class="answer"><xsl:value-of select="//a:Podnosilac/a:sediste"></xsl:value-of></td>
+                                    <xsl:when test="//z:Podnosilac/z:sediste">
+                                        <td class="answer"><xsl:value-of select="//z:Podnosilac/z:sediste"></xsl:value-of></td>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <td class="answer"><xsl:value-of select="//a:Podnosilac/a:prezime"></xsl:value-of></td>
-                                        <td class="answer"><xsl:value-of select="//a:Podnosilac/a:drzavljanstvo"></xsl:value-of></td>
+                                        <td class="answer"><xsl:value-of select="//z:Podnosilac/z:prezime"></xsl:value-of></td>
+                                        <td class="answer"><xsl:value-of select="//z:Podnosilac/z:drzavljanstvo"></xsl:value-of></td>
                                     </xsl:otherwise>
                                 </xsl:choose>
-                                <td class="answer"><xsl:value-of select="//a:Podnosilac/a:telefon"></xsl:value-of></td>
-                                <td class="answer"><xsl:value-of select="//a:Podnosilac/a:email"></xsl:value-of></td></tr>
+                                <td class="answer"><xsl:value-of select="//z:Podnosilac/z:telefon"></xsl:value-of></td>
+                                <td class="answer"><xsl:value-of select="//z:Podnosilac/z:email"></xsl:value-of></td></tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="item">
                         2) Pseudonim ili znak autora, (ako ga ima):
-                        <p class="answer"><xsl:value-of select="//a:Podnosilac/a:pseudonim"></xsl:value-of></p>
+                        <p class="answer"><xsl:value-of select="//z:Podnosilac/z:pseudonim"></xsl:value-of></p>
                     </div>
                     <div class="item">
                         4) Naslov autorskog dela, odnosno alternativni naslov, ako ga ima, po kome autorsko delo može da se identifikuje*:
-                        <p class="answer"><xsl:value-of select="//a:Delo/a:naslov"></xsl:value-of></p>
-                        <p class="answer"><xsl:value-of select="//a:Delo/a:alternativni_naslov"></xsl:value-of></p>
+                        <p class="answer"><xsl:value-of select="//z:Delo/z:naslov"></xsl:value-of></p>
+                        <p class="answer"><xsl:value-of select="//z:Delo/z:alternativni_naslov"></xsl:value-of></p>
                     </div>
                     <div class="item">
                         5) Podaci o naslovu autorskog dela na kome se zasniva delo prerade, ako je u pitanju autorsko delo prerade, kao i podatak o autoru izvornog dela:
@@ -87,22 +87,22 @@
                     </div>
                     <div class="item">
                         6) Podaci o vrsti autorskog dela (književno delo, muzičko delo, likovno delo, računarski program i dr.) *:
-                        <p class="answer"><xsl:value-of select="//a:Delo/a:vrsta_dela"></xsl:value-of></p>
+                        <p class="answer"><xsl:value-of select="//z:Delo/z:vrsta_dela"></xsl:value-of></p>
                     </div>
                     <div class="item">
                         7) Podaci o formi zapisa autorskog dela (štampani tekst, optički disk i slično) *:
-                        <p class="answer"><xsl:value-of select="//a:Delo/a:forma_zapisa"></xsl:value-of></p>
+                        <p class="answer"><xsl:value-of select="//z:Delo/z:forma_zapisa"></xsl:value-of></p>
                     </div>
                     <div class="item">
                         8) Podaci o autoru ako podnosilac prijave iz tačke 1. ovog zahteva nije autor i to: prezime, ime, adresa i državljanstvo autora (grupe autora ili koautora), a ako su u pitanju jedan ili više autora koji nisu živi, imena autora i godine smrti autora a ako je u pitanju autorsko delo anonimnog autora navod da je autorsko delo delo anonimnog autora:
                     </div>
                     <div class="item">
                         9) Podatak da li je u pitanju autorsko delo stvoreno u radnom odnosu:
-                        <p class="answer"><xsl:value-of select="//a:Delo/a:radni_odnos"></xsl:value-of></p>
+                        <p class="answer"><xsl:value-of select="//z:Delo/z:radni_odnos"></xsl:value-of></p>
                     </div>
                     <div class="item">
                         10) Način korišćenja autorskog dela ili nameravani način korišćenja autorskog dela:
-                        <p class="answer"><xsl:value-of select="//a:Delo/a:nacin_koriscenja"></xsl:value-of></p>
+                        <p class="answer"><xsl:value-of select="//z:Delo/z:nacin_koriscenja"></xsl:value-of></p>
                     </div>
                 </div>
                 <h2>
@@ -127,7 +127,7 @@
                                 Broj prijave:
                             </div>
                             <div style="margin-top: 10px;">
-                                <xsl:value-of select="//a:Informacije_Zavoda/a:broj_prijave"></xsl:value-of>
+                                <xsl:value-of select="//z:Informacije_Zavoda/z:broj_prijave"></xsl:value-of>
                             </div>
                         </div>
                         <div style="border: 1px solid black; border-width: 1px 0 0 1px; height: 60px; padding: 2%;">
@@ -135,7 +135,7 @@
                                 Datum podnosenja:
                             </div>
                             <div style="margin-top: 10px;">
-                                <xsl:value-of select="//a:Informacije_Zavoda/a:datum_podsnosenja"></xsl:value-of>
+                                <xsl:value-of select="//z:Informacije_Zavoda/z:datum_podsnosenja"></xsl:value-of>
                             </div>
                         </div>
                     </div>

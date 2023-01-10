@@ -5,5 +5,5 @@
 // Generated on: 2022.12.12 at 12:14:51 AM CET 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "www.zavod.com/Zig", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.zavod.com/Zig", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package com.zavod.model;
