@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <z:Zahtevi xmlns:z="www.zavod.com/Zig"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="www.zavod.com/Zig file:/home/s4ndu/FTN/semestar-7/XML/xml-ws-2022/zavod/data/z1.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="www.zavod.com/Zig file:/home/s4ndu/FTN/semestar-7/XML/project/xml-ws-2022/backends/zig/src/main/resources/xml/z1.xsd">
     <z:Zahtev>
         <z:Podnosilac xsi:type="z:TFizicko_Lice">
             <z:adresa>

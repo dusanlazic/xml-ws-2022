@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:a="http://www.zavod.com/Autorska" version="2.0"
+                xmlns:a="http://www.zavod.com/Zig" version="2.0"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://www.zavod.com/Autorska file:/home/s4ndu/FTN/semestar-7/XML/xml-ws-2022/zavod/data/a1.xsd">
+                xsi:schemaLocation="http://www.zavod.com/Zig file:/home/s4ndu/FTN/semestar-7/XML/xml-ws-2022/zavod/data/z1.xsd">
 
     <xsl:template match="/">
         <html>

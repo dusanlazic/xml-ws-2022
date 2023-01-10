@@ -1,5 +1,7 @@
 package com.zavod;
 
+import com.zavod.model.Zahtevi;
+import com.zavod.repository.MetadataRepository;
 import com.zavod.repository.ZigRepository;
 import com.zavod.util.AuthenticationUtilities;
 import org.apache.logging.log4j.util.Strings;
@@ -26,13 +28,21 @@ public class ZigApplication {
 
 	@Autowired
 	private ZigRepository zigRepository;
+
+	@Autowired
+	private MetadataRepository metadataRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(ZigApplication.class, args);
 	}
+
 	@PostConstruct
 	public void init() throws Exception {
 		zigRepository.load();
-//		run(AuthenticationUtilities.loadProperties(), Strings.EMPTY_ARRAY);
+		Zahtevi zahtevi = zigRepository.getAll();
+		String rdf = metadataRepository.loadRdf(zahtevi);
+		System.out.println(rdf);
+		metadataRepository.writeRdf(rdf);
 	}
 
 

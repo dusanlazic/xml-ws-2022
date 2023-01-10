@@ -6,12 +6,9 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface ZigRepository {
-    public Zahtevi getAll();
+public class ZigRepository extends ExistRepository<Zahtevi, TZahtev>{
 
-    public void saveAll(Zahtevi zahtevi);
-
-    public void load();
-
-    public void addZahtev(TZahtev zahtev);
+    public ZigRepository() {
+        super(Zahtevi.class, TZahtev.class);
+    }
 }
