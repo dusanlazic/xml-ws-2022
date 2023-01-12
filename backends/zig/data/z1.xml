@@ -36,7 +36,7 @@
             <z:taksa_grafickog_resenja>0</z:taksa_grafickog_resenja>
             <z:ukupno>0</z:ukupno>
         </z:Placanje>
-        <z:InformacijeZavoda>
+        <z:Informacije_Zavoda>
             <z:broj_prijave>Ж-491/06</z:broj_prijave>
             <z:datum_podsnosenja>2006-05-04</z:datum_podsnosenja>
             <z:prilozi>
@@ -51,7 +51,7 @@
                     <z:naziv_datoteke>Dokaz_o_uplati.pdf</z:naziv_datoteke>
                 </z:dokaz_o_uplati_takse>
             </z:prilozi>
-        </z:InformacijeZavoda>
+        </z:Informacije_Zavoda>
     </z:Zahtev>
     <z:Zahtev>
         <z:Podnosilac xsi:type="z:TPravno_Lice">
@@ -62,8 +62,7 @@
                 <z:drzava>drzava1</z:drzava>
                 <z:postanski_broj>22000</z:postanski_broj>
             </z:adresa>
-            <z:poslovno_ime>
-            </z:poslovno_ime>
+            <z:poslovno_ime>Poslovno Ime d.o.o</z:poslovno_ime>
         </z:Podnosilac>
         <z:Zig>
             <z:tip_ziga>individualni</z:tip_ziga>
@@ -84,13 +83,13 @@
             <z:taksa_grafickog_resenja>0</z:taksa_grafickog_resenja>
             <z:ukupno>0</z:ukupno>
         </z:Placanje>
-        <z:InformacijeZavoda>
+        <z:Informacije_Zavoda>
             <z:broj_prijave>Ж-1/11</z:broj_prijave>
             <z:datum_podsnosenja>2006-05-04</z:datum_podsnosenja>
             <z:prilozi>
                 <z:generalno_punomocje_ranije_prilozeno>false</z:generalno_punomocje_ranije_prilozeno>
                 <z:punomocje_ce_biti_naknadno_dostavljeno>false</z:punomocje_ce_biti_naknadno_dostavljeno>
             </z:prilozi>
-        </z:InformacijeZavoda>
+        </z:Informacije_Zavoda>
     </z:Zahtev>
 </z:Zahtevi>

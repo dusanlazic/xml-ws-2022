@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
-    vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://www.zavod.com/Zig"
-    xmlns:z="http://www.zavod.com/Zig">
+           xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
+           vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://www.zavod.com/Zig"
+           xmlns:z="http://www.zavod.com/Zig">
     <xs:element name="Zahtevi">
         <xs:complexType>
             <xs:sequence maxOccurs="unbounded">
@@ -17,7 +17,7 @@
             <xs:element name="Predstavnik" type="z:TLice" minOccurs="0"/>
             <xs:element name="Zig" type="z:TZig"/>
             <xs:element name="Placanje" type="z:TPlacanje"/>
-            <xs:element name="InformacijeZavoda" type="z:TInformacije_Zavoda"/>
+            <xs:element name="Informacije_Zavoda" type="z:TInformacije_Zavoda"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="TLice" abstract="true">
@@ -32,8 +32,8 @@
         <xs:complexContent>
             <xs:extension base="z:TLice">
                 <xs:sequence>
-                    <xs:element name="ime"/>
-                    <xs:element name="prezime"/>
+                    <xs:element name="ime" type="xs:string"/>
+                    <xs:element name="prezime" type="xs:string"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -42,7 +42,7 @@
         <xs:complexContent>
             <xs:extension base="z:TLice">
                 <xs:sequence>
-                    <xs:element name="poslovno_ime"/>
+                    <xs:element name="poslovno_ime" type="xs:string"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -115,7 +115,7 @@
                         <xs:element name="generalno_punomocje_ranije_prilozeno" type="xs:boolean"/>
                         <xs:element name="punomocje_ce_biti_naknadno_dostavljeno" type="xs:boolean"/>
                         <xs:element name="opsti_akt_o_kolektivnom_zigu_garancije" type="z:TPrilog"
-                            minOccurs="0"/>
+                                    minOccurs="0"/>
                         <xs:element name="dokaz_o_pravu_prvenstva" type="z:TPrilog" minOccurs="0"/>
                         <xs:element name="dokaz_o_uplati_takse" type="z:TPrilog" minOccurs="0"/>
                     </xs:sequence>

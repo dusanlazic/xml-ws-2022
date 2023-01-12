@@ -17,7 +17,7 @@
             <xs:element name="Predstavnik" type="z:TLice" minOccurs="0"/>
             <xs:element name="Zig" type="z:TZig"/>
             <xs:element name="Placanje" type="z:TPlacanje"/>
-            <xs:element name="InformacijeZavoda" type="z:TInformacije_Zavoda"/>
+            <xs:element name="Informacije_Zavoda" type="z:TInformacije_Zavoda"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="TLice" abstract="true">
@@ -32,8 +32,8 @@
         <xs:complexContent>
             <xs:extension base="z:TLice">
                 <xs:sequence>
-                    <xs:element name="ime"/>
-                    <xs:element name="prezime"/>
+                    <xs:element name="ime" type="xs:string"/>
+                    <xs:element name="prezime" type="xs:string"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -42,7 +42,7 @@
         <xs:complexContent>
             <xs:extension base="z:TLice">
                 <xs:sequence>
-                    <xs:element name="poslovno_ime"/>
+                    <xs:element name="poslovno_ime" type="xs:string"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>

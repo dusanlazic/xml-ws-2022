@@ -13,9 +13,12 @@
     </xsl:template>
 
     <xsl:template match="z:Zahtev">
-        <rdf:Description rdf:about="http://www.zavod.com/Zig/{./z:InformacijeZavoda/z:broj_prijave}">
+        <rdf:Description rdf:about="http://www.zavod.com/Zig/{./z:Informacije_Zavoda/z:broj_prijave}">
+            <pred:Broj_prijave>
+                <xsl:value-of select="./z:Informacije_Zavoda/z:broj_prijave"></xsl:value-of>
+            </pred:Broj_prijave>
             <pred:Datum_podnosenja>
-                <xsl:value-of select="./z:InformacijeZavoda/z:datum_podsnosenja"></xsl:value-of>
+                <xsl:value-of select="./z:Informacije_Zavoda/z:datum_podsnosenja"></xsl:value-of>
             </pred:Datum_podnosenja>
         </rdf:Description>
     </xsl:template>
