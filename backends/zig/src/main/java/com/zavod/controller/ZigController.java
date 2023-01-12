@@ -3,6 +3,7 @@ package com.zavod.controller;
 import com.zavod.api.ResponseOk;
 import com.zavod.model.TZahtev;
 import com.zavod.model.Zahtevi;
+import com.zavod.service.PDFService;
 import com.zavod.service.ZigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,6 +17,9 @@ public class ZigController {
 
     @Autowired
     public ZigService zigService;
+
+    @Autowired
+    public PDFService pdfService;
 
     @GetMapping(path = "/all")
     public Zahtevi getAll() {
@@ -40,5 +44,9 @@ public class ZigController {
             return null;
         return zahtevi.get(zahtevi.size() - 1);
     }
-    
+
+    @GetMapping(path = "pdf")
+    public void generatePdf() {
+        pdfService.generateFiles(zigService.getAll().getZahtev().get(0));
+    }
 }
