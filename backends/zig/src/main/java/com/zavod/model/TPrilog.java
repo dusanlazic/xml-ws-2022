@@ -15,19 +15,19 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TFizicko_Lice complex type.
+ * <p>Java class for TPrilog complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="TFizicko_Lice">
+ * &lt;complexType name="TPrilog">
  *   &lt;complexContent>
- *     &lt;extension base="{http://www.zavod.com/Zig}TLice">
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="ime" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
- *         &lt;element name="prezime" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
+ *         &lt;element name="putanja" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
+ *         &lt;element name="naziv_datoteke" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
  *       &lt;/sequence>
- *     &lt;/extension>
+ *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -35,65 +35,63 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TFizicko_Lice", propOrder = {
-    "ime",
-    "prezime"
+@XmlType(name = "TPrilog", propOrder = {
+    "putanja",
+    "nazivDatoteke"
 })
-public class TFizickoLice
-    extends TLice
-{
+public class TPrilog {
 
     @XmlElement(required = true)
-    protected Object ime;
-    @XmlElement(required = true)
-    protected Object prezime;
+    protected Object putanja;
+    @XmlElement(name = "naziv_datoteke", required = true)
+    protected Object nazivDatoteke;
 
     /**
-     * Gets the value of the ime property.
+     * Gets the value of the putanja property.
      * 
      * @return
      *     possible object is
      *     {@link Object }
      *     
      */
-    public Object getIme() {
-        return ime;
+    public Object getPutanja() {
+        return putanja;
     }
 
     /**
-     * Sets the value of the ime property.
+     * Sets the value of the putanja property.
      * 
      * @param value
      *     allowed object is
      *     {@link Object }
      *     
      */
-    public void setIme(Object value) {
-        this.ime = value;
+    public void setPutanja(Object value) {
+        this.putanja = value;
     }
 
     /**
-     * Gets the value of the prezime property.
+     * Gets the value of the nazivDatoteke property.
      * 
      * @return
      *     possible object is
      *     {@link Object }
      *     
      */
-    public Object getPrezime() {
-        return prezime;
+    public Object getNazivDatoteke() {
+        return nazivDatoteke;
     }
 
     /**
-     * Sets the value of the prezime property.
+     * Sets the value of the nazivDatoteke property.
      * 
      * @param value
      *     allowed object is
      *     {@link Object }
      *     
      */
-    public void setPrezime(Object value) {
-        this.prezime = value;
+    public void setNazivDatoteke(Object value) {
+        this.nazivDatoteke = value;
     }
 
 }

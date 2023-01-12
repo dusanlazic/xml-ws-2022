@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<z:Zahtevi xmlns:z="http://www.zavod.com/Zig"
+<z:Zahtevi xmlns="http://www.w3.org/2007/XMLSchema-versioning"
+           xmlns:z="http://www.zavod.com/Zig"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="www.zavod.com/Zig file:/home/s4ndu/FTN/semestar-7/XML/project/xml-ws-2022/backends/zig/src/main/resources/xml/z1.xsd">
+           xsi:schemaLocation="http://www.zavod.com/Zig file:/home/s4ndu/FTN/semestar-7/XML/project/xml-ws-2022/backends/zig/src/main/resources/xml/z1.xsd">
     <z:Zahtev>
         <z:Podnosilac xsi:type="z:TFizicko_Lice">
             <z:adresa>
@@ -9,44 +10,86 @@
                 <z:broj>30</z:broj>
                 <z:mesto>Novi Sad</z:mesto>
                 <z:drzava>Srbija</z:drzava>
-                <z:postanski_broj>23000</z:postanski_broj>
+                <z:postanski_broj>21000</z:postanski_broj>
             </z:adresa>
-            <z:telefon>062109351</z:telefon>
-            <z:email>marko@test.com</z:email>
-            <z:faks></z:faks>
-            <z:ime>Marko</z:ime>
-            <z:prezime>Markovic</z:prezime>
+            <z:telefon>+381601928120</z:telefon>
+            <z:email>petar@petrovic.com</z:email>
+            <z:ime>Petar</z:ime>
+            <z:prezime>Petrovic</z:prezime>
         </z:Podnosilac>
         <z:Zig>
             <z:tip_ziga>individualni</z:tip_ziga>
-            <z:tip_znaka>kombinovani</z:tip_znaka>
+            <z:tip_znaka>verbalni</z:tip_znaka>
             <z:boja>crna</z:boja>
             <z:transliteracija>Logo</z:transliteracija>
             <z:prevod>Žig</z:prevod>
             <z:opis>Logo najjači</z:opis>
             <z:klase_robe>
-                <z:klasa>4</z:klasa>
-                <z:klasa>20</z:klasa>
+                <z:klasa>23</z:klasa>
+                <z:klasa>24</z:klasa>
             </z:klase_robe>
-            <z:pravo_prvenstva></z:pravo_prvenstva>
+            <z:pravo_prvenstva>pravo_prvenstva0</z:pravo_prvenstva>
         </z:Zig>
         <z:Placanje>
-            <z:osnovna_taksa>0.1</z:osnovna_taksa>
-            <z:taksa_klasa>2</z:taksa_klasa>
-            <z:taksa_grafickog_resenja>0.05</z:taksa_grafickog_resenja>
-            <z:ukupno>0.145</z:ukupno>
+            <z:osnovna_taksa>0</z:osnovna_taksa>
+            <z:taksa_klasa>0</z:taksa_klasa>
+            <z:taksa_grafickog_resenja>0</z:taksa_grafickog_resenja>
+            <z:ukupno>0</z:ukupno>
         </z:Placanje>
         <z:InformacijeZavoda>
             <z:broj_prijave>Ж-491/06</z:broj_prijave>
             <z:datum_podsnosenja>2006-05-04</z:datum_podsnosenja>
             <z:prilozi>
-                <z:primerak_znaka>true</z:primerak_znaka>
-                <z:punomocje>false</z:punomocje>
+                <z:primerak_znaka>
+                    <z:putanja>/primerak-znaka/3c6b8e28-a5a3-4b6b-ab40-fe72440603bb.svg</z:putanja>
+                    <z:naziv_datoteke>Logo.svg</z:naziv_datoteke>
+                </z:primerak_znaka>
                 <z:generalno_punomocje_ranije_prilozeno>false</z:generalno_punomocje_ranije_prilozeno>
                 <z:punomocje_ce_biti_naknadno_dostavljeno>false</z:punomocje_ce_biti_naknadno_dostavljeno>
-                <z:opsti_akt_o_kolektivnom_zigu_garancije>false</z:opsti_akt_o_kolektivnom_zigu_garancije>
-                <z:dokaz_o_pravu_prvenstva>true</z:dokaz_o_pravu_prvenstva>
-                <z:dokaz_o_uplati_takse>true</z:dokaz_o_uplati_takse>
+                <z:dokaz_o_uplati_takse>
+                    <z:putanja>/dokaz-o-uplati/3c6b8e28-a5a3-4b6b-ab40-fe72440603bb.pdf</z:putanja>
+                    <z:naziv_datoteke>Dokaz_o_uplati.pdf</z:naziv_datoteke>
+                </z:dokaz_o_uplati_takse>
+            </z:prilozi>
+        </z:InformacijeZavoda>
+    </z:Zahtev>
+    <z:Zahtev>
+        <z:Podnosilac xsi:type="z:TPravno_Lice">
+            <z:adresa>
+                <z:ulica>ulica1</z:ulica>
+                <z:broj>broj1</z:broj>
+                <z:mesto>mesto1</z:mesto>
+                <z:drzava>drzava1</z:drzava>
+                <z:postanski_broj>22000</z:postanski_broj>
+            </z:adresa>
+            <z:poslovno_ime>
+            </z:poslovno_ime>
+        </z:Podnosilac>
+        <z:Zig>
+            <z:tip_ziga>individualni</z:tip_ziga>
+            <z:tip_znaka>verbalni</z:tip_znaka>
+            <z:boja>boja1</z:boja>
+            <z:transliteracija>transliteracija1</z:transliteracija>
+            <z:prevod>prevod1</z:prevod>
+            <z:opis>opis1</z:opis>
+            <z:klase_robe>
+                <z:klasa>23</z:klasa>
+                <z:klasa>23</z:klasa>
+            </z:klase_robe>
+            <z:pravo_prvenstva>pravo_prvenstva1</z:pravo_prvenstva>
+        </z:Zig>
+        <z:Placanje>
+            <z:osnovna_taksa>0</z:osnovna_taksa>
+            <z:taksa_klasa>0</z:taksa_klasa>
+            <z:taksa_grafickog_resenja>0</z:taksa_grafickog_resenja>
+            <z:ukupno>0</z:ukupno>
+        </z:Placanje>
+        <z:InformacijeZavoda>
+            <z:broj_prijave>Ж-1/11</z:broj_prijave>
+            <z:datum_podsnosenja>2006-05-04</z:datum_podsnosenja>
+            <z:prilozi>
+                <z:generalno_punomocje_ranije_prilozeno>false</z:generalno_punomocje_ranije_prilozeno>
+                <z:punomocje_ce_biti_naknadno_dostavljeno>false</z:punomocje_ce_biti_naknadno_dostavljeno>
             </z:prilozi>
         </z:InformacijeZavoda>
     </z:Zahtev>
