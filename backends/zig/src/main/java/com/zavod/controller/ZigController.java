@@ -1,10 +1,13 @@
 package com.zavod.controller;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.pdf.qrcode.WriterException;
 import com.zavod.api.ResponseOk;
 import com.zavod.model.TZahtev;
 import com.zavod.model.Zahtevi;
 import com.zavod.service.PDFService;
 import com.zavod.service.ZigService;
+import com.zavod.util.QRCodeEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/zig")
@@ -61,5 +65,11 @@ public class ZigController {
     @GetMapping(path = "/dokumenti/{filename}", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<Resource> serve(@PathVariable String filename) throws IOException {
         return pdfService.serve(filename);
+    }
+
+    @GetMapping(path = "/dokumenti/{uuid}/qr.png", produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<byte[]> getQR(@PathVariable UUID uuid) throws IOException, BadElementException, WriterException {
+        String url = "http://localhost:8082/zig/dokumenti/" + uuid + ".pdf";
+        return QRCodeEncoder.generateQRCodeImage(url);
     }
 }
