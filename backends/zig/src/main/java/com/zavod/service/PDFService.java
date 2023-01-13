@@ -7,6 +7,10 @@ import com.itextpdf.tool.xml.XMLWorkerHelper;
 import com.zavod.model.TZahtev;
 import com.zavod.util.MarshallingService;
 import com.zavod.util.XUpdateUtil;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.xml.sax.InputSource;
 
@@ -18,7 +22,9 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 @Service
 public class PDFService {
@@ -28,9 +34,9 @@ public class PDFService {
 
     public static final String XSL_FILE = "data/xsl/zahtev.xsl";
 
-    public static final String HTML_FILE = "gen/itext/zahtev.html";
+    public static final String HTML_DIR = "gen/itext/";
 
-    public static final String OUTPUT_FILE = "gen/itext/zahtev.pdf";
+    public static final String OUTPUT_DIR = "gen/output/";
 
     static {
 
@@ -45,23 +51,12 @@ public class PDFService {
 
     }
 
-    public void generatePDF(String filePath) throws IOException, DocumentException {
-
-        // Step 1
+    public void generatePDF(String pdfFilename, String htmlFilename) throws IOException, DocumentException {
         Document document = new Document();
-
-        // Step 2
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
-
-        // Step 3
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfFilename));
         document.open();
-
-        // Step 4
-        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(HTML_FILE));
-
-        // Step 5
+        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(htmlFilename));
         document.close();
-
     }
 
     public org.w3c.dom.Document buildDocument(TZahtev zahtev) {
@@ -91,7 +86,7 @@ public class PDFService {
         return document;
     }
 
-    public void generateHTML(TZahtev zahtev, String xslPath) throws FileNotFoundException {
+    public void generateHTML(TZahtev zahtev, String xslPath, String htmlFilename) throws FileNotFoundException {
 
         try {
 
@@ -106,7 +101,7 @@ public class PDFService {
 
             // Transform DOM to HTML
             DOMSource source = new DOMSource(buildDocument(zahtev));
-            StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(HTML_FILE)));
+            StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(htmlFilename)));
             System.out.println(source);
             System.out.println(result);
             transformer.transform(source, result);
@@ -119,8 +114,8 @@ public class PDFService {
 
     }
 
-    public void generateFiles(TZahtev zahtev) {
-        File pdfFile = new File(OUTPUT_FILE);
+    public String generateFiles(TZahtev zahtev) {
+        File pdfFile = new File(OUTPUT_DIR);
 
         if (!pdfFile.getParentFile().exists()) {
             System.out.println("[INFO] A new directory is created: " + pdfFile.getParentFile().getAbsolutePath() + ".");
@@ -128,14 +123,30 @@ public class PDFService {
         }
 
         try {
-            generateHTML(zahtev, XSL_FILE);
-            generatePDF(OUTPUT_FILE);
+            UUID uuid = UUID.randomUUID();
+            String htmlFilename = HTML_DIR + uuid + ".html";
+            String pdfFilename = OUTPUT_DIR + uuid + ".pdf";
+
+            generateHTML(zahtev, XSL_FILE, htmlFilename);
+            generatePDF(pdfFilename, htmlFilename);
+
+            System.out.println("[INFO] File \"" + pdfFilename + "\" generated successfully.");
+            return uuid + ".pdf";
         } catch (DocumentException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
-        System.out.println("[INFO] File \"" + OUTPUT_FILE + "\" generated successfully.");
+    public ResponseEntity<Resource> serve(String filename) throws IOException {
+        Path storedFilePath = Paths.get(OUTPUT_DIR).resolve(filename);
 
+        Resource resource = new UrlResource(storedFilePath.toUri());
+        if (!resource.exists() || !resource.isReadable())
+            return null;
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(resource);
     }
 
 }

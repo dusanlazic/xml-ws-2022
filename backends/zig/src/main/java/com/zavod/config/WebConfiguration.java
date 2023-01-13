@@ -17,7 +17,8 @@ import java.util.List;
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> httpMessageConverters) {
-        httpMessageConverters.add(new XmlZigMessageConverter(MediaType.APPLICATION_XML));
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        super.extendMessageConverters(converters);
+        converters.add(new XmlZigMessageConverter(MediaType.APPLICATION_XML));
     }
 }

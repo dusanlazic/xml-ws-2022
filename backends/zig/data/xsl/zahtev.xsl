@@ -42,8 +42,8 @@
                 }
 
                 table.is-borderless,
-                .is-borderless > tbody > th,
-                .is-borderless > tbody > tr > td {
+                .is-borderless th,
+                .is-borderless td {
                 border: none !important;
                 border-collapse: collapse;
                 }
@@ -65,8 +65,8 @@
                 }
 
                 .border-top-none,
-                .border-top-none>th,
-                td {
+                .border-top-none th,
+                .border-top-none td {
                 border-top: none;
                 }
 

@@ -6,9 +6,13 @@ import com.zavod.model.Zahtevi;
 import com.zavod.service.PDFService;
 import com.zavod.service.ZigService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -46,7 +50,16 @@ public class ZigController {
     }
 
     @GetMapping(path = "pdf")
-    public void generatePdf() {
-        pdfService.generateFiles(zigService.getAll().getZahtev().get(0));
+    public ResponseEntity<ResponseOk> generatePdf() {
+        String filename = pdfService.generateFiles(zigService.getAll().getZahtev().get(0));
+        String url = "http://localhost:8082/zig/dokumenti/" + filename;
+        return ResponseEntity
+                .created(URI.create(url))
+                .body(new ResponseOk("PDF created at " + url));
+    }
+
+    @GetMapping(path = "/dokumenti/{filename}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<Resource> serve(@PathVariable String filename) throws IOException {
+        return pdfService.serve(filename);
     }
 }
