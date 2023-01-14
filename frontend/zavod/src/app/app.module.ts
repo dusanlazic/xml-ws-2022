@@ -24,6 +24,13 @@ import {MatButtonModule} from '@angular/material/button';
 import { MojiZahteviComponent } from './autorska/moji-zahtevi/moji-zahtevi.component';
 import { MojProfilComponent } from './autorska/moj-profil/moj-profil.component';
 import { PretragaComponent } from './autorska/pretraga/pretraga.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {FormsModule} from '@angular/forms';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTabsModule} from '@angular/material/tabs';
+import { LoginComponent } from './index/login/login.component';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -36,16 +43,23 @@ import { PretragaComponent } from './autorska/pretraga/pretraga.component';
     FormlyFieldStepper,
     MojiZahteviComponent,
     MojProfilComponent,
-    PretragaComponent
+    PretragaComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
+    MatInputModule,
     FormlyMaterialModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
     ReactiveFormsModule,
+    MatNativeDateModule,
+    FormsModule,
+    MatTabsModule,
     MatStepperModule,
+    MatDialogModule,
     MatGridListModule,
     MatSidenavModule,
     MatIconModule,
