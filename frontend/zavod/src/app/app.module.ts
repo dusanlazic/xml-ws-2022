@@ -16,8 +16,15 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import { MatStepperModule } from '@angular/material/stepper'
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon'
 import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import {MatButtonModule} from '@angular/material/button';
+import { MojiZahteviComponent } from './autorska/moji-zahtevi/moji-zahtevi.component';
+import { MojProfilComponent } from './autorska/moj-profil/moj-profil.component';
+import { PretragaComponent } from './autorska/pretraga/pretraga.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +33,10 @@ import { MatCardModule } from '@angular/material/card';
     SluzbenikComponent,
     AutorskaComponent,
     NoviZahtevComponent,
-    FormlyFieldStepper
+    FormlyFieldStepper,
+    MojiZahteviComponent,
+    MojProfilComponent,
+    PretragaComponent
   ],
   imports: [
     BrowserModule,
@@ -36,9 +46,12 @@ import { MatCardModule } from '@angular/material/card';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatStepperModule,
+    MatGridListModule,
     MatSidenavModule,
     MatIconModule,
+    MatButtonModule,
     MatListModule,
+    MatToolbarModule,
     MatCardModule,
     FormlyModule.forRoot({
       validationMessages: [{ name: 'required', message: 'This field is required' }],

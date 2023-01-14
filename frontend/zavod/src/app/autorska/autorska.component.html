@@ -1,24 +1,23 @@
-<mat-sidenav-container class="example-container" autosize>
+<mat-sidenav-container class="example-container" style="height: 940px !important;">
 	<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
 		<mat-nav-list>
-			<div class="submenu" [ngClass]="{'expanded' : showSubmenu}">
-				<a mat-list-item href="..."><mat-icon>home</mat-icon>&nbsp; Početna</a>
-			</div>
 			<div>
-				<a mat-list-item href="..."><mat-icon>create</mat-icon>&nbsp;Novi zahtev</a>
-				<a mat-list-item href="..."><mat-icon>library_books</mat-icon>&nbsp;Moji zahtevi</a>
-			</div>
-			<div>
-				<a mat-list-item href="..."><mat-icon> person_pin</mat-icon>&nbsp;Moj profil</a>
-			</div>
-			<div style="">
-				<a mat-list-item href="..."><mat-icon>exit_to_app</mat-icon>&nbsp;Izloguj se</a>
+				<a mat-list-item href="/"><mat-icon>home</mat-icon>&nbsp; Početna</a>
+				<a mat-list-item (click)="this.showComponent=0"><mat-icon>create</mat-icon>&nbsp;Novi zahtev</a>
+				<a mat-list-item (click)="this.showComponent=1"><mat-icon>library_books</mat-icon>&nbsp;Moji zahtevi</a>
+				<a mat-list-item (click)="this.showComponent=2"><mat-icon> search</mat-icon>&nbsp;Pretraga</a>
+				<a mat-list-item (click)="this.showComponent=3"><mat-icon> person_pin</mat-icon>&nbsp;Moj profil</a>
+				<a mat-list-item (click)="logout()"><mat-icon>exit_to_app</mat-icon>&nbsp;Izloguj se</a>
 			</div>
 		</mat-nav-list>
 	</mat-sidenav>
 
 	<div class="example-sidenav-content">
-		<app-novi-zahtev></app-novi-zahtev>
+
+		<app-novi-zahtev *ngIf="showComponent <= 0"></app-novi-zahtev>
+		<app-moji-zahtevi *ngIf="showComponent == 1"></app-moji-zahtevi>
+		<app-pretraga *ngIf="showComponent == 2"></app-pretraga>
+		<app-moj-profil *ngIf="showComponent == 3"></app-moj-profil>
 	</div>
 
 </mat-sidenav-container>
