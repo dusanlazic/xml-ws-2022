@@ -15,17 +15,17 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TInformacije_Sistema complex type.
+ * <p>Java class for TPrilog complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="TInformacije_Sistema">
+ * &lt;complexType name="TPrilog">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="putanja" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="naziv_datoteke" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,63 +35,63 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TInformacije_Sistema", propOrder = {
-    "username",
-    "email"
+@XmlType(name = "TPrilog", propOrder = {
+    "putanja",
+    "nazivDatoteke"
 })
-public class TInformacijeSistema {
+public class TPrilog {
 
     @XmlElement(required = true)
-    protected String username;
-    @XmlElement(required = true)
-    protected String email;
+    protected String putanja;
+    @XmlElement(name = "naziv_datoteke", required = true)
+    protected String nazivDatoteke;
 
     /**
-     * Gets the value of the username property.
+     * Gets the value of the putanja property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getUsername() {
-        return username;
+    public String getPutanja() {
+        return putanja;
     }
 
     /**
-     * Sets the value of the username property.
+     * Sets the value of the putanja property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setUsername(String value) {
-        this.username = value;
+    public void setPutanja(String value) {
+        this.putanja = value;
     }
 
     /**
-     * Gets the value of the email property.
+     * Gets the value of the nazivDatoteke property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getEmail() {
-        return email;
+    public String getNazivDatoteke() {
+        return nazivDatoteke;
     }
 
     /**
-     * Sets the value of the email property.
+     * Sets the value of the nazivDatoteke property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setEmail(String value) {
-        this.email = value;
+    public void setNazivDatoteke(String value) {
+        this.nazivDatoteke = value;
     }
 
 }

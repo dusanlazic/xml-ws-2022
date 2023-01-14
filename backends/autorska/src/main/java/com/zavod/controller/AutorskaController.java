@@ -28,7 +28,9 @@ public class AutorskaController {
 
     @PostMapping(path = "/add", consumes = {MediaType.APPLICATION_XML_VALUE})
     public ResponseOk addZahtev(@RequestBody TZahtev zahtev) {
+        System.out.println("Heeeeerre");
         autorskaService.addZahtev(zahtev);
+        System.out.println(zahtev);
         return new ResponseOk("Zahtev kreiran");
     }
 
