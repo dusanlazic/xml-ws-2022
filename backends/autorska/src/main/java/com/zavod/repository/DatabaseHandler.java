@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class DatabaseHandler {
     public static String contextPath = "com.zavod.model";
-    public static String dataPath = "./data/a1.xml";
+    public static String dataPath = "./src/main/resources/xml/a1.xml";
     public static String documentId = "a1.xml";
     public static String collectionId = "/db/autorska";
 

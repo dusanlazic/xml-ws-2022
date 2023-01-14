@@ -45,8 +45,12 @@ public class AutorskaController {
         return zahtevi.get(zahtevi.size() - 1);
     }
 
+
     @GetMapping(path = "pdf")
-    public void generatePdf() {
-        pdfService.generateFiles(autorskaService.getAll().getZahtev().get(0));
+    public void generatePdf(String id) {
+        if(id == null || id.isEmpty()) {
+            id = autorskaService.getAll().getZahtev().get(0).getInformacijeZavoda().getBrojPrijave();
+        }
+        pdfService.generateFiles(autorskaService.getZahtev(id));
     }
 }

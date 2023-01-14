@@ -16,6 +16,12 @@ public class AutorskaService {
         return autorskaRepository.getAll();
     }
 
+    public TZahtev getZahtev(String id) {
+        return autorskaRepository.getAll().getZahtev()
+                .stream().filter(x -> x.getInformacijeZavoda().getBrojPrijave().equals(id))
+                .findFirst().orElse(null);
+    }
+
     public void addZahtev(TZahtev zahtev) {
         this.autorskaRepository.add(zahtev);
     }

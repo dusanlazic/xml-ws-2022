@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
-    vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://www.zavod.com/Autorska"
-    xmlns:a="http://www.zavod.com/Autorska">
+           xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
+           vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://www.zavod.com/Autorska"
+           xmlns:a="http://www.zavod.com/Autorska">
 
     <xs:element name="Zahtevi">
         <xs:complexType>

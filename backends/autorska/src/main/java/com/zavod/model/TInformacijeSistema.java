@@ -15,18 +15,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TPravno_Lice complex type.
+ * <p>Java class for TInformacije_Sistema complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="TPravno_Lice">
+ * &lt;complexType name="TInformacije_Sistema">
  *   &lt;complexContent>
- *     &lt;extension base="{http://www.zavod.com/Autorska}TLice">
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="sediste" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
- *     &lt;/extension>
+ *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -34,38 +34,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TPravno_Lice", propOrder = {
-    "sediste"
+@XmlType(name = "TInformacije_Sistema", propOrder = {
+    "id"
 })
-public class TPravnoLice
-    extends TLice
-{
+public class TInformacijeSistema {
 
     @XmlElement(required = true)
-    protected String sediste;
+    protected String id;
 
     /**
-     * Gets the value of the sediste property.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getSediste() {
-        return sediste;
+    public String getId() {
+        return id;
     }
 
     /**
-     * Sets the value of the sediste property.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setSediste(String value) {
-        this.sediste = value;
+    public void setId(String value) {
+        this.id = value;
     }
 
 }

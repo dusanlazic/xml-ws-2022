@@ -1,5 +1,6 @@
 package com.zavod.service;
 
+import javax.swing.text.html.HTML;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.*;
@@ -28,9 +29,7 @@ public class PDFService {
 
     public static final String XSL_FILE = "data/xsl/zahtev.xsl";
 
-    public static final String HTML_FILE = "gen/itext/zahtev.html";
-
-    public static final String OUTPUT_FILE = "gen/itext/zahtev.pdf";
+    public static final String OUTPUT_DIR = "src/main/resources/gen/";
 
     static {
 
@@ -45,7 +44,7 @@ public class PDFService {
 
     }
 
-    public void generatePDF(String filePath) throws IOException, DocumentException {
+    public void generatePDF(String filePath, String htmlPath) throws IOException, DocumentException {
 
         // Step 1
         Document document = new Document();
@@ -57,7 +56,7 @@ public class PDFService {
         document.open();
 
         // Step 4
-        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(HTML_FILE));
+        XMLWorkerHelper.getInstance().parseXHtml(writer, document, Files.newInputStream(Paths.get(htmlPath)));
 
         // Step 5
         document.close();
@@ -91,7 +90,7 @@ public class PDFService {
         return document;
     }
 
-    public void generateHTML(TZahtev zahtev, String xslPath) throws FileNotFoundException {
+    public void generateHTML(TZahtev zahtev, String xslPath, String outputPath) throws FileNotFoundException {
 
         try {
 
@@ -106,7 +105,7 @@ public class PDFService {
 
             // Transform DOM to HTML
             DOMSource source = new DOMSource(buildDocument(zahtev));
-            StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(HTML_FILE)));
+            StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(outputPath)));
             System.out.println(source);
             System.out.println(result);
             transformer.transform(source, result);
@@ -120,7 +119,11 @@ public class PDFService {
     }
 
     public void generateFiles(TZahtev zahtev) {
-        File pdfFile = new File(OUTPUT_FILE);
+        String outputDir = OUTPUT_DIR + zahtev.getInformacijeZavoda().getBrojPrijave() + "/";
+        String htmlPath = outputDir + "zahtev.html";
+        String pdfPath = outputDir + "zahtev.pdf";
+
+        File pdfFile = new File(pdfPath);
 
         if (!pdfFile.getParentFile().exists()) {
             System.out.println("[INFO] A new directory is created: " + pdfFile.getParentFile().getAbsolutePath() + ".");
@@ -128,13 +131,13 @@ public class PDFService {
         }
 
         try {
-            generateHTML(zahtev, XSL_FILE);
-            generatePDF(OUTPUT_FILE);
+            generateHTML(zahtev, XSL_FILE, htmlPath);
+            generatePDF(pdfPath, htmlPath);
         } catch (DocumentException | IOException e) {
             throw new RuntimeException(e);
         }
 
-        System.out.println("[INFO] File \"" + OUTPUT_FILE + "\" generated successfully.");
+        System.out.println("[INFO] File \"" + htmlPath + "\" and \"" + pdfPath + "\" generated successfully.");
 
     }
 
