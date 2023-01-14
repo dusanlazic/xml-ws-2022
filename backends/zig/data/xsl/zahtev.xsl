@@ -3,7 +3,7 @@
                 xmlns:z="http://www.zavod.com/Zig" version="2.0"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://www.zavod.com/Zig file:/home/s4ndu/FTN/semestar-7/XML/xml-ws-2022/zavod/data/z1.xsd">
-
+    <xsl:param name="qr_code_image" />
     <xsl:template match="/">
         <html>
             <style>
@@ -296,8 +296,12 @@
                     </colgroup>
                     <tr>
                         <td colspan="1" class="is-centered">
-                            <p>QR код до странице</p>
-                            <img src="https://via.placeholder.com/200x200" />
+                            <p>QR код до документа</p>
+                            <img>
+                                <xsl:attribute name="src">
+                                    <xsl:value-of select="$qr_code_image"/>
+                                </xsl:attribute>
+                            </img>
                         </td>
                         <td colspan="1" class="is-centered">
                             <p>Број пријаве жига:</p>

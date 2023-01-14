@@ -86,7 +86,7 @@ public class PDFService {
         return document;
     }
 
-    public void generateHTML(TZahtev zahtev, String xslPath, String htmlFilename) throws FileNotFoundException {
+    public void generateHTML(TZahtev zahtev, String xslPath, String htmlFilename, String qrCodeImageUrl) throws FileNotFoundException {
 
         try {
 
@@ -98,6 +98,7 @@ public class PDFService {
 
             // Generate XHTML
             transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
+            transformer.setParameter("qr_code_image", qrCodeImageUrl);
 
             // Transform DOM to HTML
             DOMSource source = new DOMSource(buildDocument(zahtev));
@@ -126,8 +127,9 @@ public class PDFService {
             UUID uuid = UUID.randomUUID();
             String htmlFilename = HTML_DIR + uuid + ".html";
             String pdfFilename = OUTPUT_DIR + uuid + ".pdf";
+            String qrCodeImageUrl = "http://localhost:8082/zig/dokumenti/" + uuid + "/qr.png";
 
-            generateHTML(zahtev, XSL_FILE, htmlFilename);
+            generateHTML(zahtev, XSL_FILE, htmlFilename, qrCodeImageUrl);
             generatePDF(pdfFilename, htmlFilename);
 
             System.out.println("[INFO] File \"" + pdfFilename + "\" generated successfully.");
