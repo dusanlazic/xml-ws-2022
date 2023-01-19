@@ -1,0 +1,25 @@
+
+<div style="margin-top: 5%; width: 60%; height: 60%;">
+	<mat-form-field class="example-chip-list" appearance="outline" style="width: 100%;">
+		<mat-label>Ključne reči</mat-label>
+		<mat-chip-list #chipList aria-label="Video keywords" multiple [formControl]="formControl" style="width: 60%; margin-bottom: 20px;">
+		  <mat-chip
+			  *ngFor="let keyword of keywords"
+			  [selected]="keyword"
+			  [value]="keyword"
+			  (removed)="removeKeyword(keyword)">
+			{{keyword}}
+		  </mat-chip>
+		  <br />
+		  
+		</mat-chip-list>
+		<input
+			placeholder="Nova ključna reč..."
+			[matChipInputFor]="chipList"
+			(matChipInputTokenEnd)="addKeywordFromInput($event)" style="margin-top: 10px; width: 100%;">
+	</mat-form-field>
+	<button mat-stroked-button style="margin-top: 3%;">Pretraži</button>
+</div>
+  
+  
+  

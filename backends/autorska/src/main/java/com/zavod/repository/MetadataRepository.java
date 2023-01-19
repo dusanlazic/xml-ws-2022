@@ -1,8 +1,7 @@
 package com.zavod.repository;
 
-import com.itextpdf.text.Meta;
 import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
-import com.zavod.model.Zahtevi;
+import com.zavod.model.Zahtev;
 import com.zavod.util.AuthenticationUtilities;
 import com.zavod.util.MarshallingService;
 import com.zavod.util.SparqlUtil;
@@ -18,7 +17,6 @@ import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.update.UpdateRequest;
 import org.springframework.stereotype.Repository;
-import org.xml.sax.SAXException;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -27,6 +25,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 
 @Repository
@@ -89,10 +88,10 @@ public class MetadataRepository {
         System.out.println("[INFO] End.");
     }
 
-    public String loadRdf(Zahtevi zahtevi) throws FileNotFoundException, TransformerException {
-        var ms = new MarshallingService<Zahtevi>(Zahtevi.class);
+    public String loadRdf(Zahtev zahtev) throws FileNotFoundException, TransformerException {
+        var ms = new MarshallingService<Zahtev>(Zahtev.class);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ms.marshall(zahtevi, os);
+        ms.marshall(zahtev, os);
         String conv = os.toString();
         System.out.println(conv);
         InputStream stream = new ByteArrayInputStream(conv.getBytes(StandardCharsets.UTF_8));

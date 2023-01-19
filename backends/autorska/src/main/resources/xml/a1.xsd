@@ -3,14 +3,7 @@
     xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
     vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://www.zavod.com/Autorska"
     xmlns:a="http://www.zavod.com/Autorska">
-
-    <xs:element name="Zahtevi">
-        <xs:complexType>
-            <xs:sequence maxOccurs="unbounded" minOccurs="1">
-                <xs:element name="Zahtev" type="a:TZahtev"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+    <xs:element name="Zahtev" type="a:TZahtev"/>
     <xs:complexType name="TZahtev">
         <xs:sequence>
             <xs:element name="Podnosilac" type="a:TLice"/>
@@ -86,7 +79,13 @@
     </xs:complexType>
     <xs:complexType name="TInformacije_Zavoda">
         <xs:sequence>
-            <xs:element ref="a:broj_prijave"/>
+            <xs:element name="broj_prijave">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="A-[0-9]{4}-[0-9]{2}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
             <xs:element name="datum_podnosenja" type="xs:date"/>
             <xs:element name="prilozi">
                 <xs:complexType>
@@ -102,17 +101,9 @@
     </xs:complexType>
     <xs:complexType name="TInformacije_Sistema">
         <xs:sequence>
-            <xs:element name="username" type="xs:string"/>
             <xs:element name="email" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:element name="broj_prijave">
-        <xs:simpleType>
-            <xs:restriction base="xs:string">
-                <xs:pattern value="A-[0-9]{4}-[0-9]{2}"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:element>
     <xs:complexType name="TPrilog">
         <xs:sequence>
             <xs:element name="putanja" type="xs:string"/>

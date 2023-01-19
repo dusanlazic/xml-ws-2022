@@ -1,0 +1,36 @@
+<div style="margin-top: 3%; margin-bottom: 50px;">
+	<div style="margin-top: 3%; margin-bottom: 5%;" class="hed">
+		Parametri pretrage
+	</div>
+	<div *ngFor="let condition of conditions; let i = index;" style="margin-left: 10%;">
+		<span style="display: flex; align-items: center; justify-content: start;">
+			<mat-form-field class="example-full-width" style="margin-left: 3%; margin-top: 13px;">
+				<mat-label>Ime podatka</mat-label>
+				<input matInput [(ngModel)]="condition.name" required="true">
+			</mat-form-field>
+			<mat-form-field class="example-full-width" style="margin-left: 3%; margin-top: 13px;">
+				<mat-label>Vrednost</mat-label>
+				<input matInput [(ngModel)]="condition.value" required="true">
+			</mat-form-field>
+			
+			<mat-form-field *ngIf="i !== conditions.length - 1" appearance="outline" style="margin-left: 3%; margin-top: 13px;">
+				<mat-label>Select</mat-label>
+				<mat-select [(value)]="condition.operator" required="true">
+					<mat-option value="I">I</mat-option>
+					<mat-option value="ILI">ILI</mat-option>
+					<mat-option value="NE">NE</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+			<span style="margin-left: 3%; margin-top: 1%;">
+				<button *ngIf="i == conditions.length - 1"  mat-fab color="primary" (click)="addNewCondition()">
+					<mat-icon>add</mat-icon>
+				</button>
+				<button *ngIf="i != conditions.length - 1" style="visibility: hidden;" disabled="true" mat-fab color="primary">
+					<mat-icon>add</mat-icon>
+				</button>
+			</span>
+		</span>
+	</div>
+	<button mat-stroked-button style="margin-left: 12%; margin-top: 5%;">Pretraži</button>
+</div>

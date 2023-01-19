@@ -1,6 +1,5 @@
 package com.zavod.service;
 
-import javax.swing.text.html.HTML;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.*;
@@ -15,7 +14,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
-import com.zavod.model.TZahtev;
+import com.zavod.model.Zahtev;
 import com.zavod.util.MarshallingService;
 import com.zavod.util.XUpdateUtil;
 import org.springframework.stereotype.Service;
@@ -63,13 +62,13 @@ public class PDFService {
 
     }
 
-    public org.w3c.dom.Document buildDocument(TZahtev zahtev) {
+    public org.w3c.dom.Document buildDocument(Zahtev zahtev) {
 
         org.w3c.dom.Document document = null;
         try {
 
             DocumentBuilder builder = documentFactory.newDocumentBuilder();
-            MarshallingService<TZahtev> marshallingService = new MarshallingService<>(TZahtev.class);
+            MarshallingService<Zahtev> marshallingService = new MarshallingService<>(Zahtev.class);
             String marshalled = marshallingService.marshallString(zahtev);
             marshalled = XUpdateUtil.clipStringTwo(marshalled);
             System.out.println(marshalled);
@@ -90,7 +89,7 @@ public class PDFService {
         return document;
     }
 
-    public void generateHTML(TZahtev zahtev, String xslPath, String outputPath) throws FileNotFoundException {
+    public void generateHTML(Zahtev zahtev, String xslPath, String outputPath) throws FileNotFoundException {
 
         try {
 
@@ -118,7 +117,7 @@ public class PDFService {
 
     }
 
-    public void generateFiles(TZahtev zahtev) {
+    public void generateFiles(Zahtev zahtev) {
         String outputDir = OUTPUT_DIR + zahtev.getInformacijeZavoda().getBrojPrijave() + "/";
         String htmlPath = outputDir + "zahtev.html";
         String pdfPath = outputDir + "zahtev.pdf";

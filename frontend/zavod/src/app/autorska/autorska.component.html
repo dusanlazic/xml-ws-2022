@@ -12,11 +12,11 @@
 		</mat-nav-list>
 	</mat-sidenav>
 
-	<div class="example-sidenav-content">
+	<div class="example-sidenav-content" style="height: 940px;">
 
 		<app-novi-zahtev *ngIf="showComponent <= 0"></app-novi-zahtev>
 		<app-moji-zahtevi *ngIf="showComponent == 1"></app-moji-zahtevi>
-		<app-pretraga *ngIf="showComponent == 2"></app-pretraga>
+		<app-pretraga *ngIf="showComponent == 2" style="height: 100%;"></app-pretraga>
 		<app-moj-profil *ngIf="showComponent == 3"></app-moj-profil>
 	</div>
 

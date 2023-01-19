@@ -31,9 +31,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTabsModule } from '@angular/material/tabs';
 import { LoginComponent } from './index/login/login.component';
+import { MatChipsModule } from '@angular/material/chips'; 
 import { MatInputModule } from '@angular/material/input';
 import { FileValueAccessor } from './file-value-accessor';
+import { MatSelectModule } from '@angular/material/select';
 import { FormlyFieldFile } from './file-type.component';
+import { PretragaMetapodaciComponent } from './autorska/pretraga/pretraga-metapodaci/pretraga-metapodaci.component';
+import { PretragaRezultatiComponent } from './autorska/pretraga/pretraga-rezultati/pretraga-rezultati.component';
+import { PretragaRezultatComponent } from './autorska/pretraga/pretraga-rezultati/pretraga-rezultat/pretraga-rezultat.component';
+import { PretragaObicnaComponent } from './autorska/pretraga/pretraga-obicna/pretraga-obicna.component';
 
 @NgModule({
   declarations: [
@@ -47,15 +53,17 @@ import { FormlyFieldFile } from './file-type.component';
     MojProfilComponent,
     PretragaComponent,
     LoginComponent,
-    FileValueAccessor, FormlyFieldFile,
+    FileValueAccessor, FormlyFieldFile, PretragaMetapodaciComponent, PretragaRezultatiComponent, PretragaRezultatComponent, PretragaObicnaComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
+    MatSelectModule,
     MatInputModule,
     FormlyMaterialModule,
+    MatChipsModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     ReactiveFormsModule,
