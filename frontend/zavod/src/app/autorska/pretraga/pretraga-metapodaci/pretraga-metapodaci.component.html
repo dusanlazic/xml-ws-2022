@@ -4,9 +4,14 @@
 	</div>
 	<div *ngFor="let condition of conditions; let i = index; trackBy: trackByFn" style="margin-left: 10%;">
 		<span style="display: flex; align-items: center; justify-content: start;">
-			<mat-form-field class="example-full-width" style="margin-left: 3%; margin-top: 13px;">
-				<mat-label>Ime podatka</mat-label>
-				<input matInput [(ngModel)]="condition.name" required="true">
+
+			<mat-form-field appearance="outline" style="margin-left: 3%; margin-top: 13px;">
+				<mat-label>Select</mat-label>
+				<mat-select [(value)]="condition.name" required="true">
+					<mat-option value="Naziv">Naziv</mat-option>
+					<mat-option value="Datum_podnosenja">Datum_podnosenja</mat-option>
+					<mat-option value="Broj_prijave">Broj_prijave</mat-option>
+				</mat-select>
 			</mat-form-field>
 
 			<mat-form-field appearance="outline" style="margin-left: 3%; margin-top: 13px; width: 60px;">
