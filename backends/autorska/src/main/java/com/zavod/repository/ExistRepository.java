@@ -8,6 +8,7 @@ import org.exist.xmldb.EXistResource;
 import org.xmldb.api.base.*;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XPathQueryService;
+import org.xmldb.api.modules.XQueryService;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -150,19 +151,27 @@ public abstract class ExistRepository<T> {
         Resource res = null;
         try {
             col = DatabaseHandler.getCollection(DatabaseHandler.collectionId);
-            XPathQueryService xpathService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-            xpathService.setProperty("indent", "yes");
-            xpathService.setNamespace("", TARGET_NAMESPACE);
+//            XPathQueryService xpathService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+//            xpathService.setProperty("indent", "yes");
+//            xpathService.setNamespace("", TARGET_NAMESPACE);
+
+            XQueryService xqueryService = (XQueryService) col.getService("XQueryService", "1.0");
+            xqueryService.setProperty("indent", "yes");
+            xqueryService.setNamespace("", TARGET_NAMESPACE);
+
 
             String xpathExp = this.createQueryString(queries);
             System.out.println("XPath expression: " + xpathExp);
-            ResourceSet result = xpathService.query(xpathExp);
+
+            ResourceSet result = xqueryService.query(xpathExp);
+
             ResourceIterator i = result.getIterator();
 
             List<T> results = new ArrayList<>();
             while (i.hasMoreResources()) {
                 try {
                     res = i.nextResource();
+                    System.out.println(res.getContent());
                     results.add(marshallingService.unmarshall(((XMLResource)res).getContentAsDOM()));
                 } finally {
                     cleanup(null, res);
@@ -179,16 +188,22 @@ public abstract class ExistRepository<T> {
 
     public String createQueryString(List<String> queries) {
         StringBuilder sb = new StringBuilder();
+        sb.append("declare namespace z = \"http://www.zavod.com\";\n" +
+                "\n" +
+                "declare function z:someMatch($txt, $keyword) {\n" +
+                "    (some $t in $txt satisfies (contains(lower-case($t), lower-case($keyword))))\n" +
+                "};\n" +
+                "\n" +
+                "for $zahtev in collection('/db/autorska')\n" +
+                "    let $txt := $zahtev//text()\n" +
+                "    where ");
         for (int i = 0; i < queries.size(); i++) {
-            if (i == 0) {
-                sb.append("/*[contains(lower-case(.), '").append(queries.get(i).toLowerCase());
-            } else {
-                sb.append("') and contains(lower-case(.), '").append(queries.get(i).toLowerCase());
-            }
-            if(i == queries.size() - 1) {
-                sb.append("')]");
+            sb.append("z:someMatch($txt, \"").append(queries.get(i)).append("\")");
+            if (i != queries.size() - 1) {
+                sb.append(" and ");
             }
         }
+        sb.append("return $zahtev");
         return sb.toString();
     }
 

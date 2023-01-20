@@ -9,6 +9,9 @@
 			  [value]="keyword"
 			  (removed)="removeKeyword(keyword)">
 			{{keyword}}
+			<button matChipRemove>
+				<mat-icon>cancel</mat-icon>
+			  </button>
 		  </mat-chip>
 		  <br />
 		  
@@ -18,7 +21,7 @@
 			[matChipInputFor]="chipList"
 			(matChipInputTokenEnd)="addKeywordFromInput($event)" style="margin-top: 10px; width: 100%;">
 	</mat-form-field>
-	<button mat-stroked-button style="margin-top: 3%;">Pretraži</button>
+	<button mat-stroked-button style="margin-top: 3%;" (click)="search()">Pretraži</button>
 </div>
   
   
