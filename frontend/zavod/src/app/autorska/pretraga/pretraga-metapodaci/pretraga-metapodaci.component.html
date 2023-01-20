@@ -2,12 +2,21 @@
 	<div style="margin-top: 3%; margin-bottom: 5%;" class="hed">
 		Parametri pretrage
 	</div>
-	<div *ngFor="let condition of conditions; let i = index;" style="margin-left: 10%;">
+	<div *ngFor="let condition of conditions; let i = index; trackBy: trackByFn" style="margin-left: 10%;">
 		<span style="display: flex; align-items: center; justify-content: start;">
 			<mat-form-field class="example-full-width" style="margin-left: 3%; margin-top: 13px;">
 				<mat-label>Ime podatka</mat-label>
 				<input matInput [(ngModel)]="condition.name" required="true">
 			</mat-form-field>
+
+			<mat-form-field appearance="outline" style="margin-left: 3%; margin-top: 13px; width: 60px;">
+				<mat-select [(value)]="condition.relation" required="true">
+					<mat-option value=">">&gt;</mat-option>
+					<mat-option value="<">&lt;</mat-option>
+					<mat-option value="=">=</mat-option>
+				</mat-select>
+			</mat-form-field>
+
 			<mat-form-field class="example-full-width" style="margin-left: 3%; margin-top: 13px;">
 				<mat-label>Vrednost</mat-label>
 				<input matInput [(ngModel)]="condition.value" required="true">
@@ -26,11 +35,17 @@
 				<button *ngIf="i == conditions.length - 1"  mat-fab color="primary" (click)="addNewCondition()">
 					<mat-icon>add</mat-icon>
 				</button>
+				<button *ngIf="i == conditions.length - 1 && i !== 0"  mat-fab color="warn" (click)="removeLastCondition()" style="margin-left: 10px;">
+					<mat-icon>remove</mat-icon>
+				</button>
 				<button *ngIf="i != conditions.length - 1" style="visibility: hidden;" disabled="true" mat-fab color="primary">
 					<mat-icon>add</mat-icon>
+				</button>
+				<button *ngIf="i != conditions.length - 1" style="visibility: hidden;" disabled="true" mat-fab color="primary">
+					<mat-icon>remove</mat-icon>
 				</button>
 			</span>
 		</span>
 	</div>
-	<button mat-stroked-button style="margin-left: 12%; margin-top: 5%;">Pretraži</button>
+	<button mat-stroked-button style="margin-left: 12%; margin-top: 5%;" (click)="search()">Pretraži</button>
 </div>

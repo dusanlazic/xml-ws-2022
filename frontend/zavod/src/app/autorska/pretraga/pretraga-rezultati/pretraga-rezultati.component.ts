@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ResultService } from 'src/services/util/result.service';
 
 @Component({
   selector: 'app-pretraga-rezultati',
@@ -7,13 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PretragaRezultatiComponent implements OnInit {
 
-  rezultati: {id: string, datum: string, ime: string, prezime: string, naziv: string}[] = [];
+  rezultati: any[] = [];
 
-  constructor() { }
+  constructor(private resultService: ResultService) { }
 
   ngOnInit(): void {
-    this.rezultati.push({id: 'A-0000-00', datum: '2020-01-01', ime: 'Ime', prezime: 'Prezime', naziv: 'Naziv'});
-    this.rezultati.push({id: 'A-0000-01', datum: '2020-01-01', ime: 'Ime dva', prezime: 'Prezime dva', naziv: 'Naziv dva'});
+    this.resultService.subscribeToResult().subscribe((data: any) => {
+        if(!data || !data.Zahtevi || !data.Zahtevi.Zahtev) {
+          this.rezultati = [];
+          return;
+        }
+        if(Array.isArray(data.Zahtevi.Zahtev)) {
+          this.rezultati = data.Zahtevi.Zahtev;
+        } else {
+          this.rezultati = [data.Zahtevi.Zahtev];
+        }
+    });
   }
 
 }

@@ -4,8 +4,8 @@
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://www.zavod.com/Autorska file:/home/pavle/Documents/XML/Projekat/xml-ws-2022/backends/autorska/src/main/resources/xml/a1.xsd">
     <a:Podnosilac xsi:type="a:TPravno_Lice">
-        <a:ime>ime0</a:ime>
-        <a:sediste>sediste0</a:sediste>
+        <a:ime>ime3</a:ime>
+        <a:sediste>sediste3</a:sediste>
     </a:Podnosilac>
     <a:Delo>
         <a:naslov>naslov0</a:naslov>

@@ -3,21 +3,17 @@
 		<mat-nav-list>
 			<div>
 				<a mat-list-item href="/"><mat-icon>home</mat-icon>&nbsp; Početna</a>
-				<a mat-list-item (click)="this.showComponent=0"><mat-icon>create</mat-icon>&nbsp;Novi zahtev</a>
-				<a mat-list-item (click)="this.showComponent=1"><mat-icon>library_books</mat-icon>&nbsp;Moji zahtevi</a>
-				<a mat-list-item (click)="this.showComponent=2"><mat-icon> search</mat-icon>&nbsp;Pretraga</a>
-				<a mat-list-item (click)="this.showComponent=3"><mat-icon> person_pin</mat-icon>&nbsp;Moj profil</a>
-				<a mat-list-item (click)="logout()"><mat-icon>exit_to_app</mat-icon>&nbsp;Izloguj se</a>
+				<a mat-list-item routerLink="novi-zahtev"><mat-icon>create</mat-icon>&nbsp;Novi zahtev</a>
+				<a mat-list-item routerLink="moji-zahtevi"><mat-icon>library_books</mat-icon>&nbsp;Moji zahtevi</a>
+				<a mat-list-item routerLink="pretraga"><mat-icon> search</mat-icon>&nbsp;Pretraga</a>
+				<a mat-list-item routerLink="moj-profil"><mat-icon> person_pin</mat-icon>&nbsp;Moj profil</a>
+				<a mat-list-item><mat-icon>exit_to_app</mat-icon>&nbsp;Izloguj se</a>
 			</div>
 		</mat-nav-list>
 	</mat-sidenav>
 
 	<div class="example-sidenav-content" style="height: 940px;">
-
-		<app-novi-zahtev *ngIf="showComponent <= 0"></app-novi-zahtev>
-		<app-moji-zahtevi *ngIf="showComponent == 1"></app-moji-zahtevi>
-		<app-pretraga *ngIf="showComponent == 2" style="height: 100%;"></app-pretraga>
-		<app-moj-profil *ngIf="showComponent == 3"></app-moj-profil>
+		<router-outlet></router-outlet>
 	</div>
 
 </mat-sidenav-container>

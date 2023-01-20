@@ -14,6 +14,7 @@ export class HttpRequestService {
     createHeaders(): HttpHeaders {
         const headers = new HttpHeaders({
             'Content-type': 'application/xml',
+            'Accept': 'application/xml'
         });
 
         return headers;
@@ -21,7 +22,7 @@ export class HttpRequestService {
 
     post(url: string, body: any) : Observable<any> {
         const headers = this.createHeaders();
-        return this.httpClient.post(url, body, {headers, withCredentials: false}) 
+        return this.httpClient.post(url, body, {headers, withCredentials: false, responseType: 'text'}) 
     }
 
     get(url: string) : Observable<any> {

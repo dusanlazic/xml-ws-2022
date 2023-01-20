@@ -23,6 +23,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -34,6 +35,8 @@ public class MetadataRepository {
     private static final String SPARQL_NAMED_GRAPH_URI = "/zahtevi/metadata";
 
     String rdfFilePath = "src/main/resources/gen/metadata.rdf";
+
+    String namespace = "http://www.zavod.com/Autorska/";
 
     AuthenticationUtilities.FusekiConnectionProperties conn;
 
@@ -99,8 +102,7 @@ public class MetadataRepository {
         return osout.toString();
     }
 
-    public void executeSparqlQuery(String sparqlQuery) {
-
+    public List<String> executeSparqlQuery(String sparqlQuery) {
 
         System.out.println(sparqlQuery);
 
@@ -110,6 +112,7 @@ public class MetadataRepository {
 
         String varName;
         RDFNode varValue;
+        List<String> values = new ArrayList<>();
 
         while (results.hasNext()) {
 
@@ -124,6 +127,7 @@ public class MetadataRepository {
                 varValue = querySolution.get(varName);
 
                 System.out.println(varName + ": " + varValue);
+                values.add(varValue.toString().replace(namespace, ""));
             }
             System.out.println();
         }
@@ -134,5 +138,6 @@ public class MetadataRepository {
         ResultSetFormatter.out(System.out, results);
         query.close();
         System.out.println("[INFO] End.");
+        return values;
     }
 }

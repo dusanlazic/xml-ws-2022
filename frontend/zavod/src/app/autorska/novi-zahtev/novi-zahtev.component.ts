@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, RequiredValidator } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { HttpRequestService } from 'src/services/util/http-request.service';
-var js2xmlparser = require("js2xmlparser");
 
 
 @Component({
@@ -453,12 +452,12 @@ export class NoviZahtevComponent implements OnInit {
     delete model.tipPodnosioca
     console.log(model);
     
-    model = this.resolveTypes(model, tipPodnosioca)
-    const xml = js2xmlparser.parse("Zahtevi", model);
-    console.log(xml);
-    this.httpRequestService.post("http://localhost:8081/autorska/add", xml).subscribe(x => {
-      console.log(x);
-    })
+    // model = this.resolveTypes(model, tipPodnosioca)
+    // const xml = js2xmlparser.parse("Zahtevi", model);
+    // console.log(xml);
+    // this.httpRequestService.post("http://localhost:8081/autorska/add", xml).subscribe(x => {
+    //   console.log(x);
+    // })
   }
 
   resolveTypes(model: any, tipPodnosioca: any) {

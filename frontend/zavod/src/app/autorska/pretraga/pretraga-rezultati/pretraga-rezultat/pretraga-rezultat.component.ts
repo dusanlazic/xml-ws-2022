@@ -7,7 +7,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 })
 export class PretragaRezultatComponent implements OnInit {
 
-  @Input() rezultat: {id: string, datum: string, ime: string, prezime: string, naziv: string} | undefined;
+  @Input() rezultat: any
 
   constructor() { }
 

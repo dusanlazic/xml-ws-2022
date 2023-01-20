@@ -26,7 +26,7 @@ export class IndexComponent implements OnInit {
   }
 
   accessAutorska() {
-    this.router.navigate(['/autorska']);
+    this.router.navigate(['/autorska/novi-zahtev']);
   }
 
   accessZig() {
