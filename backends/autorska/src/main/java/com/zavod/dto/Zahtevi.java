@@ -5,7 +5,7 @@ import com.zavod.model.Zahtev;
 import javax.xml.bind.annotation.*;
 import java.util.List;
 
-@XmlRootElement(name = "Zahtevi")
+@XmlRootElement(name = "Zahtevi", namespace = "http://www.zavod.com/Autorska")
 public class Zahtevi {
     private List<Zahtev> zahtevi;
 
@@ -17,7 +17,7 @@ public class Zahtevi {
     }
 
 //    @XmlElementWrapper
-    @XmlElement(name="Zahtevi")
+    @XmlElement(name="Zahtev")
     public List<Zahtev> getZahtevi() {
         return zahtevi;
     }

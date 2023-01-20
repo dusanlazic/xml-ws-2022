@@ -26,4 +26,8 @@ public class AutorskaService {
     public void addZahtev(Zahtev zahtev) {
         this.autorskaRepository.save(zahtev, zahtev.getInformacijeZavoda().getBrojPrijave() + ".xml");
     }
+
+    public List<Zahtev> search(List<String> query) {
+        return autorskaRepository.search(query);
+    }
 }

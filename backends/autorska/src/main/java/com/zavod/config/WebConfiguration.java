@@ -3,6 +3,7 @@ package com.zavod.config;
 
 import com.zavod.converter.XmlAutorskaListMessageConverter;
 import com.zavod.converter.XmlAutorskaMessageConverter;
+import com.zavod.converter.XmlSearchRequestConverter;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -21,5 +22,6 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     public void configureMessageConverters(List<HttpMessageConverter<?>> httpMessageConverters) {
         httpMessageConverters.add(new XmlAutorskaMessageConverter(MediaType.APPLICATION_XML));
         httpMessageConverters.add(new XmlAutorskaListMessageConverter(MediaType.APPLICATION_XML));
+        httpMessageConverters.add(new XmlSearchRequestConverter(MediaType.APPLICATION_XML));
     }
 }

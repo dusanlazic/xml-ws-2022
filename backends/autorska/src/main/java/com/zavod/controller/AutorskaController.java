@@ -1,14 +1,13 @@
 package com.zavod.controller;
 
 import com.zavod.api.ResponseOk;
+import com.zavod.dto.SearchRequest;
 import com.zavod.dto.Zahtevi;
 import com.zavod.model.Zahtev;
 import com.zavod.service.AutorskaService;
 import com.zavod.service.PDFService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -57,4 +56,11 @@ public class AutorskaController {
         }
         pdfService.generateFiles(autorskaService.getZahtev(id));
     }
+
+    @GetMapping(path = "search")
+    public Zahtevi search(@RequestBody SearchRequest searchRequest) {
+        return new Zahtevi(autorskaService.search(searchRequest.getQuery()));
+    }
+
+
 }
