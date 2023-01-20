@@ -9,6 +9,7 @@ import com.zavod.service.PDFService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.xmldb.api.base.XMLDBException;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class AutorskaController {
 
 
     @GetMapping(path = "pdf")
-    public void generatePdf(String id) {
+    public void generatePdf(String id) throws XMLDBException {
         if(id == null || id.isEmpty()) {
             id = autorskaService.getAll().get(0).getInformacijeZavoda().getBrojPrijave();
         }
@@ -60,6 +61,16 @@ public class AutorskaController {
     @GetMapping(path = "search")
     public Zahtevi search(@RequestBody SearchRequest searchRequest) {
         return new Zahtevi(autorskaService.search(searchRequest.getQuery()));
+    }
+
+    @GetMapping(path = "meta-search")
+    public void metaSerch() {
+        autorskaService.metaSearch();
+    }
+
+    @GetMapping(path = "{id}")
+    public Zahtev getZahtev(@PathVariable String id) throws XMLDBException {
+        return autorskaService.getZahtev(id);
     }
 
 

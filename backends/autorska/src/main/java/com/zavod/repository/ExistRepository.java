@@ -45,6 +45,10 @@ public abstract class ExistRepository<T> {
         return null;
     }
 
+    public T findById(String id) throws XMLDBException {
+        return marshallingService.unmarshall(this.getResource(id + ".xml").getContentAsDOM());
+    }
+
     public List<XMLResource> getResources() {
         col = null;
         res = null;
