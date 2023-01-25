@@ -1,7 +1,6 @@
 package com.zavod.converter;
 
-import com.zavod.model.TZahtev;
-import com.zavod.model.Zahtevi;
+import com.zavod.model.Zahtev;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -15,7 +14,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 
-public class XmlAutorskaMessageConverter extends AbstractHttpMessageConverter<TZahtev> {
+public class XmlAutorskaMessageConverter extends AbstractHttpMessageConverter<Zahtev> {
 
     public XmlAutorskaMessageConverter() {
 
@@ -31,30 +30,27 @@ public class XmlAutorskaMessageConverter extends AbstractHttpMessageConverter<TZ
 
     @Override
     protected boolean supports(Class<?> clazz) {
-        return TZahtev.class.equals(clazz);
+        return Zahtev.class.equals(clazz);
     }
 
     @Override
-    protected TZahtev readInternal(Class<? extends TZahtev> clazz, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
+    protected Zahtev readInternal(Class<? extends Zahtev> clazz, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Zahtevi.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Zahtev.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            Zahtevi zahtevi = (Zahtevi) unmarshaller.unmarshal(inputMessage.getBody());
-            return zahtevi.getZahtev().get(0);
+            return (Zahtev) unmarshaller.unmarshal(inputMessage.getBody());
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    protected void writeInternal(TZahtev zahtev, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
+    protected void writeInternal(Zahtev zahtev, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
         try {
-            JAXBContext context = JAXBContext.newInstance(Zahtevi.class);
+            JAXBContext context = JAXBContext.newInstance(Zahtev.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            Zahtevi zahtevi = new Zahtevi();
-            zahtevi.getZahtev().add(zahtev);
-            marshaller.marshal(zahtevi, outputMessage.getBody());
+            marshaller.marshal(zahtev, outputMessage.getBody());
         } catch (JAXBException | FileNotFoundException e) {
             e.printStackTrace();
         }

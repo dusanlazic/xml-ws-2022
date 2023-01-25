@@ -43,17 +43,21 @@ public class AuthenticationUtilities {
 	 * 
 	 * @return the configuration object
 	 */
-	public static ExistConnectionProperties loadExistProperties() throws IOException {
+	public static ExistConnectionProperties loadExistProperties() {
 		String propsName = "exist.properties";
 
-		InputStream propsStream = openStream(propsName);
-		if (propsStream == null)
-			throw new IOException("Could not read properties " + propsName);
+		InputStream propsStream = null;
+		try {
+			propsStream = openStream(propsName);
+			if (propsStream == null)
+				throw new IOException("Could not read properties " + propsName);
+			Properties props = new Properties();
+			props.load(propsStream);
 
-		Properties props = new Properties();
-		props.load(propsStream);
-
-		return new ExistConnectionProperties(props);
+			return new ExistConnectionProperties(props);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 

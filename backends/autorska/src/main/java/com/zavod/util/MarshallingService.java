@@ -1,11 +1,9 @@
 package com.zavod.util;
 
-import com.zavod.model.Zahtevi;
 import org.w3c.dom.Node;
 
 import javax.xml.bind.*;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -23,6 +21,7 @@ public class MarshallingService<T> {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             return (T) unmarshaller.unmarshal(is);
         } catch (JAXBException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -33,6 +32,7 @@ public class MarshallingService<T> {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             return (T) unmarshaller.unmarshal(node);
         } catch (JAXBException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -44,6 +44,7 @@ public class MarshallingService<T> {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(t, os);
         } catch (JAXBException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -57,6 +58,7 @@ public class MarshallingService<T> {
             marshaller.marshal(t, os);
             return os.toString();
         } catch (JAXBException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

@@ -1,14 +1,13 @@
 package com.zavod.repository;
 
-import com.zavod.model.TZahtev;
-import com.zavod.model.Zahtevi;
+import com.zavod.model.Zahtev;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class AutorskaRepository extends ExistRepository<Zahtevi, TZahtev>{
+public class AutorskaRepository extends ExistRepository<Zahtev>{
 
     public AutorskaRepository() {
-        super(Zahtevi.class, TZahtev.class);
+        super(Zahtev.class);
     }
 }

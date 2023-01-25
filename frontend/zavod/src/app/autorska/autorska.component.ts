@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class AutorskaComponent {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -19,6 +20,7 @@ export class AutorskaComponent {
   showSubmenu: boolean = false;
   isShowing = false;
   showSubSubMenu: boolean = false;
+  showComponent: number = 0;
 
   mouseenter() {
     if (!this.isExpanded) {
@@ -30,6 +32,10 @@ export class AutorskaComponent {
     if (!this.isExpanded) {
       this.isShowing = false;
     }
+  }
+
+  logout() {
+    this.router.navigate(['/'])
   }
 
 }

@@ -20,10 +20,12 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "@material/chips": "^14.0.0",
     "@ngx-formly/core": "^6.0.4",
     "@ngx-formly/material": "^6.0.4",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "xml-js": "^1.6.11",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
