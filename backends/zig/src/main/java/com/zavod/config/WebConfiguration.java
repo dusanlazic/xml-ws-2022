@@ -1,7 +1,6 @@
 package com.zavod.config;
 
 
-import com.zavod.converter.XmlZigMessageConverter;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -19,6 +18,6 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         super.extendMessageConverters(converters);
-        converters.add(new XmlZigMessageConverter(MediaType.APPLICATION_XML));
+        // converters.add(new XmlZigMessageConverter(MediaType.APPLICATION_XML));
     }
 }

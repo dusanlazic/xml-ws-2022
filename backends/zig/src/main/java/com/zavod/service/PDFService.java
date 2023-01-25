@@ -4,7 +4,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
-import com.zavod.model.TZahtev;
+import com.zavod.model.Zahtev;
 import com.zavod.util.MarshallingService;
 import com.zavod.util.XUpdateUtil;
 import org.springframework.core.io.Resource;
@@ -59,13 +59,13 @@ public class PDFService {
         document.close();
     }
 
-    public org.w3c.dom.Document buildDocument(TZahtev zahtev) {
+    public org.w3c.dom.Document buildDocument(Zahtev zahtev) {
 
         org.w3c.dom.Document document = null;
         try {
 
             DocumentBuilder builder = documentFactory.newDocumentBuilder();
-            MarshallingService<TZahtev> marshallingService = new MarshallingService<>(TZahtev.class);
+            MarshallingService<Zahtev> marshallingService = new MarshallingService<>(Zahtev.class);
             String marshalled = marshallingService.marshallString(zahtev);
             marshalled = XUpdateUtil.clipStringTwo(marshalled);
             System.out.println(marshalled);
@@ -86,7 +86,7 @@ public class PDFService {
         return document;
     }
 
-    public void generateHTML(TZahtev zahtev, String xslPath, String htmlFilename, String qrCodeImageUrl) throws FileNotFoundException {
+    public void generateHTML(Zahtev zahtev, String xslPath, String htmlFilename, String qrCodeImageUrl) throws FileNotFoundException {
 
         try {
 
@@ -115,7 +115,7 @@ public class PDFService {
 
     }
 
-    public String generateFiles(TZahtev zahtev) {
+    public String generateFiles(Zahtev zahtev) {
         File pdfFile = new File(OUTPUT_DIR);
 
         if (!pdfFile.getParentFile().exists()) {

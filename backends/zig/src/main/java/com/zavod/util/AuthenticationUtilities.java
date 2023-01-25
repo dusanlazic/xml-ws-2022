@@ -8,9 +8,9 @@ import java.util.Properties;
  * Utilities to support and simplify examples.
  */
 public class AuthenticationUtilities {
-	
+
 	private static String connectionUri = "xmldb:exist://%1$s:%2$s/exist-zig/xmlrpc";
-	
+
 	/**
 	 * Connection parameters.
 	 */
@@ -25,35 +25,39 @@ public class AuthenticationUtilities {
 
 		public ExistConnectionProperties(Properties props) {
 			super();
-			
+
 			user = props.getProperty("conn.user").trim();
 			password = props.getProperty("conn.password").trim();
 
 			host = props.getProperty("conn.host").trim();
 			port = Integer.parseInt(props.getProperty("conn.port"));
-			
+
 			uri = String.format(connectionUri, host, port);
-			
+
 			driver = props.getProperty("conn.driver").trim();
 		}
 	}
 
 	/**
 	 * Read the configuration properties for the example.
-	 * 
+	 *
 	 * @return the configuration object
 	 */
-	public static ExistConnectionProperties loadExistProperties() throws IOException {
+	public static ExistConnectionProperties loadExistProperties() {
 		String propsName = "exist.properties";
 
-		InputStream propsStream = openStream(propsName);
-		if (propsStream == null)
-			throw new IOException("Could not read properties " + propsName);
+		InputStream propsStream = null;
+		try {
+			propsStream = openStream(propsName);
+			if (propsStream == null)
+				throw new IOException("Could not read properties " + propsName);
+			Properties props = new Properties();
+			props.load(propsStream);
 
-		Properties props = new Properties();
-		props.load(propsStream);
-
-		return new ExistConnectionProperties(props);
+			return new ExistConnectionProperties(props);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 
@@ -103,7 +107,7 @@ public class AuthenticationUtilities {
 
 	/**
 	 * Read a resource for an example.
-	 * 
+	 *
 	 * @param fileName
 	 *            the name of the resource
 	 * @return an input stream for the resource
@@ -112,5 +116,5 @@ public class AuthenticationUtilities {
 	public static InputStream openStream(String fileName) throws IOException {
 		return AuthenticationUtilities.class.getClassLoader().getResourceAsStream(fileName);
 	}
-	
+
 }

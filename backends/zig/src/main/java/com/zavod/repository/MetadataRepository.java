@@ -1,17 +1,15 @@
 package com.zavod.repository;
 
 import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
-import com.zavod.model.Zahtevi;
+import com.zavod.model.Zahtev;
 import com.zavod.util.AuthenticationUtilities;
 import com.zavod.util.MarshallingService;
 import com.zavod.util.SparqlUtil;
 import lombok.var;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
+import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
@@ -25,6 +23,9 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 @Repository
@@ -34,6 +35,8 @@ public class MetadataRepository {
     private static final String SPARQL_NAMED_GRAPH_URI = "/zahtevi/metadata";
 
     String rdfFilePath = "src/main/resources/gen/metadata.rdf";
+
+    String namespace = "http://www.zavod.com/Zig/";
 
     AuthenticationUtilities.FusekiConnectionProperties conn;
 
@@ -87,15 +90,54 @@ public class MetadataRepository {
         System.out.println("[INFO] End.");
     }
 
-    public String loadRdf(Zahtevi zahtevi) throws FileNotFoundException, TransformerException {
-        var ms = new MarshallingService<Zahtevi>(Zahtevi.class);
+    public String loadRdf(Zahtev zahtev) throws FileNotFoundException, TransformerException {
+        var ms = new MarshallingService<Zahtev>(Zahtev.class);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ms.marshall(zahtevi, os);
+        ms.marshall(zahtev, os);
         String conv = os.toString();
         System.out.println(conv);
         InputStream stream = new ByteArrayInputStream(conv.getBytes(StandardCharsets.UTF_8));
         ByteArrayOutputStream osout = new ByteArrayOutputStream();
         extractMetadata(stream, osout);
         return osout.toString();
+    }
+
+    public List<String> executeSparqlQuery(String sparqlQuery) {
+
+        System.out.println(sparqlQuery);
+
+        QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
+
+        ResultSet results = query.execSelect();
+
+        String varName;
+        RDFNode varValue;
+        List<String> values = new ArrayList<>();
+
+        while (results.hasNext()) {
+
+            // A single answer from a SELECT query
+            QuerySolution querySolution = results.next();
+            Iterator<String> variableBindings = querySolution.varNames();
+
+            // Retrieve variable bindings
+            while (variableBindings.hasNext()) {
+
+                varName = variableBindings.next();
+                varValue = querySolution.get(varName);
+
+                System.out.println(varName + ": " + varValue);
+                values.add(varValue.toString().replace(namespace, ""));
+            }
+            System.out.println();
+        }
+
+        query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
+        System.out.println("[INFO] Showing the results for SPARQL query in native SPARQL XML format.\n");
+        results = query.execSelect();
+        ResultSetFormatter.out(System.out, results);
+        query.close();
+        System.out.println("[INFO] End.");
+        return values;
     }
 }

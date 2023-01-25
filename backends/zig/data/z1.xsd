@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
-           vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://www.zavod.com/Zig"
-           xmlns:z="http://www.zavod.com/Zig">
-    <xs:element name="Zahtevi">
-        <xs:complexType>
-            <xs:sequence maxOccurs="unbounded">
-                <xs:element name="Zahtev" type="z:TZahtev"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:complexType name="TZahtev">
+    xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
+    vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://www.zavod.com/Zig"
+    xmlns:z="http://www.zavod.com/Zig">
+    <xs:element name="Zahtev" type="z:TZahtev"/>
+    <xs:complexType name="Zahtev">
         <xs:sequence>
             <xs:element name="Podnosilac" type="z:TLice"/>
             <xs:element name="Punomocnik" type="z:TLice" minOccurs="0"/>
@@ -115,7 +109,7 @@
                         <xs:element name="generalno_punomocje_ranije_prilozeno" type="xs:boolean"/>
                         <xs:element name="punomocje_ce_biti_naknadno_dostavljeno" type="xs:boolean"/>
                         <xs:element name="opsti_akt_o_kolektivnom_zigu_garancije" type="z:TPrilog"
-                                    minOccurs="0"/>
+                            minOccurs="0"/>
                         <xs:element name="dokaz_o_pravu_prvenstva" type="z:TPrilog" minOccurs="0"/>
                         <xs:element name="dokaz_o_uplati_takse" type="z:TPrilog" minOccurs="0"/>
                     </xs:sequence>

@@ -10,7 +10,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:complexType name="TZahtev">
+    <xs:complexType name="Zahtev">
         <xs:sequence>
             <xs:element name="Podnosilac" type="z:TLice"/>
             <xs:element name="Punomocnik" type="z:TLice" minOccurs="0"/>

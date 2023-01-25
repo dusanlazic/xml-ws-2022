@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class DatabaseHandler {
     public static String contextPath = "com.zavod.model";
-    public static String dataPath = "./data/z1.xml";
+    public static String dataPath = "./src/main/resources/xml/";
     public static String documentId = "z1.xml";
     public static String collectionId = "/db/zig";
 
@@ -28,7 +28,7 @@ public class DatabaseHandler {
             Database database = (Database) cl.newInstance();
             database.setProperty("create-database", "true");
             DatabaseManager.registerDatabase(database);
-        } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | XMLDBException e) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | XMLDBException e) {
             System.out.println("Database fatal error!");
         }
     }
@@ -50,7 +50,7 @@ public class DatabaseHandler {
         return (XMLResource) col.getResource(documentId);
     }
 
-    private static Collection getOrCreateCollection(String collectionUri) throws XMLDBException {
+    public static Collection getOrCreateCollection(String collectionUri) throws XMLDBException {
         return getOrCreateCollection(collectionUri, 0);
     }
 
@@ -60,7 +60,6 @@ public class DatabaseHandler {
     }
 
     private static Collection getOrCreateCollection(String collectionUri, int pathSegmentOffset) throws XMLDBException {
-
         Collection col = DatabaseManager.getCollection(conn.uri + collectionUri, conn.user, conn.password);
 
         // create the collection if it does not exist

@@ -1,80 +1,230 @@
 package com.zavod.repository;
 
+import com.zavod.util.AuthenticationUtilities;
 import com.zavod.util.MarshallingService;
-import com.zavod.util.XUpdateUtil;
-import org.xmldb.api.base.Collection;
-import org.xmldb.api.base.XMLDBException;
+import lombok.var;
+import org.exist.xmldb.EXistResource;
+import org.xmldb.api.base.*;
 import org.xmldb.api.modules.XMLResource;
-import org.xmldb.api.modules.XUpdateQueryService;
+import org.xmldb.api.modules.XQueryService;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public abstract class ExistRepository<C, T> {
+import static com.zavod.util.XUpdateTemplate.TARGET_NAMESPACE;
 
-    MarshallingService<C> collectionMarshallingService;
+public abstract class ExistRepository<T> {
 
-    MarshallingService<T> typeMarshallingService;
 
-    public ExistRepository(Class<C> ct, Class<T> tt) {
-        this.typeMarshallingService = new MarshallingService<>(tt);
-        this.collectionMarshallingService = new MarshallingService<>(ct);
+    MarshallingService<T> marshallingService;
+    static AuthenticationUtilities.ExistConnectionProperties conn = AuthenticationUtilities.loadExistProperties();;
+    private Collection col;
+    private XMLResource res;
+
+    public ExistRepository(Class<T> tt) {
+        this.marshallingService = new MarshallingService<>(tt);
+        DatabaseHandler.establishConnection();
     }
 
-    public C getAll() {
+    public XMLResource getResource(String documentName) {
+        col = null;
+        res = null;
         try {
-            Collection collection = DatabaseHandler.getCollection(DatabaseHandler.collectionId);
-            XMLResource resource = DatabaseHandler.getResource();
-            C res = collectionMarshallingService.unmarshall(resource.getContentAsDOM());
+            col = DatabaseHandler.getCollection(DatabaseHandler.collectionId);
+            res = (XMLResource) col.getResource(documentName);
             return res;
         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cleanup(col, res);
+        }
+        return null;
+    }
+
+    public T findById(String id) throws XMLDBException {
+        return marshallingService.unmarshall(this.getResource(id + ".xml").getContentAsDOM());
+    }
+
+    public List<T> findByIds(List<String> ids) throws XMLDBException {
+        List<T> res = new ArrayList();
+        for(String id : ids) {
+            res.add(findById(id));
+        }
+        return res;
+    }
+
+    public List<XMLResource> getResources() {
+        col = null;
+        res = null;
+        try {
+            col = DatabaseHandler.getCollection(DatabaseHandler.collectionId);
+            var resources = col.listResources();
+            return Arrays.stream(resources).map(this::getResource).collect(Collectors.toList());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }  finally {
+            cleanup(col, res);
+        }
+        return null;
+    }
+
+    public List<T> getAll() {
+        try {
+            return this.getResources()
+                    .stream()
+                    .map(this::readResource)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            cleanup(col, res);
         }
     }
 
-    public void saveAll(C c) {
+    private T readResource(XMLResource resource) {
+        col = null;
+        res = null;
         try {
-            DatabaseHandler.establishConnection();
-            XMLResource resource = DatabaseHandler.createResource();
-            Collection collection = DatabaseHandler.getCollection(DatabaseHandler.collectionId);
-            OutputStream os = new ByteArrayOutputStream();
-            collectionMarshallingService.marshall(c, os);
-            resource.setContent(os);
-            collection.storeResource(resource);
-        } catch (XMLDBException e) {
-            throw new RuntimeException(e);
+            var xml = resource.getContent().toString();
+            return marshallingService.unmarshall(resource.getContentAsDOM());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cleanup(col, res);
         }
+        return null;
+    }
+
+    public void save(T t, String docName) {
+        col = null;
+        res = null;
+        try {
+            col = DatabaseHandler.getOrCreateCollection(DatabaseHandler.collectionId);
+            res = (XMLResource) col.createResource(docName, XMLResource.RESOURCE_TYPE);
+            OutputStream os = new ByteArrayOutputStream();
+            marshallingService.marshall(t, os);
+            res.setContent(os);
+            col.storeResource(res);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cleanup(col, res);
+        }
+    }
+
+    public void saveAll(List<T> documents, List<String> docNames) {
+        for (int i = 0; i < documents.size(); i++) {
+            save(documents.get(i), docNames.get(i));
+        }
+    }
+
+    public File[] getAllXmlFiles() {
+        File dir = new File(DatabaseHandler.dataPath);
+        return dir.listFiles((dir1, name) -> name.endsWith(".xml"));
     }
 
     public void load() {
-        try {
-            DatabaseHandler.establishConnection();
-            XMLResource resource = DatabaseHandler.createResource();
-            C c = collectionMarshallingService.unmarshall(new FileInputStream(DatabaseHandler.dataPath));
-            Collection collection = DatabaseHandler.getCollection(DatabaseHandler.collectionId);
-            OutputStream os = new ByteArrayOutputStream();
-            collectionMarshallingService.marshall(c, os);
-            resource.setContent(os);
-            collection.storeResource(resource);
-            System.out.println("Finished loading.");
-        } catch (XMLDBException | FileNotFoundException e) {
-            throw new RuntimeException(e);
+        File[] files = getAllXmlFiles();
+        List<T> documents = new ArrayList<>();
+        List<String> docNames = new ArrayList<>();
+        for (File file : files) {
+            try {
+                FileInputStream fs = new FileInputStream(file);
+                documents.add(marshallingService.unmarshall(fs));
+                docNames.add(file.getName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                cleanup(col, res);
+            }
         }
+        saveAll(documents, docNames);
     }
 
-    public void add(T t) {
+    public List<T> search(List<String> queries) {
+        org.xmldb.api.base.Collection col = null;
+        Resource res = null;
         try {
-            XUpdateQueryService xupdateService = DatabaseHandler.getUpdateService();
-            OutputStream os = new ByteArrayOutputStream();
-            typeMarshallingService.marshall(t, os);
-            String marshalled = XUpdateUtil.clipString(os.toString());
-            String appendString = XUpdateUtil.createAppendString(DatabaseHandler.collectionName, marshalled);
-            long mods = xupdateService.updateResource(DatabaseHandler.documentId, appendString);
-            System.out.println("[INFO] " + mods + " modifications processed.");
-        } catch (XMLDBException e) {
-            throw new RuntimeException(e);
+            col = DatabaseHandler.getCollection(DatabaseHandler.collectionId);
+//            XPathQueryService xpathService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+//            xpathService.setProperty("indent", "yes");
+//            xpathService.setNamespace("", TARGET_NAMESPACE);
+
+            XQueryService xqueryService = (XQueryService) col.getService("XQueryService", "1.0");
+            xqueryService.setProperty("indent", "yes");
+            xqueryService.setNamespace("", TARGET_NAMESPACE);
+
+
+            String xpathExp = this.createQueryString(queries);
+            System.out.println("XPath expression: " + xpathExp);
+
+            ResourceSet result = xqueryService.query(xpathExp);
+
+            ResourceIterator i = result.getIterator();
+
+            List<T> results = new ArrayList<>();
+            while (i.hasMoreResources()) {
+                try {
+                    res = i.nextResource();
+                    System.out.println(res.getContent());
+                    results.add(marshallingService.unmarshall(((XMLResource)res).getContentAsDOM()));
+                } finally {
+                    cleanup(null, res);
+                }
+            }
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cleanup(col, res);
         }
+        return null;
     }
+
+    public String createQueryString(List<String> queries) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("declare namespace z = \"http://www.zavod.com\";\n" +
+                "\n" +
+                "declare function z:someMatch($txt, $keyword) {\n" +
+                "    (some $t in $txt satisfies (contains(lower-case($t), lower-case($keyword))))\n" +
+                "};\n" +
+                "\n" +
+                "for $zahtev in collection('/db/zig')\n" +
+                "    let $txt := $zahtev//text()\n" +
+                "    where ");
+        for (int i = 0; i < queries.size(); i++) {
+            sb.append("z:someMatch($txt, \"").append(queries.get(i)).append("\")");
+            if (i != queries.size() - 1) {
+                sb.append(" and ");
+            }
+        }
+        sb.append("return $zahtev");
+        return sb.toString();
+    }
+
+    public void cleanup(Collection col, Resource res) {
+        if(res != null) {
+            try {
+                ((EXistResource)res).freeResources();
+            } catch (XMLDBException xe) {
+                xe.printStackTrace();
+            }
+        }
+
+        if(col != null) {
+            try {
+                col.close();
+            } catch (XMLDBException xe) {
+                xe.printStackTrace();
+            }
+        }
+
+    }
+
 }
