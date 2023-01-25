@@ -1,0 +1,29 @@
+package com.zavod.dto;
+
+import com.zavod.model.Zahtev;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
+
+@XmlRootElement(name = "Zahtevi", namespace = "http://www.zavod.com/Zig")
+public class Zahtevi {
+    private List<Zahtev> zahtevi;
+
+    public Zahtevi(List<Zahtev> zahtevi) {
+        this.zahtevi = zahtevi;
+    }
+
+    public Zahtevi() {
+    }
+
+//    @XmlElementWrapper
+    @XmlElement(name="Zahtev")
+    public List<Zahtev> getZahtevi() {
+        return zahtevi;
+    }
+
+    public void setZahtevi(List<Zahtev> zahtevi) {
+        this.zahtevi = zahtevi;
+    }
+}

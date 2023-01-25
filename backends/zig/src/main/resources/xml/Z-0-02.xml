@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Zahtev xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+ xmlns="http://www.zavod.com/Zig"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.zavod.com/Zig file:/home/s4ndu/FTN/semestar-7/XML/clone2/xml-ws-2022/backends/zig/data/z1.xsd">
+    <Podnosilac xmlns:z="http://www.zavod.com/Zig" xsi:type="z:TPravno_Lice">
+        <adresa>
+            <ulica>ulica0</ulica>
+            <broj>broj0</broj>
+            <mesto>mesto0</mesto>
+            <drzava>drzava0</drzava>
+            <postanski_broj>22000</postanski_broj>
+        </adresa>
+        <poslovno_ime>poslovno_ime0</poslovno_ime>
+    </Podnosilac>
+    <Zig>
+        <tip_ziga>individualni</tip_ziga>
+        <tip_znaka>verbalni</tip_znaka>
+        <boja>boja0</boja>
+        <transliteracija>transliteracija0</transliteracija>
+        <prevod>prevod0</prevod>
+        <opis>opis0</opis>
+        <klase_robe>
+            <klasa>23</klasa>
+            <klasa>23</klasa>
+        </klase_robe>
+        <pravo_prvenstva>pravo_prvenstva0</pravo_prvenstva>
+    </Zig>
+    <Placanje>
+        <osnovna_taksa>0</osnovna_taksa>
+        <taksa_klasa>0</taksa_klasa>
+        <taksa_grafickog_resenja>0</taksa_grafickog_resenja>
+        <ukupno>0</ukupno>
+    </Placanje>
+    <Informacije_Zavoda>
+        <broj_prijave>Ж-0/12</broj_prijave>
+        <datum_podsnosenja>2006-05-04</datum_podsnosenja>
+        <prilozi>
+            <generalno_punomocje_ranije_prilozeno>false</generalno_punomocje_ranije_prilozeno>
+            <punomocje_ce_biti_naknadno_dostavljeno>false</punomocje_ce_biti_naknadno_dostavljeno>
+        </prilozi>
+    </Informacije_Zavoda>
+</Zahtev>

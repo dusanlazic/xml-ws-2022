@@ -10,8 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.annotation.PostConstruct;
+import javax.xml.transform.TransformerException;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -30,23 +33,16 @@ public class ZigApplication {
 
 	@PostConstruct
 	public void init() throws Exception {
-//		zigRepository.load();
-//		Zahtevi zahtevi = zigRepository.getAll();
-//		String rdf = metadataRepository.loadRdf(zahtevi);
-//		System.out.println(rdf);
-//		metadataRepository.writeRdf(rdf);
-
-		MarshallingService<Zahtev> marshallingService = new MarshallingService<Zahtev>(Zahtev.class);
-
-		FileInputStream fs = new FileInputStream("data/instance1.xml");
-
-		Zahtev zahtev = marshallingService.unmarshall(fs);
-		System.out.println(zahtev);
-
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		marshallingService.marshall(zahtev, baos);
-
-		System.out.println(baos.toString());
+		zigRepository.load();
+		List<Zahtev> zahtevi = zigRepository.getAll();
+		for (Zahtev zahtev: zahtevi) {
+			try {
+				String rdf = metadataRepository.loadRdf(zahtev);
+				metadataRepository.writeRdf(rdf);
+			} catch (FileNotFoundException | TransformerException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 

@@ -4,7 +4,7 @@
     vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://www.zavod.com/Zig"
     xmlns:z="http://www.zavod.com/Zig">
     <xs:element name="Zahtev" type="z:TZahtev"/>
-    <xs:complexType name="Zahtev">
+    <xs:complexType name="TZahtev">
         <xs:sequence>
             <xs:element name="Podnosilac" type="z:TLice"/>
             <xs:element name="Punomocnik" type="z:TLice" minOccurs="0"/>

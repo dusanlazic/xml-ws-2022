@@ -21,14 +21,15 @@ import java.util.List;
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> httpMessageConverters) {
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        super.extendMessageConverters(converters);
         Arrays.asList(
                 MetaSearchRequest.class,
                 SearchRequest.class,
                 Zahtev.class,
                 Zahtevi.class
         ).forEach(c -> {
-            httpMessageConverters.add(new XmlGenericConverter<>(c, MediaType.APPLICATION_XML));
+            converters.add(0, new XmlGenericConverter<>(c, MediaType.APPLICATION_XML));
         });
     }
 }
