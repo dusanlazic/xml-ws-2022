@@ -1,10 +1,10 @@
 package com.zavod.config;
 
 
-import com.zavod.converter.XmlAutorskaListMessageConverter;
-import com.zavod.converter.XmlAutorskaMessageConverter;
-import com.zavod.converter.XmlMetaSearchConverter;
-import com.zavod.converter.XmlSearchRequestConverter;
+import com.zavod.dto.MetaSearchRequest;
+import com.zavod.dto.SearchRequest;
+import com.zavod.dto.Zahtevi;
+import com.zavod.model.Zahtev;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -12,6 +12,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -21,9 +22,13 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> httpMessageConverters) {
-        httpMessageConverters.add(new XmlAutorskaMessageConverter(MediaType.APPLICATION_XML));
-        httpMessageConverters.add(new XmlAutorskaListMessageConverter(MediaType.APPLICATION_XML));
-        httpMessageConverters.add(new XmlSearchRequestConverter(MediaType.APPLICATION_XML));
-        httpMessageConverters.add(new XmlMetaSearchConverter(MediaType.APPLICATION_XML));
+        Arrays.asList(
+                MetaSearchRequest.class,
+                SearchRequest.class,
+                Zahtev.class,
+                Zahtevi.class
+        ).forEach(c -> {
+            httpMessageConverters.add(new XmlGenericConverter<>(c, MediaType.APPLICATION_XML));
+        });
     }
 }

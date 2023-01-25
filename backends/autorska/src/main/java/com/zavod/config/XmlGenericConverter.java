@@ -1,6 +1,5 @@
-package com.zavod.converter;
+package com.zavod.config;
 
-import com.zavod.model.Zahtev;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -12,42 +11,47 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-public class XmlAutorskaMessageConverter extends AbstractHttpMessageConverter<Zahtev> {
+public class XmlGenericConverter<T> extends AbstractHttpMessageConverter<T> {
 
-    public XmlAutorskaMessageConverter() {
+    private Class<T> clazz;
 
+    public XmlGenericConverter(Class<T> clazz) {
+        this.clazz = clazz;
     }
 
-    public XmlAutorskaMessageConverter(MediaType mt) {
+    public XmlGenericConverter(Class<T> clazz, MediaType mt) {
         super(mt);
+        this.clazz = clazz;
     }
 
-    public XmlAutorskaMessageConverter(MediaType... mt) {
+    public XmlGenericConverter(Class<T> clazz, MediaType... mt) {
         super(mt);
+        this.clazz = clazz;
     }
 
     @Override
     protected boolean supports(Class<?> clazz) {
-        return Zahtev.class.equals(clazz);
+        return this.clazz.equals(clazz);
     }
 
     @Override
-    protected Zahtev readInternal(Class<? extends Zahtev> clazz, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
+    protected T readInternal(Class<? extends T> clazz, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Zahtev.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(this.clazz);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            return (Zahtev) unmarshaller.unmarshal(inputMessage.getBody());
+            return (T) unmarshaller.unmarshal(inputMessage.getBody());
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    protected void writeInternal(Zahtev zahtev, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
+    protected void writeInternal(T zahtev, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
         try {
-            JAXBContext context = JAXBContext.newInstance(Zahtev.class);
+            JAXBContext context = JAXBContext.newInstance(this.clazz);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(zahtev, outputMessage.getBody());

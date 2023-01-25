@@ -65,7 +65,7 @@ public class AutorskaController {
         pdfService.generateFiles(autorskaService.getZahtev(id));
     }
 
-    @PostMapping(path = "search")
+    @PostMapping(path = "search", produces = {MediaType.APPLICATION_XML_VALUE}, consumes = {MediaType.APPLICATION_XML_VALUE})
     public Zahtevi search(@RequestBody SearchRequest searchRequest) {
         if(searchRequest.getQuery().size() == 0) return new Zahtevi();
         return new Zahtevi(autorskaService.search(searchRequest.getQuery()));
