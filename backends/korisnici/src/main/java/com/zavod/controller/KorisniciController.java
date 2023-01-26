@@ -1,8 +1,11 @@
 package com.zavod.controller;
 
 import com.zavod.api.ResponseOk;
-import com.zavod.dto.Zahtevi;
-import com.zavod.model.Zahtev;
+import com.zavod.dto.Korisnici;
+import com.zavod.dto.KorisnikDTO;
+import com.zavod.dto.Kredencijali;
+import com.zavod.dto.TokenDTO;
+import com.zavod.model.Korisnik;
 import com.zavod.service.KorisniciService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,33 +21,38 @@ public class KorisniciController {
     @Autowired
     public KorisniciService korisniciService;
 
-    @GetMapping(path = "/all", produces = MediaType.APPLICATION_XML_VALUE)
-    public Zahtevi getAll() {
-        return new Zahtevi(korisniciService.getAll());
+    @GetMapping(path = "/dev/all", produces = MediaType.APPLICATION_XML_VALUE)
+    public Korisnici getAll() {
+        return new Korisnici(korisniciService.getAll());
     }
 
     @PostMapping(path = "/register", produces = MediaType.APPLICATION_XML_VALUE, consumes = {MediaType.APPLICATION_XML_VALUE})
-    public ResponseOk register(@RequestBody Zahtev zahtev) {
-        korisniciService.addKorisnik(zahtev);
+    public ResponseOk register(@RequestBody Korisnik zahtev) {
+        korisniciService.register(zahtev);
         System.out.println(zahtev);
         return new ResponseOk("Korisnik kreiran");
     }
 
-    @GetMapping(path = "{id}")
-    public Zahtev getById(@PathVariable String id) throws XMLDBException {
-        return korisniciService.getKorisnik(id);
+    @PostMapping(path = "/login", produces = MediaType.APPLICATION_XML_VALUE, consumes = {MediaType.APPLICATION_XML_VALUE})
+    public TokenDTO login(@RequestBody Kredencijali kredencijali) {
+        return korisniciService.login(kredencijali);
     }
 
-    @GetMapping(path = "/first", produces = {MediaType.APPLICATION_XML_VALUE})
-    public Zahtev getFirst() {
+    @GetMapping(path = "{id}")
+    public KorisnikDTO getById(@PathVariable String id) throws XMLDBException {
+        return new KorisnikDTO(korisniciService.getKorisnik(id));
+    }
+
+    @GetMapping(path = "/dev/first", produces = {MediaType.APPLICATION_XML_VALUE})
+    public Korisnik getFirst() {
         return korisniciService.getAll().get(0);
     }
 
-    @GetMapping(path = "/last", produces = {MediaType.APPLICATION_XML_VALUE})
-    public Zahtev getLast() {
-        List<Zahtev> zahtevi = korisniciService.getAll();
-        if (zahtevi.isEmpty())
+    @GetMapping(path = "/dev/last", produces = {MediaType.APPLICATION_XML_VALUE})
+    public Korisnik getLast() {
+        List<Korisnik> korisnici = korisniciService.getAll();
+        if (korisnici.isEmpty())
             return null;
-        return zahtevi.get(zahtevi.size() - 1);
+        return korisnici.get(korisnici.size() - 1);
     }
 }

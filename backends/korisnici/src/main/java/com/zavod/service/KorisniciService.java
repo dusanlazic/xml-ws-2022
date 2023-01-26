@@ -1,35 +1,56 @@
 package com.zavod.service;
 
-import com.zavod.model.Zahtev;
-import com.zavod.repository.MetadataRepository;
+import com.zavod.dto.KorisnikDTO;
+import com.zavod.dto.Kredencijali;
+import com.zavod.dto.TokenDTO;
+import com.zavod.model.Korisnik;
 import com.zavod.repository.KorisniciRepository;
+import com.zavod.util.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class KorisniciService {
 
     @Autowired
-    public KorisniciRepository zigRepository;
+    public KorisniciRepository korisniciRepository;
 
-    public List<Zahtev> getAll() {
-        return zigRepository.getAll();
+    @Autowired
+    public TokenProvider tokenProvider;
+
+    @Autowired
+    public PasswordEncoder passwordEncoder;
+
+    public List<Korisnik> getAll() {
+        return korisniciRepository.getAll();
     }
 
-    public Zahtev getKorisnik(String id) throws XMLDBException {
-        return zigRepository.findById(id);
+    public Korisnik getKorisnik(String id) throws XMLDBException {
+        return korisniciRepository.findById(id);
     }
 
-    public void addKorisnik(Zahtev zahtev) {
-        this.zigRepository.save(zahtev, zahtev.getInformacijeZavoda().getBrojPrijave() + ".xml");
+    public void register(Korisnik korisnik) {
+        korisnik.setLozinka(passwordEncoder.encode(korisnik.getLozinka()));
+        this.korisniciRepository.save(korisnik, korisnik.getId() + ".xml");
     }
 
-    public List<Zahtev> search(List<String> query) {
-        return zigRepository.search(query);
+    public List<Korisnik> search(List<String> query) {
+        return korisniciRepository.search(query);
     }
 
+    public TokenDTO login(Kredencijali kredencijali) {
+        Optional<Korisnik> korisnik = korisniciRepository.getAll().stream().filter(k ->
+            k.getEmail().equals(kredencijali.getEmail()) && passwordEncoder.matches(kredencijali.getLozinka(), k.getLozinka())
+        ).findFirst();
 
+        if (korisnik.isPresent())
+            return new TokenDTO(tokenProvider.createAccessToken(korisnik.get()), new KorisnikDTO(korisnik.get()));
+        else
+            return new TokenDTO("", null);
+    }
 }

@@ -1,10 +1,9 @@
 package com.zavod.config;
 
 
-import com.zavod.dto.MetaSearchRequest;
-import com.zavod.dto.Credentials;
-import com.zavod.dto.Zahtevi;
-import com.zavod.model.Zahtev;
+import com.zavod.dto.Korisnici;
+import com.zavod.dto.KorisnikDTO;
+import com.zavod.dto.Kredencijali;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -24,10 +23,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         super.extendMessageConverters(converters);
         Arrays.asList(
-                MetaSearchRequest.class,
-                Credentials.class,
-                Zahtev.class,
-                Zahtevi.class
+                Korisnici.class,
+                Kredencijali.class,
+                KorisnikDTO.class
         ).forEach(c -> {
             converters.add(0, new XmlGenericConverter<>(c, MediaType.APPLICATION_XML));
         });

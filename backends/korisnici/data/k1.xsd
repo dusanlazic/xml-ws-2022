@@ -4,7 +4,7 @@
     vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://www.zavod.com/Korisnik"
     xmlns:k="http://www.zavod.com/Korisnik">
     <xs:element name="Korisnik" type="k:TKorisnik"/>
-    <xs:complexType name="TKorisnik" abstract="false">
+    <xs:complexType name="Korisnik" abstract="false">
         <xs:sequence>
             <xs:element name="id">
                 <xs:simpleType>
