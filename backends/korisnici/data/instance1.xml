@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Korisnik xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+ xmlns="http://www.zavod.com/Korisnik"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.zavod.com/Korisnik file:/home/s4ndu/FTN/semestar-7/XML/clone2/xml-ws-2022/backends/korisnici/data/k1.xsd">
+    <id>1</id>
+    <email>hello@mail1.com</email>
+    <lozinka>lozinka1</lozinka>
+    <ime>ime1</ime>
+    <prezime>prezime1</prezime>
+</Korisnik>
