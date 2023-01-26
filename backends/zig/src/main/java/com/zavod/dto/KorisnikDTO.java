@@ -1,7 +1,5 @@
 package com.zavod.dto;
 
-import com.zavod.model.Korisnik;
-
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -28,12 +26,12 @@ public class KorisnikDTO {
     public KorisnikDTO() {
     }
 
-    public KorisnikDTO(Korisnik korisnik) {
-        this.id = korisnik.getId();
-        this.email = korisnik.getEmail();
-        this.ime = korisnik.getIme();
-        this.prezime = korisnik.getPrezime();
-        this.uloga = korisnik.getUloga();
+    public KorisnikDTO(long id, String email, String ime, String prezime, String uloga) {
+        this.id = id;
+        this.email = email;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.uloga = uloga;
     }
 
     public long getId() {

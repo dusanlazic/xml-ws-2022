@@ -1,9 +1,7 @@
 package com.zavod.config;
 
 
-import com.zavod.dto.MetaSearchRequest;
-import com.zavod.dto.SearchRequest;
-import com.zavod.dto.Zahtevi;
+import com.zavod.dto.*;
 import com.zavod.model.Zahtev;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +25,10 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
                 MetaSearchRequest.class,
                 SearchRequest.class,
                 Zahtev.class,
-                Zahtevi.class
+                Zahtevi.class,
+                Kredencijali.class,
+                KorisnikDTO.class,
+                TokenDTO.class
         ).forEach(c -> {
             converters.add(0, new XmlGenericConverter<>(c, MediaType.APPLICATION_XML));
         });

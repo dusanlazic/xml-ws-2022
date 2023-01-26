@@ -5,7 +5,7 @@ import com.zavod.dto.Kredencijali;
 import com.zavod.dto.TokenDTO;
 import com.zavod.model.Korisnik;
 import com.zavod.repository.KorisniciRepository;
-import com.zavod.util.TokenProvider;
+import com.zavod.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

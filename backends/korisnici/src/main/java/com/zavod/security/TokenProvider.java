@@ -1,4 +1,4 @@
-package com.zavod.util;
+package com.zavod.security;
 
 import com.zavod.model.Korisnik;
 import io.jsonwebtoken.Jwts;
@@ -27,6 +27,7 @@ public class TokenProvider {
                 .claim("email", korisnik.getEmail())
                 .claim("ime", korisnik.getIme())
                 .claim("prezime", korisnik.getPrezime())
+                .claim("uloga", korisnik.getUloga())
                 .setExpiration(Date.from(expiresAt))
                 .signWith(key)
                 .compact();

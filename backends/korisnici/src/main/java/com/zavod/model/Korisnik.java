@@ -52,7 +52,8 @@ import javax.xml.bind.annotation.*;
     "email",
     "lozinka",
     "ime",
-    "prezime"
+    "prezime",
+    "uloga"
 })
 @XmlRootElement(name = "Korisnik")
 public class Korisnik {
@@ -66,6 +67,8 @@ public class Korisnik {
     protected String ime;
     @XmlElement(required = true)
     protected String prezime;
+    @XmlElement(required = true)
+    protected String uloga;
 
     /**
      * Gets the value of the id property.
@@ -157,11 +160,11 @@ public class Korisnik {
 
     /**
      * Gets the value of the prezime property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPrezime() {
         return prezime;
@@ -169,14 +172,38 @@ public class Korisnik {
 
     /**
      * Sets the value of the prezime property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPrezime(String value) {
         this.prezime = value;
+    }
+
+    /**
+     * Gets the value of the uloga property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getUloga() {
+        return uloga;
+    }
+
+    /**
+     * Sets the value of the uloga property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setUloga(String value) {
+        this.uloga = value;
     }
 
 }
