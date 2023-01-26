@@ -8,7 +8,9 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -17,6 +19,10 @@ import com.itextpdf.tool.xml.XMLWorkerHelper;
 import com.zavod.model.Zahtev;
 import com.zavod.util.MarshallingService;
 import com.zavod.util.XUpdateUtil;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.xml.sax.InputSource;
 
@@ -28,7 +34,9 @@ public class PDFService {
 
     public static final String XSL_FILE = "data/xsl/zahtev.xsl";
 
-    public static final String OUTPUT_DIR = "src/main/resources/gen/";
+    public static final String HTML_DIR = "gen/itext/";
+
+    public static final String OUTPUT_DIR = "gen/output/";
 
     static {
 
@@ -43,23 +51,12 @@ public class PDFService {
 
     }
 
-    public void generatePDF(String filePath, String htmlPath) throws IOException, DocumentException {
-
-        // Step 1
+    public void generatePDF(String pdfFilename, String htmlFilename) throws IOException, DocumentException {
         Document document = new Document();
-
-        // Step 2
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
-
-        // Step 3
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfFilename));
         document.open();
-
-        // Step 4
-        XMLWorkerHelper.getInstance().parseXHtml(writer, document, Files.newInputStream(Paths.get(htmlPath)));
-
-        // Step 5
+        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(htmlFilename));
         document.close();
-
     }
 
     public org.w3c.dom.Document buildDocument(Zahtev zahtev) {
@@ -117,12 +114,8 @@ public class PDFService {
 
     }
 
-    public void generateFiles(Zahtev zahtev) {
-        String outputDir = OUTPUT_DIR + zahtev.getInformacijeZavoda().getBrojPrijave() + "/";
-        String htmlPath = outputDir + "zahtev.html";
-        String pdfPath = outputDir + "zahtev.pdf";
-
-        File pdfFile = new File(pdfPath);
+    public String generateFiles(Zahtev zahtev) {
+        File pdfFile = new File(OUTPUT_DIR);
 
         if (!pdfFile.getParentFile().exists()) {
             System.out.println("[INFO] A new directory is created: " + pdfFile.getParentFile().getAbsolutePath() + ".");
@@ -130,14 +123,30 @@ public class PDFService {
         }
 
         try {
-            generateHTML(zahtev, XSL_FILE, htmlPath);
-            generatePDF(pdfPath, htmlPath);
+            UUID uuid = UUID.randomUUID();
+            String htmlFilename = HTML_DIR + uuid + ".html";
+            String pdfFilename = OUTPUT_DIR + uuid + ".pdf";
+
+            generateHTML(zahtev, XSL_FILE, htmlFilename);
+            generatePDF(pdfFilename, htmlFilename);
+
+            System.out.println("[INFO] File \"" + pdfFilename + "\" generated successfully.");
+            return uuid + ".pdf";
         } catch (DocumentException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
-        System.out.println("[INFO] File \"" + htmlPath + "\" and \"" + pdfPath + "\" generated successfully.");
+    public ResponseEntity<Resource> serve(String filename) throws IOException {
+        Path storedFilePath = Paths.get(OUTPUT_DIR).resolve(filename);
 
+        Resource resource = new UrlResource(storedFilePath.toUri());
+        if (!resource.exists() || !resource.isReadable())
+            return null;
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(resource);
     }
 
 }
