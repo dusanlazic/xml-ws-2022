@@ -1,10 +1,7 @@
 package com.zavod.config;
 
 
-import com.zavod.dto.Korisnici;
-import com.zavod.dto.KorisnikDTO;
-import com.zavod.dto.Kredencijali;
-import com.zavod.dto.TokenDTO;
+import com.zavod.dto.*;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -27,6 +24,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
                 Korisnici.class,
                 Kredencijali.class,
                 KorisnikDTO.class,
+                KorisnikRegisterDTO.class,
                 TokenDTO.class
         ).forEach(c -> {
             converters.add(0, new XmlGenericConverter<>(c, MediaType.APPLICATION_XML));

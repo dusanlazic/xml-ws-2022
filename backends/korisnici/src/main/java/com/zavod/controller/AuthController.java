@@ -1,6 +1,7 @@
 package com.zavod.controller;
 
 import com.zavod.api.ResponseOk;
+import com.zavod.dto.KorisnikRegisterDTO;
 import com.zavod.dto.Kredencijali;
 import com.zavod.dto.TokenDTO;
 import com.zavod.model.Korisnik;
@@ -25,7 +26,7 @@ public class AuthController {
     }
 
     @PostMapping(path = "/register", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
-    public ResponseOk register(@RequestBody Korisnik korisnik) {
+    public ResponseOk register(@RequestBody KorisnikRegisterDTO korisnik) {
         korisnikService.register(korisnik);
         return new ResponseOk("Korisnik kreiran.");
     }
