@@ -40,6 +40,7 @@ import { PretragaMetapodaciComponent } from './autorska/pretraga/pretraga-metapo
 import { PretragaRezultatiComponent } from './autorska/pretraga/pretraga-rezultati/pretraga-rezultati.component';
 import { PretragaRezultatComponent } from './autorska/pretraga/pretraga-rezultati/pretraga-rezultat/pretraga-rezultat.component';
 import { PretragaObicnaComponent } from './autorska/pretraga/pretraga-obicna/pretraga-obicna.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { PretragaObicnaComponent } from './autorska/pretraga/pretraga-obicna/pre
       types: [{ name: 'stepper', component: FormlyFieldStepper, wrappers: [] },
               { name: 'file', component: FormlyFieldFile, wrappers: [] }],
     }),
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
