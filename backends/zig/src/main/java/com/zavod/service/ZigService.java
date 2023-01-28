@@ -4,6 +4,8 @@ import com.zavod.model.Zahtev;
 import com.zavod.repository.MetadataRepository;
 import com.zavod.repository.ZigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
 
@@ -17,7 +19,6 @@ public class ZigService {
 
     @Autowired
     public MetadataRepository metadataRepository;
-
 
     public List<Zahtev> getAll() {
         return zigRepository.getAll();
@@ -34,6 +35,4 @@ public class ZigService {
     public List<Zahtev> search(List<String> query) {
         return zigRepository.search(query);
     }
-
-
 }
