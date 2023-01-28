@@ -37,7 +37,11 @@ export class IndexComponent implements OnInit {
 
   accessAutorska() {
     if(this.loggedUser) {
-      this.router.navigate(['/autorska/novi-zahtev']);
+      if(this.loggedUser.uloga == "gradjanin") {
+        this.router.navigate(['/autorska/novi-zahtev']);
+      } else if(this.loggedUser.uloga == "sluzbenik") {
+        this.router.navigate(['/autorska/sluzbenik/pretraga']);
+      }
     } else {
       this.toastr.info("Potrebno je prvo prijaviti se na sistem.")
     }

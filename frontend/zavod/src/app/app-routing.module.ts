@@ -7,16 +7,23 @@ import { PretragaComponent } from './autorska/pretraga/pretraga.component';
 import { MojiZahteviComponent } from './autorska/moji-zahtevi/moji-zahtevi.component';
 import { MojProfilComponent } from './autorska/moj-profil/moj-profil.component';
 import { NoviZahtevComponent } from './autorska/novi-zahtev/novi-zahtev.component';
+import { ZahteviComponent } from './sluzbenik/zahtevi/zahtevi.component';
+import { IzvestajiComponent } from './sluzbenik/izvestaji/izvestaji.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
-  { path: 'sluzbenik', component: SluzbenikComponent },
   { path: 'autorska', component: AutorskaComponent, children: [
     { path: 'pretraga', component: PretragaComponent },
     { path: 'moji-zahtevi', component: MojiZahteviComponent },
     { path: 'moj-profil', component: MojProfilComponent },
-    { path: 'novi-zahtev', component: NoviZahtevComponent}
+    { path: 'novi-zahtev', component: NoviZahtevComponent},
+    
   ] },
+  { path: 'autorska/sluzbenik', component: SluzbenikComponent, children: [
+    { path: 'pretraga', component: PretragaComponent },
+    { path: 'zahtevi', component: ZahteviComponent },
+    { path: 'izvestaji', component: IzvestajiComponent }
+  ]}
   
 ];
 

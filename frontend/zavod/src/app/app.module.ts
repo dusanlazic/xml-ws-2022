@@ -41,7 +41,9 @@ import { PretragaRezultatiComponent } from './autorska/pretraga/pretraga-rezulta
 import { PretragaRezultatComponent } from './autorska/pretraga/pretraga-rezultati/pretraga-rezultat/pretraga-rezultat.component';
 import { PretragaObicnaComponent } from './autorska/pretraga/pretraga-obicna/pretraga-obicna.component';
 import { ToastrModule } from 'ngx-toastr';
-import { MatRadioModule } from '@angular/material/radio'; 
+import { MatRadioModule } from '@angular/material/radio';
+import { ZahteviComponent } from './sluzbenik/zahtevi/zahtevi.component';
+import { IzvestajiComponent } from './sluzbenik/izvestaji/izvestaji.component'; 
 
 
 @NgModule({
@@ -56,7 +58,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MojProfilComponent,
     PretragaComponent,
     LoginComponent,
-    FileValueAccessor, FormlyFieldFile, PretragaMetapodaciComponent, PretragaRezultatiComponent, PretragaRezultatComponent, PretragaObicnaComponent,
+    FileValueAccessor, FormlyFieldFile, PretragaMetapodaciComponent, PretragaRezultatiComponent, PretragaRezultatComponent, PretragaObicnaComponent, ZahteviComponent, IzvestajiComponent,
   ],
   imports: [
     BrowserModule,
