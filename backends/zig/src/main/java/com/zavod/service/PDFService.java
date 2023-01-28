@@ -28,7 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static com.zavod.service.ZigService.brojToUrl;
+import static com.zavod.util.ServiceUtil.brojToUrl;
 
 @Service
 public class PDFService {

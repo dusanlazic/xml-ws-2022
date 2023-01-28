@@ -2,7 +2,7 @@ package com.zavod;
 
 import com.zavod.model.zahtev.Zahtev;
 import com.zavod.repository.MetadataRepository;
-import com.zavod.repository.ZigRepository;
+import com.zavod.repository.ZahtevRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +19,7 @@ import java.util.List;
 public class ZigApplication {
 
 	@Autowired
-	private ZigRepository zigRepository;
+	private ZahtevRepository zahtevRepository;
 
 	@Autowired
 	private MetadataRepository metadataRepository;
@@ -30,8 +30,8 @@ public class ZigApplication {
 
 	@PostConstruct
 	public void init() throws Exception {
-		zigRepository.load();
-		List<Zahtev> zahtevi = zigRepository.getAll();
+		zahtevRepository.load();
+		List<Zahtev> zahtevi = zahtevRepository.getAll();
 		for (Zahtev zahtev: zahtevi) {
 			try {
 				String rdf = metadataRepository.loadRdf(zahtev);

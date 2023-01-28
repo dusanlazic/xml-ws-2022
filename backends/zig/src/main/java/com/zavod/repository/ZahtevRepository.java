@@ -5,9 +5,9 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class ZigRepository extends ExistRepository<Zahtev>{
+public class ZahtevRepository extends ExistRepository<Zahtev>{
 
-    public ZigRepository() {
+    public ZahtevRepository() {
         super(Zahtev.class);
     }
 }

@@ -1,30 +1,29 @@
 package com.zavod.controller;
 
 import com.zavod.api.ResponseOk;
-import com.zavod.dto.*;
-import com.zavod.model.resenje.Resenje;
+import com.zavod.dto.MetaSearchQuery;
+import com.zavod.dto.MetaSearchRequest;
+import com.zavod.dto.SearchRequest;
+import com.zavod.dto.Zahtevi;
 import com.zavod.model.zahtev.Zahtev;
 import com.zavod.service.MetadataService;
 import com.zavod.service.PDFService;
-import com.zavod.service.ZigService;
+import com.zavod.service.ZahtevService;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.xmldb.api.base.XMLDBException;
-
-import javax.xml.datatype.DatatypeConfigurationException;
 
 @RestController
 @RequestMapping("/zahtevi")
 public class ZahtevController {
 
     @Autowired
-    private ZigService zigService;
+    private ZahtevService zahtevService;
 
     @Autowired
     private MetadataService metadataService;
@@ -35,14 +34,14 @@ public class ZahtevController {
     @PostMapping(path = "/", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
     @PreAuthorize("hasAuthority('GRADJANIN')")
     public ResponseOk create(@RequestBody Zahtev zahtev) {
-        zigService.addZahtev(zahtev);
+        zahtevService.addZahtev(zahtev);
         return new ResponseOk("Zahtev kreiran.");
     }
 
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_XML_VALUE)
     @PreAuthorize("hasAuthority('SLUZBENIK')")
     public Zahtevi getAll() {
-        return new Zahtevi(zigService.getAll());
+        return new Zahtevi(zahtevService.getAll());
     }
 
     @GetMapping(path = "/qr/{brojPrijave}.png", produces = MediaType.IMAGE_PNG_VALUE)
@@ -51,25 +50,21 @@ public class ZahtevController {
     }
 
     @GetMapping(path = "/pdf/{brojPrijave}.pdf", produces = MediaType.APPLICATION_PDF_VALUE)
-    @PreAuthorize("hasAuthority('SLUZBENIK')")
     public ResponseEntity<Resource> pdf(@PathVariable String brojPrijave) throws XMLDBException {
-        return pdfService.exportToResource(zigService.getZahtev(brojPrijave), MediaType.APPLICATION_PDF);
+        return pdfService.exportToResource(zahtevService.getZahtev(brojPrijave), MediaType.APPLICATION_PDF);
     }
 
     @GetMapping(path = "/xhtml/{brojPrijave}.xhtml", produces = MediaType.APPLICATION_XHTML_XML_VALUE)
-    @PreAuthorize("hasAuthority('SLUZBENIK')")
     public ResponseEntity<Resource> xhtml(@PathVariable String brojPrijave) throws XMLDBException {
-        return pdfService.exportToResource(zigService.getZahtev(brojPrijave), MediaType.APPLICATION_XHTML_XML);
+        return pdfService.exportToResource(zahtevService.getZahtev(brojPrijave), MediaType.APPLICATION_XHTML_XML);
     }
 
     @GetMapping(path = "/rdf/{brojPrijave}.rdf", produces = MediaType.APPLICATION_XML_VALUE)
-    @PreAuthorize("hasAuthority('SLUZBENIK')")
     public ResponseEntity<Resource> rdf(@PathVariable String brojPrijave) {
         throw new NotImplementedException();
     }
 
     @GetMapping(path = "/json/{brojPrijave}.json", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasAuthority('SLUZBENIK')")
     public ResponseEntity<Resource> json(@PathVariable String brojPrijave) {
         throw new NotImplementedException();
     }
@@ -78,7 +73,7 @@ public class ZahtevController {
     @PreAuthorize("hasAuthority('SLUZBENIK')")
     public Zahtevi search(@RequestBody SearchRequest searchRequest) {
         if(searchRequest.getQuery().size() == 0) return new Zahtevi();
-        return new Zahtevi(zigService.search(searchRequest.getQuery()));
+        return new Zahtevi(zahtevService.search(searchRequest.getQuery()));
     }
 
     @PostMapping(path = "/search-meta", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
@@ -102,17 +97,11 @@ public class ZahtevController {
         metadataService.exportToJSON(brojPrijave);
     }
 
-    @PostMapping(path = "/{brojPrijave}/resenje", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
-    @PreAuthorize("hasAuthority('SLUZBENIK')")
-    public Resenje addResenje(@PathVariable String brojPrijave, @RequestBody ResenjeDTO resenje, Authentication authentication) throws XMLDBException, DatatypeConfigurationException {
-        return zigService.addResenje(resenje, brojPrijave, authentication);
-    }
-
-    @GetMapping(path = "/{brojPrijave}_resenje.pdf", produces = MediaType.APPLICATION_PDF_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
-    @PreAuthorize("hasAnyAuthority('SLUZBENIK', 'GRADJANIN')")
-    public ResponseEntity<Resource> getResenje(@PathVariable String brojPrijave, Authentication authentication) {
-        throw new NotImplementedException();
-    }
+//    @GetMapping(path = "/{brojPrijave}_resenje.pdf", produces = MediaType.APPLICATION_PDF_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+//    @PreAuthorize("hasAnyAuthority('SLUZBENIK', 'GRADJANIN')")
+//    public ResponseEntity<Resource> getResenje(@PathVariable String brojPrijave, Authentication authentication) {
+//        throw new NotImplementedException();
+//    }
 
     @GetMapping(path = "/izvestaj_{startDate}_{endDate}.pdf", produces = MediaType.APPLICATION_PDF_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
     @PreAuthorize("hasAuthority('SLUZBENIK')")

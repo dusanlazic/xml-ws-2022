@@ -3,7 +3,7 @@ package com.zavod.service;
 import com.zavod.dto.MetaSearchQuery;
 import com.zavod.dto.MetaSearchRequest;
 import com.zavod.model.zahtev.Zahtev;
-import com.zavod.repository.ZigRepository;
+import com.zavod.repository.ZahtevRepository;
 import com.zavod.repository.MetadataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.Set;
 public class MetadataService {
 
 	@Autowired
-	public ZigRepository zigRepository;
+	public ZahtevRepository zahtevRepository;
 
 	@Autowired
 	public MetadataRepository metadataRepository;
@@ -31,7 +31,7 @@ public class MetadataService {
 		prepreocessMetaSearchRequest(request);
 		String query = this.buildMetaSearchQuery(request, graphName, "select");
 		List<String> ids = metadataRepository.executeSparqlQuery(query);
-		return zigRepository.findByIds(ids);
+		return zahtevRepository.findByIds(ids);
 	}
 
 	private void prepreocessMetaSearchRequest(MetaSearchRequest request) {
