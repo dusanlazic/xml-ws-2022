@@ -8,13 +8,7 @@ import java.util.GregorianCalendar;
 
 public class ServiceUtil {
 
-    public static String brojToUrl(String brojPrijave) {
-        return brojPrijave
-                .replace("Ж","Z")
-                .replace("/", "-");
-    }
-
-    public static String brojToXml(String brojPrijave) {
+    public static String brojToHumanReadable(String brojPrijave) {
         String retVal = brojPrijave.replace("Z","Ж");
         int idx = retVal.lastIndexOf("-");
         if (idx != -1)

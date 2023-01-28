@@ -4,7 +4,7 @@
     vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://www.zavod.com/Resenje"
     xmlns:r="http://www.zavod.com/Resenje">
     <xs:element name="Resenje" type="r:TResenje"/>
-    <xs:complexType name="Resenje">
+    <xs:complexType name="TResenje">
         <xs:sequence>
             <xs:element name="sluzbenik" type="r:TSluzbenik"/>
             <xs:element name="zahtev" type="r:TInformacije_o_Zahtevu"/>

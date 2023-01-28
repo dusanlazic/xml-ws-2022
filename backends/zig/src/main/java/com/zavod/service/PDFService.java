@@ -28,7 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static com.zavod.util.ServiceUtil.brojToUrl;
+import static com.zavod.util.ServiceUtil.brojToHumanReadable;
 
 @Service
 public class PDFService {
@@ -105,6 +105,7 @@ public class PDFService {
             transformer.setParameter("qr_code_image", qrCodeImageUrl);
 
             // Transform DOM to HTML
+            zahtev.getInformacijeZavoda().setBrojPrijave(brojToHumanReadable(zahtev.getInformacijeZavoda().getBrojPrijave()));
             DOMSource source = new DOMSource(buildDocument(zahtev));
             StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(htmlFilename)));
             System.out.println(source);
@@ -119,25 +120,13 @@ public class PDFService {
 
     }
 
-    public ResponseEntity<Resource> serve(String filename) throws IOException {
-        Path storedFilePath = Paths.get(OUTPUT_DIR).resolve(filename);
-
-        Resource resource = new UrlResource(storedFilePath.toUri());
-        if (!resource.exists() || !resource.isReadable())
-            return null;
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(resource);
-    }
-
     public ResponseEntity<Resource> exportToResource(Zahtev zahtev, MediaType type) {
         File pdfFile = new File(OUTPUT_DIR);
         if (!pdfFile.getParentFile().exists())
             pdfFile.getParentFile().mkdir();
 
         try {
-            String brojPrijave = brojToUrl(zahtev.getInformacijeZavoda().getBrojPrijave());
+            String brojPrijave = zahtev.getInformacijeZavoda().getBrojPrijave();
             String htmlFilename = HTML_DIR + brojPrijave + ".html";
             String qrCodeImageUrl = "http://localhost:8082/zahtevi/qr/" + brojPrijave + ".png";
             generateHTML(zahtev, XSL_FILE, htmlFilename, qrCodeImageUrl);

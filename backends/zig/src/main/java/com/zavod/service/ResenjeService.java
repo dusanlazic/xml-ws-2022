@@ -33,11 +33,11 @@ public class ResenjeService {
 
         Resenje resenje = new Resenje(
                 new TSluzbenik(korisnikDTO.getIme(), korisnikDTO.getPrezime()),
-                new TInformacijeOZahtevu(brojToXml(brojPrijave)),
+                new TInformacijeOZahtevu(brojPrijave),
                 new TOdluka(today(), resenjeDTO.getOdluka().getObrazlozenje(), resenjeDTO.getOdluka().isPrihvacen())
         );
 
-        resenjeRepository.save(resenje, brojToUrl(zahtev.getInformacijeZavoda().getBrojPrijave()) + ".xml");
+        resenjeRepository.save(resenje, zahtev.getInformacijeZavoda().getBrojPrijave() + ".xml");
     }
 
     public Resenje getResenje(String brojPrijave) throws XMLDBException {
