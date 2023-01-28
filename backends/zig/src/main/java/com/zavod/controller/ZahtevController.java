@@ -53,13 +53,13 @@ public class ZahtevController {
     @GetMapping(path = "/pdf/{brojPrijave}.pdf", produces = MediaType.APPLICATION_PDF_VALUE)
     @PreAuthorize("hasAuthority('SLUZBENIK')")
     public ResponseEntity<Resource> pdf(@PathVariable String brojPrijave) throws XMLDBException {
-        return pdfService.exportToResource(zigService.getZahtev(brojPrijave));
+        return pdfService.exportToResource(zigService.getZahtev(brojPrijave), MediaType.APPLICATION_PDF);
     }
 
     @GetMapping(path = "/xhtml/{brojPrijave}.xhtml", produces = MediaType.APPLICATION_XHTML_XML_VALUE)
     @PreAuthorize("hasAuthority('SLUZBENIK')")
-    public ResponseEntity<Resource> xhtml(@PathVariable String brojPrijave) {
-        throw new NotImplementedException();
+    public ResponseEntity<Resource> xhtml(@PathVariable String brojPrijave) throws XMLDBException {
+        return pdfService.exportToResource(zigService.getZahtev(brojPrijave), MediaType.APPLICATION_XHTML_XML);
     }
 
     @GetMapping(path = "/rdf/{brojPrijave}.rdf", produces = MediaType.APPLICATION_XML_VALUE)

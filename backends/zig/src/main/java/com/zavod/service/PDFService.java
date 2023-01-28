@@ -117,33 +117,6 @@ public class PDFService {
 
     }
 
-    public ResponseEntity<Resource> exportToResource(Zahtev zahtev) {
-        File pdfFile = new File(OUTPUT_DIR);
-
-        if (!pdfFile.getParentFile().exists()) {
-            System.out.println("[INFO] A new directory is created: " + pdfFile.getParentFile().getAbsolutePath() + ".");
-            pdfFile.getParentFile().mkdir();
-        }
-
-        try {
-            String brojPrijave = urlSafe(zahtev.getInformacijeZavoda().getBrojPrijave());
-            String htmlFilename = HTML_DIR + brojPrijave + ".html";
-            String pdfFilename = OUTPUT_DIR + brojPrijave + ".pdf";
-            String qrCodeImageUrl = "http://localhost:8082/zahtevi/qr/" + brojPrijave + ".png";
-
-            generateHTML(zahtev, XSL_FILE, htmlFilename, qrCodeImageUrl);
-            generatePDF(pdfFilename, htmlFilename);
-
-            System.out.println("[INFO] File \"" + pdfFilename + "\" generated successfully.");
-
-            return ResponseEntity.ok()
-                    .contentType(MediaType.APPLICATION_PDF)
-                    .body(new UrlResource(Paths.get(pdfFilename).toUri()));
-        } catch (DocumentException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public ResponseEntity<Resource> serve(String filename) throws IOException {
         Path storedFilePath = Paths.get(OUTPUT_DIR).resolve(filename);
 
@@ -154,6 +127,35 @@ public class PDFService {
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(resource);
+    }
+
+    public ResponseEntity<Resource> exportToResource(Zahtev zahtev, MediaType type) {
+        File pdfFile = new File(OUTPUT_DIR);
+        if (!pdfFile.getParentFile().exists())
+            pdfFile.getParentFile().mkdir();
+
+        try {
+            String brojPrijave = urlSafe(zahtev.getInformacijeZavoda().getBrojPrijave());
+            String htmlFilename = HTML_DIR + brojPrijave + ".html";
+            String qrCodeImageUrl = "http://localhost:8082/zahtevi/qr/" + brojPrijave + ".png";
+            generateHTML(zahtev, XSL_FILE, htmlFilename, qrCodeImageUrl);
+
+            Path resourcePath;
+            if (type.equals(MediaType.APPLICATION_PDF)) {
+                String pdfFilename = OUTPUT_DIR + brojPrijave + ".pdf";
+                generatePDF(pdfFilename, htmlFilename);
+                resourcePath = Paths.get(pdfFilename);
+            } else {
+                resourcePath = Paths.get(htmlFilename);
+            }
+
+            return ResponseEntity.ok()
+                    .contentType(type)
+                    .body(new UrlResource(resourcePath.toUri()));
+
+        } catch (DocumentException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public ResponseEntity<byte[]> qrCodeToResource(String brojPrijave) throws BadElementException, IOException, WriterException {
