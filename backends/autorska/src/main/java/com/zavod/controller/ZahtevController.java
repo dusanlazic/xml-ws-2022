@@ -44,11 +44,6 @@ public class ZahtevController {
         return new Zahtevi(zahtevService.getAll());
     }
 
-    @GetMapping(path = "/qr/{brojPrijave}.png", produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<byte[]> qr(@PathVariable String brojPrijave) throws Exception {
-        return pdfService.qrCodeToResource(brojPrijave);
-    }
-
     @GetMapping(path = "/export/{brojPrijave}.pdf", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<Resource> exportPdf(@PathVariable String brojPrijave) throws XMLDBException {
         return pdfService.exportToResource(zahtevService.getZahtev(brojPrijave), MediaType.APPLICATION_PDF);
@@ -70,14 +65,14 @@ public class ZahtevController {
     }
 
     @PostMapping(path = "/search", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
-    @PreAuthorize("hasAnyAuthority('SLUZBENIK', 'GRADJANIN')")
+    @PreAuthorize("hasAuthority('SLUZBENIK')")
     public Zahtevi search(@RequestBody SearchRequest searchRequest) {
         if(searchRequest.getQuery().size() == 0) return new Zahtevi();
         return new Zahtevi(zahtevService.search(searchRequest.getQuery()));
     }
 
     @PostMapping(path = "/search-meta", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
-    @PreAuthorize("hasAnyAuthority('SLUZBENIK', 'GRADJANIN')")
+    @PreAuthorize("hasAuthority('SLUZBENIK')")
     public Zahtevi metaSearch(@RequestBody MetaSearchRequest metaSearchRequest) throws XMLDBException {
         for (MetaSearchQuery searchQuery: metaSearchRequest.getQuery()) {
             System.out.println(searchQuery.getPredicate() + " " + searchQuery.getObject() + " " + searchQuery.getOperator());

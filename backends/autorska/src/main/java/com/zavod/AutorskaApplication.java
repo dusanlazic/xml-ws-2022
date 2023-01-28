@@ -1,7 +1,7 @@
 package com.zavod;
 
-import com.zavod.model.Zahtev;
-import com.zavod.repository.AutorskaRepository;
+import com.zavod.model.zahtev.Zahtev;
+import com.zavod.repository.ZahtevRepository;
 import com.zavod.repository.MetadataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +19,7 @@ import java.util.List;
 public class AutorskaApplication {
 
 	@Autowired
-	private AutorskaRepository autorskaRepository;
+	private ZahtevRepository zahtevRepository;
 
 	@Autowired
 	private MetadataRepository metadataRepository;
@@ -30,8 +30,8 @@ public class AutorskaApplication {
 
 	@PostConstruct
 	public void init() throws Exception {
-		autorskaRepository.load();
-		List<Zahtev> zahtevi = autorskaRepository.getAll();
+		zahtevRepository.load();
+		List<Zahtev> zahtevi = zahtevRepository.getAll();
 		for (Zahtev zahtev: zahtevi) {
 			try {
 				String rdf = metadataRepository.loadRdf(zahtev);

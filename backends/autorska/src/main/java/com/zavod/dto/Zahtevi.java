@@ -1,6 +1,6 @@
 package com.zavod.dto;
 
-import com.zavod.model.Zahtev;
+import com.zavod.model.zahtev.Zahtev;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;

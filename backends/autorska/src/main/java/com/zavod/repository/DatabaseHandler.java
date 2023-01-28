@@ -6,22 +6,27 @@ import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.CollectionManagementService;
-import org.xmldb.api.modules.XMLResource;
-import org.xmldb.api.modules.XUpdateQueryService;
-
-import java.io.IOException;
 
 public class DatabaseHandler {
-    public static String contextPath = "com.zavod.model";
-    public static String dataPath = "./src/main/resources/xml/";
-    public static String documentId = "a1.xml";
-    public static String collectionId = "/db/autorska";
-
-    public static String collectionName = "/Zahtevi";
+    private final String dataPath;
+    private final String collectionId;
 
     private static AuthenticationUtilities.ExistConnectionProperties conn;
 
-    public static void establishConnection() {
+    public DatabaseHandler(String dataPath, String collectionId) {
+        this.dataPath = dataPath;
+        this.collectionId = collectionId;
+    }
+
+    public String getDataPath() {
+        return dataPath;
+    }
+
+    public String getCollectionId() {
+        return collectionId;
+    }
+
+    public void establishConnection() {
         try {
             conn = AuthenticationUtilities.loadExistProperties();
             Class<?> cl = Class.forName(conn.driver);
@@ -33,36 +38,17 @@ public class DatabaseHandler {
         }
     }
 
-    public static XUpdateQueryService getUpdateService() throws XMLDBException {
-        Collection col = getCollection(collectionId);
-        XUpdateQueryService xupdateService = (XUpdateQueryService) col.getService("XUpdateQueryService", "1.0");
-        xupdateService.setProperty("indent", "yes");
-        return xupdateService;
+    public Collection getOrCreateCollection() throws XMLDBException {
+        return getOrCreateCollection(collectionId, 0);
     }
 
-    public static XMLResource createResource() throws XMLDBException {
-        Collection col = getOrCreateCollection(collectionId);;
-        return (XMLResource) col.createResource(documentId, XMLResource.RESOURCE_TYPE);
+    public Collection getCollection() throws XMLDBException {
+        return DatabaseManager.getCollection(conn.uri + collectionId, conn.user, conn.password);
     }
 
-    public static XMLResource getResource() throws XMLDBException {
-        Collection col = getOrCreateCollection(collectionId);;
-        return (XMLResource) col.getResource(documentId);
-    }
-
-    public static Collection getOrCreateCollection(String collectionUri) throws XMLDBException {
-        return getOrCreateCollection(collectionUri, 0);
-    }
-
-    public static Collection getCollection(String collectionUri) throws XMLDBException {
+    private Collection getOrCreateCollection(String collectionUri, int pathSegmentOffset) throws XMLDBException {
         Collection col = DatabaseManager.getCollection(conn.uri + collectionUri, conn.user, conn.password);
-        return col;
-    }
 
-    private static Collection getOrCreateCollection(String collectionUri, int pathSegmentOffset) throws XMLDBException {
-        Collection col = DatabaseManager.getCollection(conn.uri + collectionUri, conn.user, conn.password);
-        // xmldb:exist://localhost:8080/exist-autorska/xmlrpc/db/autorska
-        // xmldb:exist://localhost:8080/exist-autorska/xmlrpc/db/sample/library
         // create the collection if it does not exist
         if (col != null) {
             return col;

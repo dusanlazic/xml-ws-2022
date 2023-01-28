@@ -215,7 +215,7 @@ public abstract class ExistRepository<T> {
                 "    (some $t in $txt satisfies (contains(lower-case($t), lower-case($keyword))))\n" +
                 "};\n" +
                 "\n" +
-                "for $zahtev in collection('/db/zig')\n" +
+                "for $zahtev in collection('/db/zahtevi')\n" +
                 "    let $txt := $zahtev//text()\n" +
                 "    where ");
         for (int i = 0; i < queries.size(); i++) {

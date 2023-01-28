@@ -1,16 +1,17 @@
 package com.zavod.repository;
 
-import com.zavod.model.Zahtev;
 import com.zavod.util.AuthenticationUtilities;
 import com.zavod.util.MarshallingService;
 import lombok.var;
 import org.exist.xmldb.EXistResource;
 import org.xmldb.api.base.*;
 import org.xmldb.api.modules.XMLResource;
-import org.xmldb.api.modules.XPathQueryService;
 import org.xmldb.api.modules.XQueryService;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,22 +21,24 @@ import static com.zavod.util.XUpdateTemplate.TARGET_NAMESPACE;
 
 public abstract class ExistRepository<T> {
 
-
     MarshallingService<T> marshallingService;
     static AuthenticationUtilities.ExistConnectionProperties conn = AuthenticationUtilities.loadExistProperties();;
+    private DatabaseHandler db;
     private Collection col;
     private XMLResource res;
 
-    public ExistRepository(Class<T> tt) {
+    public ExistRepository(Class<T> tt, DatabaseHandler db) {
         this.marshallingService = new MarshallingService<>(tt);
-        DatabaseHandler.establishConnection();
+        this.db = db;
+
+        db.establishConnection();
     }
 
     public XMLResource getResource(String documentName) {
         col = null;
         res = null;
         try {
-            col = DatabaseHandler.getCollection(DatabaseHandler.collectionId);
+            col = db.getCollection();
             res = (XMLResource) col.getResource(documentName);
             return res;
         } catch (Exception e) {
@@ -62,7 +65,7 @@ public abstract class ExistRepository<T> {
         col = null;
         res = null;
         try {
-            col = DatabaseHandler.getCollection(DatabaseHandler.collectionId);
+            col = db.getCollection();
             var resources = col.listResources();
             return Arrays.stream(resources).map(this::getResource).collect(Collectors.toList());
         } catch (Exception e) {
@@ -104,7 +107,7 @@ public abstract class ExistRepository<T> {
         col = null;
         res = null;
         try {
-            col = DatabaseHandler.getOrCreateCollection(DatabaseHandler.collectionId);
+            col = db.getOrCreateCollection();
             res = (XMLResource) col.createResource(docName, XMLResource.RESOURCE_TYPE);
             OutputStream os = new ByteArrayOutputStream();
             marshallingService.marshall(t, os);
@@ -124,7 +127,7 @@ public abstract class ExistRepository<T> {
     }
 
     public File[] getAllXmlFiles() {
-        File dir = new File(DatabaseHandler.dataPath);
+        File dir = new File(db.getDataPath());
         return dir.listFiles((dir1, name) -> name.endsWith(".xml"));
     }
 
@@ -147,10 +150,10 @@ public abstract class ExistRepository<T> {
     }
 
     public List<T> search(List<String> queries) {
-        org.xmldb.api.base.Collection col = null;
+        Collection col = null;
         Resource res = null;
         try {
-            col = DatabaseHandler.getCollection(DatabaseHandler.collectionId);
+            col = db.getCollection();
 //            XPathQueryService xpathService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
 //            xpathService.setProperty("indent", "yes");
 //            xpathService.setNamespace("", TARGET_NAMESPACE);
@@ -194,7 +197,7 @@ public abstract class ExistRepository<T> {
                 "    (some $t in $txt satisfies (contains(lower-case($t), lower-case($keyword))))\n" +
                 "};\n" +
                 "\n" +
-                "for $zahtev in collection('/db/autorska')\n" +
+                "for $zahtev in collection('/db/zahtevi')\n" +
                 "    let $txt := $zahtev//text()\n" +
                 "    where ");
         for (int i = 0; i < queries.size(); i++) {
