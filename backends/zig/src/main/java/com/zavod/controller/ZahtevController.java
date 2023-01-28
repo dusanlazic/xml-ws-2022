@@ -18,6 +18,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.xmldb.api.base.XMLDBException;
 
+import static com.zavod.util.ServiceUtil.brojToXml;
+
 @RestController
 @RequestMapping("/zahtevi")
 public class ZahtevController {
@@ -49,24 +51,24 @@ public class ZahtevController {
         return pdfService.qrCodeToResource(brojPrijave);
     }
 
-    @GetMapping(path = "/pdf/{brojPrijave}.pdf", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<Resource> pdf(@PathVariable String brojPrijave) throws XMLDBException {
+    @GetMapping(path = "/export/{brojPrijave}.pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<Resource> exportPdf(@PathVariable String brojPrijave) throws XMLDBException {
         return pdfService.exportToResource(zahtevService.getZahtev(brojPrijave), MediaType.APPLICATION_PDF);
     }
 
-    @GetMapping(path = "/xhtml/{brojPrijave}.xhtml", produces = MediaType.APPLICATION_XHTML_XML_VALUE)
-    public ResponseEntity<Resource> xhtml(@PathVariable String brojPrijave) throws XMLDBException {
+    @GetMapping(path = "/export/{brojPrijave}.xhtml", produces = MediaType.APPLICATION_XHTML_XML_VALUE)
+    public ResponseEntity<Resource> exportXhtml(@PathVariable String brojPrijave) throws XMLDBException {
         return pdfService.exportToResource(zahtevService.getZahtev(brojPrijave), MediaType.APPLICATION_XHTML_XML);
     }
 
-    @GetMapping(path = "/rdf/{brojPrijave}.rdf", produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Resource> rdf(@PathVariable String brojPrijave) {
-        throw new NotImplementedException();
+    @GetMapping(path = "/export/{brojPrijave}.rdf", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<String> exportRdf(@PathVariable String brojPrijave) {
+        return metadataService.exportToRDF(brojToXml(brojPrijave));
     }
 
-    @GetMapping(path = "/json/{brojPrijave}.json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource> json(@PathVariable String brojPrijave) {
-        throw new NotImplementedException();
+    @GetMapping(path = "/export/{brojPrijave}.json", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> exportJson(@PathVariable String brojPrijave) {
+        return metadataService.exportToJSON(brojToXml(brojPrijave));
     }
 
     @PostMapping(path = "/search", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
@@ -83,18 +85,6 @@ public class ZahtevController {
             System.out.println(searchQuery.getPredicate() + " " + searchQuery.getObject() + " " + searchQuery.getOperator());
         }
         return new Zahtevi(metadataService.metaSearch(metaSearchRequest));
-    }
-
-    @GetMapping("/export/rdf")
-    public void exportToRDF() throws XMLDBException {
-        String brojPrijave = "Ж-0/10";
-        metadataService.exportToRDF(brojPrijave);
-    }
-
-    @GetMapping("/export/json")
-    public void exportToJSON() throws XMLDBException {
-        String brojPrijave = "Ж-0/10";
-        metadataService.exportToJSON(brojPrijave);
     }
 
 //    @GetMapping(path = "/{brojPrijave}_resenje.pdf", produces = MediaType.APPLICATION_PDF_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)

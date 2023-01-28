@@ -6,9 +6,12 @@ import com.zavod.model.zahtev.Zahtev;
 import com.zavod.repository.ZahtevRepository;
 import com.zavod.repository.MetadataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -81,7 +84,7 @@ public class MetadataService {
 		return result;
 	}
 
-	public void exportToRDF(String brojPrijave) {
+	public ResponseEntity<String> exportToRDF(String brojPrijave) {
 		MetaSearchRequest req = new MetaSearchRequest();
 		req.setQuery(new ArrayList<>());
 		MetaSearchQuery query = new MetaSearchQuery();
@@ -92,11 +95,16 @@ public class MetadataService {
 		req.getQuery().add(query);
 		prepreocessMetaSearchRequest(req);
 		String queryStr = this.buildMetaSearchQuery(req, graphName, "describe");
-		metadataRepository.executeDescribeQuery(queryStr, System.out);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		metadataRepository.executeDescribeQuery(queryStr, baos);
+		return ResponseEntity.ok()
+				.contentType(MediaType.APPLICATION_XML)
+				.body(baos.toString());
 	}
 
 
-	public void exportToJSON(String brojPrijave) {
+	public ResponseEntity<String> exportToJSON(String brojPrijave) {
 		String queryStr =
 						"select ?subject ?predicate ?object FROM "+ graphName + " \n" +
 						"WHERE {  \n" +
@@ -104,6 +112,10 @@ public class MetadataService {
 						"\t?subject <http://www.zavod.com/Zig/pred/Broj_prijave> ?Broj_prijave . \n" +
 						"\tFILTER ( ( ?Broj_prijave='"+ brojPrijave +"' ) ) \n" +
 						"}";
-		metadataRepository.executeSelectQuery(queryStr, System.out);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		metadataRepository.executeSelectQuery(queryStr, baos);
+		return ResponseEntity.ok()
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(baos.toString());
 	}
 }
