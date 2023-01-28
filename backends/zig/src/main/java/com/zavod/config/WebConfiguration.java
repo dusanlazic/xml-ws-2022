@@ -28,6 +28,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
                 Zahtevi.class,
                 Kredencijali.class,
                 KorisnikDTO.class,
+                KorisnikRegisterDTO.class,
                 TokenDTO.class
         ).forEach(c -> {
             converters.add(0, new XmlGenericConverter<>(c, MediaType.APPLICATION_XML));

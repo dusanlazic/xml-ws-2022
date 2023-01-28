@@ -1,6 +1,7 @@
 package com.zavod.service;
 
 import com.zavod.dto.KorisnikDTO;
+import com.zavod.dto.KorisnikRegisterDTO;
 import com.zavod.dto.Kredencijali;
 import com.zavod.dto.TokenDTO;
 import com.zavod.exception.EmailAlreadyInUseException;
@@ -8,6 +9,7 @@ import com.zavod.exception.WrongCredentialsException;
 import com.zavod.model.Korisnik;
 import com.zavod.repository.KorisnikRepository;
 import com.zavod.security.TokenProvider;
+import org.checkerframework.checker.units.qual.K;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,11 +41,19 @@ public class KorisnikService {
         return new TokenDTO(tokenProvider.createAccessToken(korisnik.get()), new KorisnikDTO(korisnik.get()));
     }
 
-    public void register(Korisnik korisnik) {
-        if (korisnikRepository.existsByEmail(korisnik.getEmail()))
+    public void register(KorisnikRegisterDTO korisnikDto) {
+        if (korisnikRepository.existsByEmail(korisnikDto.getEmail()))
             throw new EmailAlreadyInUseException();
 
-        korisnik.setLozinka(passwordEncoder.encode(korisnik.getLozinka()));
+        Korisnik korisnik = new Korisnik(
+                999L,
+                korisnikDto.getEmail(),
+                passwordEncoder.encode(korisnikDto.getLozinka()),
+                korisnikDto.getIme(),
+                korisnikDto.getPrezime(),
+                korisnikDto.getUloga()
+        );
+
         this.korisnikRepository.save(korisnik, korisnik.getId() + ".xml");
     }
 }

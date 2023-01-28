@@ -70,6 +70,18 @@ public class Korisnik {
     @XmlElement(required = true)
     protected String uloga;
 
+    public Korisnik() {
+    }
+
+    public Korisnik(long id, String email, String lozinka, String ime, String prezime, String uloga) {
+        this.id = id;
+        this.email = email;
+        this.lozinka = lozinka;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.uloga = uloga;
+    }
+
     /**
      * Gets the value of the id property.
      * 
