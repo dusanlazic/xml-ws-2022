@@ -5,10 +5,15 @@ import com.zavod.dto.MetaSearchRequest;
 import com.zavod.model.Zahtev;
 import com.zavod.repository.ZigRepository;
 import com.zavod.repository.MetadataRepository;
+import com.zavod.util.SparqlUtil;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
+import org.apache.jena.rdf.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,15 +27,18 @@ public class MetadataService {
 	@Autowired
 	public MetadataRepository metadataRepository;
 
+	String graphName = "<http://localhost:8080/fuseki-zig/ZahteviDataset/data/zahtevi/metadata>";
+	String namespace = "http://www.zavod.com/Zig/pred/";
+
+
 	public List<Zahtev> metaSearch(MetaSearchRequest request) throws XMLDBException {
-		String graphName = "<http://localhost:8080/fuseki-zig/ZahteviDataset/data/zahtevi/metadata>";
-		request = prepreocessMetaSearchRequest(request);
-		String query = this.buildMetaSearchQuery(request, graphName);
+		prepreocessMetaSearchRequest(request);
+		String query = this.buildMetaSearchQuery(request, graphName, "select");
 		List<String> ids = metadataRepository.executeSparqlQuery(query);
 		return zigRepository.findByIds(ids);
 	}
 
-	private MetaSearchRequest prepreocessMetaSearchRequest(MetaSearchRequest request) {
+	private void prepreocessMetaSearchRequest(MetaSearchRequest request) {
 		for (MetaSearchQuery query : request.getQuery()) {
 			query.setObject("'"+query.getObject()+"'");
 			switch (query.getOperator()) {
@@ -45,14 +53,13 @@ public class MetadataService {
 					break;
 			}
 		}
-		return request;
 	}
 
-	public String buildMetaSearchQuery(MetaSearchRequest request, String graphName) {
+	public String buildMetaSearchQuery(MetaSearchRequest request, String graphName, String queryType) {
 		StringBuilder query = new StringBuilder();
 		Set<String> predicates = getUniquePredicates(request);
-		String namespace = "http://www.zavod.com/Zig/pred/";
-		query.append("SELECT ?subject FROM ").append(graphName).append(" \nWHERE {  \n");
+
+		query.append(queryType + " ?subject FROM ").append(graphName).append(" \nWHERE {  \n");
 		query.append("\t?subject ?predicate ?object . \n");
 		for (String predicate : predicates) {
 			query.append("\t?subject <").append(namespace).append(predicate).append("> ?").append(predicate).append(" . \n");
@@ -76,5 +83,31 @@ public class MetadataService {
 			result.add(query.getPredicate());
 		}
 		return result;
+	}
+
+	public void exportToRDF(String brojPrijave) {
+		MetaSearchRequest req = new MetaSearchRequest();
+		req.setQuery(new ArrayList<>());
+		MetaSearchQuery query = new MetaSearchQuery();
+		query.setPredicate("Broj_prijave");
+		query.setRelation("=");
+		query.setObject(brojPrijave);
+		query.setOperator("I");
+		req.getQuery().add(query);
+		prepreocessMetaSearchRequest(req);
+		String queryStr = this.buildMetaSearchQuery(req, graphName, "describe");
+		metadataRepository.executeDescribeQuery(queryStr, System.out);
+	}
+
+
+	public void exportToJSON(String brojPrijave) {
+		String queryStr =
+						"select ?subject ?predicate ?object FROM "+ graphName + " \n" +
+						"WHERE {  \n" +
+						"\t?subject ?predicate ?object . \n" +
+						"\t?subject <http://www.zavod.com/Zig/pred/Broj_prijave> ?Broj_prijave . \n" +
+						"\tFILTER ( ( ?Broj_prijave='"+ brojPrijave +"' ) ) \n" +
+						"}";
+		metadataRepository.executeSelectQuery(queryStr, System.out);
 	}
 }

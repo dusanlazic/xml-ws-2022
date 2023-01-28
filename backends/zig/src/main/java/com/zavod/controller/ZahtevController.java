@@ -90,6 +90,18 @@ public class ZahtevController {
         return new Zahtevi(metadataService.metaSearch(metaSearchRequest));
     }
 
+    @GetMapping("/export/rdf")
+    public void exportToRDF() throws XMLDBException {
+        String brojPrijave = "Ж-0/10";
+        metadataService.exportToRDF(brojPrijave);
+    }
+
+    @GetMapping("/export/json")
+    public void exportToJSON() throws XMLDBException {
+        String brojPrijave = "Ж-0/10";
+        metadataService.exportToJSON(brojPrijave);
+    }
+
     @PostMapping(path = "/{brojPrijave}/resenje", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
     @PreAuthorize("hasAuthority('SLUZBENIK')")
     public Object addResenje(@PathVariable String brojPrijave, @RequestBody Object resenje) {

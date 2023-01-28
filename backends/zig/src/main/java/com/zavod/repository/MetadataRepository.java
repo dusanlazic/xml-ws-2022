@@ -10,6 +10,7 @@ import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.sparql.resultset.RDFOutput;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
@@ -102,12 +103,28 @@ public class MetadataRepository {
         return osout.toString();
     }
 
+
+    public Model executeDescribeQuery(String sparqlQuery, OutputStream os) {
+        System.out.println(sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
+        Model model = query.execDescribe();
+        model.write(os, SparqlUtil.RDF_XML);
+        return model;
+    }
+
+    public ResultSet executeSelectQuery(String sparqlQuery, OutputStream os) {
+        System.out.println(sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
+        ResultSet results = query.execSelect();
+        ResultSetFormatter.outputAsJSON(os, results);
+        return results;
+    }
+
     public List<String> executeSparqlQuery(String sparqlQuery) {
 
         System.out.println(sparqlQuery);
 
         QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
-
         ResultSet results = query.execSelect();
 
         String varName;
@@ -136,6 +153,8 @@ public class MetadataRepository {
         System.out.println("[INFO] Showing the results for SPARQL query in native SPARQL XML format.\n");
         results = query.execSelect();
         ResultSetFormatter.out(System.out, results);
+
+
         query.close();
         System.out.println("[INFO] End.");
         return values;
