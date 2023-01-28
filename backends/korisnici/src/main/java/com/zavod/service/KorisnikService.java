@@ -13,6 +13,8 @@ import org.checkerframework.checker.units.qual.K;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.xmldb.api.base.ResourceIterator;
+import org.xmldb.api.base.ResourceSet;
 
 import java.util.Optional;
 
@@ -46,7 +48,7 @@ public class KorisnikService {
             throw new EmailAlreadyInUseException();
 
         Korisnik korisnik = new Korisnik(
-                999L,
+                getMaxId() + 1,
                 korisnikDto.getEmail(),
                 passwordEncoder.encode(korisnikDto.getLozinka()),
                 korisnikDto.getIme(),
@@ -55,5 +57,23 @@ public class KorisnikService {
         );
 
         this.korisnikRepository.save(korisnik, korisnik.getId() + ".xml");
+    }
+
+    private long getMaxId() {
+        long maxId = 0;
+        try {
+            ResourceSet results = korisnikRepository.executeXPath("//Korisnik/id/text()");
+            ResourceIterator i = results.getIterator();
+            while (i.hasMoreResources()) {
+                long id = Long.parseLong(i.nextResource().getContent().toString());
+                if (id > maxId) {
+                    maxId = id;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error while getting max id.");
+        }
+        return maxId;
     }
 }

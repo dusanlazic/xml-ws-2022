@@ -46,13 +46,19 @@
                         <input matInput [(ngModel)]="name">
                     </mat-form-field>
                     <mat-form-field appearance="fill" style="width: 48%; margin-left: 5px;">
-                        <mat-label [(ngModel)]="lastname">Prezime</mat-label>
-                        <input matInput>
+                        <mat-label>Prezime</mat-label>
+                        <input matInput [(ngModel)]="lastname">
                     </mat-form-field>
                 </div>
+                <div class="mt-2 mb-5">
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button value="gradjanin" checked="true">Građanin</mat-radio-button>
+                        <mat-radio-button value="sluzbenik" style="margin-left: 16px; margin-bottom: 16px;">Službenik</mat-radio-button>
+                      </mat-radio-group>                      
+                </div>
 
-                <div>
-                    <button mat-stroked-button (click)="register()">Registruj se</button>
+                <div class="mt-3">
+                    <button mat-stroked-button (click)="register()" class="mt-4">Registruj se</button>
                 </div>
             </div>
         </mat-tab>

@@ -41,6 +41,8 @@ import { PretragaRezultatiComponent } from './autorska/pretraga/pretraga-rezulta
 import { PretragaRezultatComponent } from './autorska/pretraga/pretraga-rezultati/pretraga-rezultat/pretraga-rezultat.component';
 import { PretragaObicnaComponent } from './autorska/pretraga/pretraga-obicna/pretraga-obicna.component';
 import { ToastrModule } from 'ngx-toastr';
+import { MatRadioModule } from '@angular/material/radio'; 
+
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatStepperModule,
     MatDialogModule,
     MatGridListModule,
+    MatRadioModule,
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
