@@ -18,8 +18,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.xmldb.api.base.XMLDBException;
 
-import static com.zavod.util.ServiceUtil.brojToXml;
-
 @RestController
 @RequestMapping("/zahtevi")
 public class ZahtevController {
@@ -63,12 +61,12 @@ public class ZahtevController {
 
     @GetMapping(path = "/export/{brojPrijave}.rdf", produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<String> exportRdf(@PathVariable String brojPrijave) {
-        return metadataService.exportToRDF(brojToXml(brojPrijave));
+        return metadataService.exportToRDF(brojPrijave);
     }
 
     @GetMapping(path = "/export/{brojPrijave}.json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> exportJson(@PathVariable String brojPrijave) {
-        return metadataService.exportToJSON(brojToXml(brojPrijave));
+        return metadataService.exportToJSON(brojPrijave);
     }
 
     @PostMapping(path = "/search", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)

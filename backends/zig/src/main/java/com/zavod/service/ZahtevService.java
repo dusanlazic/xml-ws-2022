@@ -9,8 +9,6 @@ import org.xmldb.api.base.XMLDBException;
 
 import java.util.List;
 
-import static com.zavod.util.ServiceUtil.brojToUrl;
-
 @Service
 public class ZahtevService {
 
@@ -29,7 +27,7 @@ public class ZahtevService {
     }
 
     public void addZahtev(Zahtev zahtev) {
-        this.zahtevRepository.save(zahtev, brojToUrl(zahtev.getInformacijeZavoda().getBrojPrijave()) + ".xml");
+        this.zahtevRepository.save(zahtev, zahtev.getInformacijeZavoda().getBrojPrijave() + ".xml");
     }
 
     public List<Zahtev> search(List<String> query) {
