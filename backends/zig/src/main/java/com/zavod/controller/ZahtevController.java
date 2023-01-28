@@ -70,14 +70,14 @@ public class ZahtevController {
     }
 
     @PostMapping(path = "/search", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
-    @PreAuthorize("hasAuthority('SLUZBENIK')")
+    @PreAuthorize("hasAnyAuthority('SLUZBENIK', 'GRADJANIN')")
     public Zahtevi search(@RequestBody SearchRequest searchRequest) {
         if(searchRequest.getQuery().size() == 0) return new Zahtevi();
         return new Zahtevi(zahtevService.search(searchRequest.getQuery()));
     }
 
     @PostMapping(path = "/search-meta", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
-    @PreAuthorize("hasAuthority('SLUZBENIK')")
+    @PreAuthorize("hasAnyAuthority('SLUZBENIK', 'GRADJANIN')")
     public Zahtevi metaSearch(@RequestBody MetaSearchRequest metaSearchRequest) throws XMLDBException {
         for (MetaSearchQuery searchQuery: metaSearchRequest.getQuery()) {
             System.out.println(searchQuery.getPredicate() + " " + searchQuery.getObject() + " " + searchQuery.getOperator());

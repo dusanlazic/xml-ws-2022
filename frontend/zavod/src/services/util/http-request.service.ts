@@ -8,7 +8,6 @@ export const zigBackend: string = "http://localhost:8082";
 export const korisinciBackend: string = "http://localhost:8083";
 
 
-
 @Injectable({
     providedIn: 'root'
 })
@@ -19,14 +18,20 @@ export class HttpRequestService {
 
     createHeaders(): HttpHeaders {
         let token = this.localStorageService.get("access_token");
-        const headers = new HttpHeaders({
+        let headers = new HttpHeaders({
             'Content-type': 'application/xml',
             'Accept': 'application/xml'
         });
 
         if (token) {
-            headers.append("Bearer", token)
+            console.log("appends");
+            
+            headers = headers.append("Authorization", "Bearer " + token)
         }
+        console.log(this.localStorageService.get("access_token"));
+        
+        console.log(headers);
+        
 
         return headers;
     }

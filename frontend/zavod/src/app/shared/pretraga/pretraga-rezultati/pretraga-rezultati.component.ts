@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ResultService } from 'src/services/util/result.service';
 
 @Component({
@@ -9,8 +10,11 @@ import { ResultService } from 'src/services/util/result.service';
 export class PretragaRezultatiComponent implements OnInit {
 
   rezultati: any[] = [];
+  serviceName: string = "";
 
-  constructor(private resultService: ResultService) { }
+  constructor(private resultService: ResultService, private router: Router) { 
+    this.serviceName = this.router.url.split("/")[1];
+  }
 
   ngOnInit(): void {
     this.resultService.subscribeToResult().subscribe((data: any) => {

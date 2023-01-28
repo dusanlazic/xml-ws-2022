@@ -6,10 +6,10 @@ import { HttpRequestService } from 'src/services/util/http-request.service';
 
 @Component({
   selector: 'app-novi-zahtev',
-  templateUrl: './novi-zahtev.component.html',
-  styleUrls: ['./novi-zahtev.component.sass']
+  templateUrl: './novi-zahtev-autorska.component.html',
+  styleUrls: ['./novi-zahtev-autorska.component.sass']
 })
-export class NoviZahtevComponent implements OnInit {
+export class NoviZahtevAutorskaComponent implements OnInit {
 
 	ngOnInit(): void {
 

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PretragaRezultatComponent } from './pretraga-rezultat.component';
+import { PretragaRezultatAutorskaComponent } from './pretraga-rezultat-autorska.component';
 
 describe('PretragaRezultatComponent', () => {
-  let component: PretragaRezultatComponent;
-  let fixture: ComponentFixture<PretragaRezultatComponent>;
+  let component: PretragaRezultatAutorskaComponent;
+  let fixture: ComponentFixture<PretragaRezultatAutorskaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PretragaRezultatComponent ]
+      declarations: [ PretragaRezultatAutorskaComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PretragaRezultatComponent);
+    fixture = TestBed.createComponent(PretragaRezultatAutorskaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

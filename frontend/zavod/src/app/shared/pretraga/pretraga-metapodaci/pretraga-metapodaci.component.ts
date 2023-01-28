@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpRequestService } from 'src/services/util/http-request.service';
+import { Router } from '@angular/router';
+import { HttpRequestService, autorskaBackend, zigBackend } from 'src/services/util/http-request.service';
 import { ResultService } from 'src/services/util/result.service';
 var convert = require('xml-js');
 
@@ -11,9 +12,22 @@ var convert = require('xml-js');
 export class PretragaMetapodaciComponent implements OnInit {
 
   conditions: {name: string, value: string, operator: string, relation: string}[] = [];
+  serviceName: string = "";
+  backend: string = ""
 
   ops: string[] = [];
-  constructor(private httpService: HttpRequestService, private resultService: ResultService) { }
+  constructor(
+    private httpService: HttpRequestService, 
+    private resultService: ResultService, 
+    private router: Router
+  ) {
+    this.serviceName = this.router.url.split("/")[1];
+    if(this.serviceName == "autorska") {
+      this.backend = autorskaBackend
+    } else if(this.serviceName == "zig") {
+      this.backend = zigBackend
+    } 
+  }
 
   ngOnInit(): void {
     this.ops = ['I', 'ILI', 'NE'];
@@ -46,7 +60,7 @@ export class PretragaMetapodaciComponent implements OnInit {
 
     const xml = convert.js2xml(parsed, {compact: true, spaces: 4});
     
-    this.httpService.post('http://localhost:8081/autorska/search-meta', xml).subscribe((data: any) => {
+    this.httpService.post(this.backend + '/zahtevi/search-meta', xml).subscribe((data: any) => {
         let options = {ignoreComment: true, alwaysChildren: true, compact: true, elementNameFn: this.parseName };
         let results = convert.xml2js(data, options);
         console.log(results);

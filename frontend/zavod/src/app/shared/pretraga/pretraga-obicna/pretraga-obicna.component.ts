@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatChipInputEvent} from '@angular/material/chips';
-import { HttpRequestService } from 'src/services/util/http-request.service';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/services/auth/auth.service';
+import { HttpRequestService, autorskaBackend, zigBackend } from 'src/services/util/http-request.service';
 import { ResultService } from 'src/services/util/result.service';
 var convert = require('xml-js');
 
@@ -14,8 +16,22 @@ export class PretragaObicnaComponent {
 
   keywords: Set<string> = new Set();
   formControl = new FormControl([]);
+  serviceName: string = ""
+  backend: string = ""
 
-  constructor(private httpService: HttpRequestService, private resultService: ResultService) { }
+  constructor(
+    private httpService: HttpRequestService, 
+    private resultService: ResultService,
+    private router: Router,
+    private authService: AuthService,
+  ) { 
+    this.serviceName = this.router.url.split("/")[1];
+    if(this.serviceName == "autorska") {
+      this.backend = autorskaBackend
+    } else if(this.serviceName == "zig") {
+      this.backend = zigBackend
+    } 
+  }
 
   addKeywordFromInput(event: MatChipInputEvent) {
     if (event.value) {
@@ -40,12 +56,11 @@ export class PretragaObicnaComponent {
       parsed.search_request.query.push(condition);
     }
 
-
     const xml = convert.js2xml(parsed, {compact: true, spaces: 4});
     console.log(xml);
+    let url = this.backend + "/zahtevi/search"
     
-    
-    this.httpService.post('http://localhost:8081/autorska/search', xml).subscribe((data: any) => {
+    this.httpService.post(url, xml).subscribe((data: any) => {
         let options = {ignoreComment: true, alwaysChildren: true, compact: true, elementNameFn: this.parseName };
         let results = convert.xml2js(data, options);
         console.log(results);

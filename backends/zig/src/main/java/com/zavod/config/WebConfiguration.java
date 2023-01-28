@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -36,6 +37,23 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         ).forEach(c -> {
             converters.add(0, new XmlGenericConverter<>(c, MediaType.APPLICATION_XML));
         });
+    }
+
+    private final String[] allowedOrigins = {"http://localhost:4200", "http://localhost:8080"};
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins(allowedOrigins)
+                .allowedMethods(
+                        "GET",
+                        "POST",
+                        "PUT",
+                        "PATCH",
+                        "DELETE",
+                        "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 
 }

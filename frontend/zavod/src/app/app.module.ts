@@ -8,7 +8,7 @@ import { IndexComponent } from './index/index.component';
 import { SluzbenikComponent } from './sluzbenik/sluzbenik.component';
 import { AutorskaComponent } from './autorska/autorska.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NoviZahtevComponent } from './autorska/novi-zahtev/novi-zahtev.component';
+import { NoviZahtevAutorskaComponent } from './autorska/novi-zahtev/novi-zahtev-autorska.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { RouterModule } from '@angular/router';
@@ -23,8 +23,8 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatButtonModule} from '@angular/material/button';
 import { MojiZahteviComponent } from './autorska/moji-zahtevi/moji-zahtevi.component';
-import { MojProfilComponent } from './autorska/moj-profil/moj-profil.component';
-import { PretragaComponent } from './autorska/pretraga/pretraga.component';
+import { MojProfilComponent } from './shared/moj-profil/moj-profil.component';
+import { PretragaComponent } from './shared/pretraga/pretraga.component';
 import { MatDialogModule} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -36,14 +36,16 @@ import { MatInputModule } from '@angular/material/input';
 import { FileValueAccessor } from './file-value-accessor';
 import { MatSelectModule } from '@angular/material/select';
 import { FormlyFieldFile } from './file-type.component';
-import { PretragaMetapodaciComponent } from './autorska/pretraga/pretraga-metapodaci/pretraga-metapodaci.component';
-import { PretragaRezultatiComponent } from './autorska/pretraga/pretraga-rezultati/pretraga-rezultati.component';
-import { PretragaRezultatComponent } from './autorska/pretraga/pretraga-rezultati/pretraga-rezultat/pretraga-rezultat.component';
-import { PretragaObicnaComponent } from './autorska/pretraga/pretraga-obicna/pretraga-obicna.component';
+import { PretragaMetapodaciComponent } from './shared/pretraga/pretraga-metapodaci/pretraga-metapodaci.component';
+import { PretragaRezultatiComponent } from './shared/pretraga/pretraga-rezultati/pretraga-rezultati.component';
+import { PretragaRezultatAutorskaComponent } from './shared/pretraga/pretraga-rezultati/pretraga-rezultat-autorska/pretraga-rezultat-autorska.component';
+import { PretragaObicnaComponent } from './shared/pretraga/pretraga-obicna/pretraga-obicna.component';
 import { ToastrModule } from 'ngx-toastr';
 import { MatRadioModule } from '@angular/material/radio';
 import { ZahteviComponent } from './sluzbenik/zahtevi/zahtevi.component';
-import { IzvestajiComponent } from './sluzbenik/izvestaji/izvestaji.component'; 
+import { IzvestajiComponent } from './sluzbenik/izvestaji/izvestaji.component';
+import { ZigComponent } from './zig/zig.component';
+import { PretragaRezultatZigComponent } from './shared/pretraga/pretraga-rezultati/pretraga-rezultat-zig/pretraga-rezultat-zig.component'; 
 
 
 @NgModule({
@@ -52,13 +54,13 @@ import { IzvestajiComponent } from './sluzbenik/izvestaji/izvestaji.component';
     IndexComponent,
     SluzbenikComponent,
     AutorskaComponent,
-    NoviZahtevComponent,
+    NoviZahtevAutorskaComponent,
     FormlyFieldStepper,
     MojiZahteviComponent,
     MojProfilComponent,
     PretragaComponent,
     LoginComponent,
-    FileValueAccessor, FormlyFieldFile, PretragaMetapodaciComponent, PretragaRezultatiComponent, PretragaRezultatComponent, PretragaObicnaComponent, ZahteviComponent, IzvestajiComponent,
+    FileValueAccessor, FormlyFieldFile, PretragaMetapodaciComponent, PretragaRezultatiComponent, PretragaRezultatAutorskaComponent, PretragaObicnaComponent, ZahteviComponent, IzvestajiComponent, ZigComponent, PretragaRezultatZigComponent,
   ],
   imports: [
     BrowserModule,
