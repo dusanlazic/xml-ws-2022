@@ -2,13 +2,9 @@ package com.zavod.service;
 
 import com.zavod.dto.MetaSearchQuery;
 import com.zavod.dto.MetaSearchRequest;
-import com.zavod.model.Zahtev;
+import com.zavod.model.zahtev.Zahtev;
 import com.zavod.repository.ZigRepository;
 import com.zavod.repository.MetadataRepository;
-import com.zavod.util.SparqlUtil;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
-import org.apache.jena.rdf.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;

@@ -1,9 +1,8 @@
 package com.zavod;
 
-import com.zavod.model.Zahtev;
+import com.zavod.model.zahtev.Zahtev;
 import com.zavod.repository.MetadataRepository;
 import com.zavod.repository.ZigRepository;
-import com.zavod.util.MarshallingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,8 +10,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.annotation.PostConstruct;
 import javax.xml.transform.TransformerException;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 

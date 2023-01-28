@@ -6,7 +6,7 @@
 //
 
 
-package com.zavod.model;
+package com.zavod.model.zahtev;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -15,16 +15,17 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TPravno_Lice complex type.
+ * <p>Java class for TFizicko_Lice complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="TPravno_Lice">
+ * &lt;complexType name="TFizicko_Lice">
  *   &lt;complexContent>
  *     &lt;extension base="{http://www.zavod.com/Zig}TLice">
  *       &lt;sequence>
- *         &lt;element name="poslovno_ime" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="ime" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="prezime" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -34,42 +35,69 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TPravno_Lice", propOrder = {
+@XmlType(name = "TFizicko_Lice", propOrder = {
     "adresa",
     "telefon",
     "email",
     "faks",
-    "poslovnoIme"
+    "ime",
+    "prezime"
 })
-public class TPravnoLice
+public class TFizickoLice
     extends TLice
 {
 
-    @XmlElement(name = "poslovno_ime", required = true)
-    protected String poslovnoIme;
+    @XmlElement(required = true)
+    protected String ime;
+    @XmlElement(required = true)
+    protected String prezime;
 
     /**
-     * Gets the value of the poslovnoIme property.
+     * Gets the value of the ime property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getPoslovnoIme() {
-        return poslovnoIme;
+    public String getIme() {
+        return ime;
     }
 
     /**
-     * Sets the value of the poslovnoIme property.
+     * Sets the value of the ime property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setPoslovnoIme(String value) {
-        this.poslovnoIme = value;
+    public void setIme(String value) {
+        this.ime = value;
+    }
+
+    /**
+     * Gets the value of the prezime property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getPrezime() {
+        return prezime;
+    }
+
+    /**
+     * Sets the value of the prezime property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setPrezime(String value) {
+        this.prezime = value;
     }
 
 }

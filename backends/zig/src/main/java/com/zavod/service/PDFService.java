@@ -6,7 +6,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.qrcode.WriterException;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
-import com.zavod.model.Zahtev;
+import com.zavod.model.zahtev.Zahtev;
 import com.zavod.util.MarshallingService;
 import com.zavod.util.QRCodeEncoder;
 import com.zavod.util.XUpdateUtil;
@@ -27,6 +27,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static com.zavod.service.ZigService.brojToUrl;
 
 @Service
 public class PDFService {
@@ -135,7 +137,7 @@ public class PDFService {
             pdfFile.getParentFile().mkdir();
 
         try {
-            String brojPrijave = urlSafe(zahtev.getInformacijeZavoda().getBrojPrijave());
+            String brojPrijave = brojToUrl(zahtev.getInformacijeZavoda().getBrojPrijave());
             String htmlFilename = HTML_DIR + brojPrijave + ".html";
             String qrCodeImageUrl = "http://localhost:8082/zahtevi/qr/" + brojPrijave + ".png";
             generateHTML(zahtev, XSL_FILE, htmlFilename, qrCodeImageUrl);
@@ -161,11 +163,5 @@ public class PDFService {
     public ResponseEntity<byte[]> qrCodeToResource(String brojPrijave) throws BadElementException, IOException, WriterException {
         String url = "http://localhost:8082/zahtevi/pdf/" + brojPrijave + ".pdf";
         return QRCodeEncoder.generateQRCodeImage(url);
-    }
-
-    private String urlSafe(String brojPrijave) {
-        return brojPrijave
-                .replace("Ж","Z")
-                .replace("/", "-");
     }
 }

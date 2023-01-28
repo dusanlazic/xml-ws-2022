@@ -1,7 +1,7 @@
 package com.zavod.repository;
 
 import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
-import com.zavod.model.Zahtev;
+import com.zavod.model.zahtev.Zahtev;
 import com.zavod.util.AuthenticationUtilities;
 import com.zavod.util.MarshallingService;
 import com.zavod.util.SparqlUtil;
@@ -10,7 +10,6 @@ import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.sparql.resultset.RDFOutput;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;

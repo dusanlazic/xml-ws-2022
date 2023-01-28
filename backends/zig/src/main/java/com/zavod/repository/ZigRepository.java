@@ -1,6 +1,6 @@
 package com.zavod.repository;
 
-import com.zavod.model.Zahtev;
+import com.zavod.model.zahtev.Zahtev;
 import org.springframework.stereotype.Repository;
 
 

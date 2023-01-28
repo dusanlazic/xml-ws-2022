@@ -1,11 +1,9 @@
 package com.zavod.controller;
 
 import com.zavod.api.ResponseOk;
-import com.zavod.dto.MetaSearchQuery;
-import com.zavod.dto.MetaSearchRequest;
-import com.zavod.dto.SearchRequest;
-import com.zavod.dto.Zahtevi;
-import com.zavod.model.Zahtev;
+import com.zavod.dto.*;
+import com.zavod.model.resenje.Resenje;
+import com.zavod.model.zahtev.Zahtev;
 import com.zavod.service.MetadataService;
 import com.zavod.service.PDFService;
 import com.zavod.service.ZigService;
@@ -18,6 +16,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.xmldb.api.base.XMLDBException;
+
+import javax.xml.datatype.DatatypeConfigurationException;
 
 @RestController
 @RequestMapping("/zahtevi")
@@ -104,8 +104,8 @@ public class ZahtevController {
 
     @PostMapping(path = "/{brojPrijave}/resenje", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
     @PreAuthorize("hasAuthority('SLUZBENIK')")
-    public Object addResenje(@PathVariable String brojPrijave, @RequestBody Object resenje) {
-        throw new NotImplementedException();
+    public Resenje addResenje(@PathVariable String brojPrijave, @RequestBody ResenjeDTO resenje, Authentication authentication) throws XMLDBException, DatatypeConfigurationException {
+        return zigService.addResenje(resenje, brojPrijave, authentication);
     }
 
     @GetMapping(path = "/{brojPrijave}_resenje.pdf", produces = MediaType.APPLICATION_PDF_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)

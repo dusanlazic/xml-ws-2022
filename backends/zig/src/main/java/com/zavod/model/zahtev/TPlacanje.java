@@ -6,7 +6,7 @@
 //
 
 
-package com.zavod.model;
+package com.zavod.model.zahtev;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

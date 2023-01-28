@@ -6,4 +6,4 @@
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.zavod.com/Zig", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package com.zavod.model;
+package com.zavod.model.zahtev;
