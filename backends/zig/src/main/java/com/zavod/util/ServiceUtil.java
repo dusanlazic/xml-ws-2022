@@ -17,7 +17,9 @@ public class ServiceUtil {
     public static String brojToXml(String brojPrijave) {
         String retVal = brojPrijave.replace("Z","Ж");
         int idx = retVal.lastIndexOf("-");
-        return retVal.substring(0, idx) + "/" + retVal.substring(idx + 1);
+        if (idx != -1)
+            return retVal.substring(0, idx) + "/" + retVal.substring(idx + 1);
+        return retVal;
     }
 
     public static XMLGregorianCalendar today() throws DatatypeConfigurationException {
