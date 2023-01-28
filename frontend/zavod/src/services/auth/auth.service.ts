@@ -11,6 +11,7 @@ import { LocalStorageService } from '../util/local-storage.service';
 })
 export class AuthService {
 
+
   constructor(
     private httpRequestService: HttpRequestService,
     private toastrService: ToastrService,
@@ -73,6 +74,24 @@ export class AuthService {
   logout() {
     this.localStorage.remove("access_token");
     this.loggedUser.next(undefined);
+  }
+
+  register(zahtevZaRegistraciju: { email: string; lozinka: string; ime: string; prezime: string; uloga: string; }): Observable<any> {
+    let korisnik = {
+      Korisnik : zahtevZaRegistraciju
+    }
+    let that = this;
+    let parsedKorisnik = convert.js2xml(korisnik, {compact: true, spaces: 4});
+    let resp = this.httpRequestService.post(korisinciBackend + "/auth/register", parsedKorisnik);
+    resp.subscribe({
+      next(value) {
+          that.login(zahtevZaRegistraciju.email, zahtevZaRegistraciju.lozinka);
+      },
+      error(err) {
+          
+      },
+    })
+    return resp;
   }
 
 

@@ -14,9 +14,13 @@ import { IndividualConfig, ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
 
+
   hide = true;
   username: string = ""
   password: string = ""
+  passwordConfirm: string = ""
+  name: string = ""
+  lastname: string = ""
   loggedUser: User | undefined;
 
   constructor(
@@ -53,6 +57,32 @@ export class LoginComponent implements OnInit {
         },
       }
     );
+  }
+
+  register() {
+    let zahtevZaRegistraciju = {
+      email: this.username,
+      lozinka: this.password,
+      ime: this.name,
+      prezime: this.lastname,
+      uloga: 'sluzbenik'
+    }
+    let that = this;
+    
+    let toastrConf : Partial<IndividualConfig> = {
+      progressBar: true,
+      timeOut: 3000
+    }
+
+    this.authService.register(zahtevZaRegistraciju).subscribe({
+      next(value) {
+        that.dialogRef.close();
+        that.toastr.success("Dobrodosli!", "", toastrConf)
+      },
+      error(err) {
+          
+      },
+    })
   }
 
 }

@@ -23,42 +23,36 @@
             <div style="margin-top: 20px;">
                 <div>
                     <mat-form-field appearance="fill" style="width: 100%;">
-                        <mat-label>Korisničko ime</mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                </div>
-                <div>
-                    <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Email adresa</mat-label>
-                        <input matInput>
+                        <input matInput [(ngModel)]="username">
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Lozinka</mat-label>
-                        <input matInput type='password'>
+                        <input matInput type='password' [(ngModel)]="password">
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Potvrda lozinke</mat-label>
-                        <input matInput type='password'>
+                        <input matInput type='password' [(ngModel)]="passwordConfirm">
                     </mat-form-field>
                 </div>
 
                 <div>
                     <mat-form-field appearance="fill" style="width: 48%;">
                         <mat-label>Ime</mat-label>
-                        <input matInput>
+                        <input matInput [(ngModel)]="name">
                     </mat-form-field>
                     <mat-form-field appearance="fill" style="width: 48%; margin-left: 5px;">
-                        <mat-label>Prezime</mat-label>
+                        <mat-label [(ngModel)]="lastname">Prezime</mat-label>
                         <input matInput>
                     </mat-form-field>
                 </div>
 
                 <div>
-                    <button mat-stroked-button>Registruj se</button>
+                    <button mat-stroked-button (click)="register()">Registruj se</button>
                 </div>
             </div>
         </mat-tab>
