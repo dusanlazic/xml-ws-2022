@@ -8,6 +8,12 @@ import org.springframework.stereotype.Repository;
 public class ZahtevRepository extends ExistRepository<Zahtev>{
 
     public ZahtevRepository() {
-        super(Zahtev.class);
+        super(
+                Zahtev.class,
+                new DatabaseHandler(
+                        "./src/main/resources/xml/zahtevi/",
+                        "/db/zahtevi"
+                )
+        );
     }
 }
