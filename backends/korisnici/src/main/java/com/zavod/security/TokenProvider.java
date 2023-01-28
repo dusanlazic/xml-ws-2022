@@ -14,7 +14,7 @@ import java.time.temporal.ChronoUnit;
 @Service
 public class TokenProvider {
 
-    private final Key key = Keys.hmacShaKeyFor("jtMmX9PRZYT7wmqLLB6M7!xhsJFhSC1$ZSuK0RtHk2Ghx#47Nx".getBytes(StandardCharsets.UTF_8));
+    public static final Key key = Keys.hmacShaKeyFor("jtMmX9PRZYT7wmqLLB6M7!xhsJFhSC1$ZSuK0RtHk2Ghx#47Nx".getBytes(StandardCharsets.UTF_8));
 
     public String createAccessToken(Korisnik korisnik) {
         Instant now = Instant.now();

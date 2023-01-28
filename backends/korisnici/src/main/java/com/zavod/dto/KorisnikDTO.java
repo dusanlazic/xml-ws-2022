@@ -28,6 +28,14 @@ public class KorisnikDTO {
     public KorisnikDTO() {
     }
 
+    public KorisnikDTO(long id, String email, String ime, String prezime, String uloga) {
+        this.id = id;
+        this.email = email;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.uloga = uloga;
+    }
+
     public KorisnikDTO(Korisnik korisnik) {
         this.id = korisnik.getId();
         this.email = korisnik.getEmail();

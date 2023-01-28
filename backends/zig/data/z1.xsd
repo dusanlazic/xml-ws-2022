@@ -135,8 +135,8 @@
     </xs:complexType>
     <xs:complexType name="TPrilog">
         <xs:sequence>
-            <xs:element name="putanja"/>
-            <xs:element name="naziv_datoteke"/>
+            <xs:element name="putanja" type="xs:string"/>
+            <xs:element name="naziv_datoteke" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

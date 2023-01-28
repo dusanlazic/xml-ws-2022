@@ -42,19 +42,19 @@ import javax.xml.bind.annotation.XmlType;
 public class TPrilog {
 
     @XmlElement(required = true)
-    protected Object putanja;
+    protected String putanja;
     @XmlElement(name = "naziv_datoteke", required = true)
-    protected Object nazivDatoteke;
+    protected String nazivDatoteke;
 
     /**
      * Gets the value of the putanja property.
      * 
      * @return
      *     possible object is
-     *     {@link Object }
+     *     {@link String }
      *     
      */
-    public Object getPutanja() {
+    public String getPutanja() {
         return putanja;
     }
 
@@ -63,10 +63,10 @@ public class TPrilog {
      * 
      * @param value
      *     allowed object is
-     *     {@link Object }
+     *     {@link String }
      *     
      */
-    public void setPutanja(Object value) {
+    public void setPutanja(String value) {
         this.putanja = value;
     }
 
@@ -75,10 +75,10 @@ public class TPrilog {
      * 
      * @return
      *     possible object is
-     *     {@link Object }
+     *     {@link String }
      *     
      */
-    public Object getNazivDatoteke() {
+    public String getNazivDatoteke() {
         return nazivDatoteke;
     }
 
@@ -87,10 +87,10 @@ public class TPrilog {
      * 
      * @param value
      *     allowed object is
-     *     {@link Object }
+     *     {@link String }
      *     
      */
-    public void setNazivDatoteke(Object value) {
+    public void setNazivDatoteke(String value) {
         this.nazivDatoteke = value;
     }
 
