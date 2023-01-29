@@ -43,7 +43,7 @@ export class HttpRequestService {
 
     get(url: string) : Observable<any> {
         const headers = this.createHeaders();
-        return this.httpClient.get(url, {headers, withCredentials: false}) 
+        return this.httpClient.get(url, {headers, withCredentials: false, responseType: 'text'}) 
     }
 
     patch(url: string, body: any) : Observable<any> {

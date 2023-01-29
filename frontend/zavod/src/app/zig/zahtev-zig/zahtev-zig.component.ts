@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/model/user';
 import { AuthService } from 'src/services/auth/auth.service';
+import { ParserService } from 'src/services/parser.service';
+import { HttpRequestService, zigBackend } from 'src/services/util/http-request.service';
 
 @Component({
   selector: 'app-zahtev-zig',
@@ -10,16 +13,33 @@ import { AuthService } from 'src/services/auth/auth.service';
 export class ZahtevZigComponent implements OnInit {
 
 
-  @Input() zahtev: any;
+  zahtev: any;
+
   loggedUser : User | undefined;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private httpRequestService: HttpRequestService,
+    private route: ActivatedRoute,
+    private parser: ParserService) {
+
+  }
 
   ngOnInit(): void {
     this.authService.getLoggedUser().subscribe((user) => {
       this.loggedUser = user;
+      this.route.params.subscribe((params) => {
+        let brojPrijave = params['broj_prijave'];
+        this.httpRequestService.get(zigBackend + '/zahtevi/' +  brojPrijave).subscribe((data: any) => {
+          console.log(data);
+          this.zahtev = this.parser.xml2js(data);
+        })
+      });
+
     });
   }
+
+
 
   
 
