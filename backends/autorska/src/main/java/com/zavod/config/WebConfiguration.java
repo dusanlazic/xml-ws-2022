@@ -2,6 +2,7 @@ package com.zavod.config;
 
 
 import com.zavod.dto.*;
+import com.zavod.model.izvestaj.Izvestaj;
 import com.zavod.model.resenje.Resenje;
 import com.zavod.model.zahtev.Zahtev;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,7 +33,8 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
                 KorisnikRegisterDTO.class,
                 TokenDTO.class,
                 Resenje.class,
-                ResenjeDTO.class
+                ResenjeDTO.class,
+                Izvestaj.class
         ).forEach(c -> {
             converters.add(0, new XmlGenericConverter<>(c, MediaType.APPLICATION_XML));
         });

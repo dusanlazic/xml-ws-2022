@@ -6,17 +6,21 @@ import com.zavod.dto.MetaSearchRequest;
 import com.zavod.dto.SearchRequest;
 import com.zavod.dto.Zahtevi;
 import com.zavod.model.zahtev.Zahtev;
+import com.zavod.service.IzvestajService;
 import com.zavod.service.MetadataService;
 import com.zavod.service.PDFService;
 import com.zavod.service.ZahtevService;
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.xmldb.api.base.XMLDBException;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/zahtevi")
@@ -27,6 +31,9 @@ public class ZahtevController {
 
     @Autowired
     private MetadataService metadataService;
+
+    @Autowired
+    private IzvestajService izvestajService;
 
     @Autowired
     private PDFService pdfService;
@@ -85,9 +92,9 @@ public class ZahtevController {
         return new Zahtevi(metadataService.metaSearch(metaSearchRequest));
     }
 
-    @GetMapping(path = "/izvestaj_{startDate}_{endDate}.pdf", produces = MediaType.APPLICATION_PDF_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
-    @PreAuthorize("hasAuthority('SLUZBENIK')")
-    public Object exportIzvestaj(@PathVariable String startDate, @PathVariable String endDate) {
-        throw new NotImplementedException();
+    @GetMapping(path = "/izvestaj_{startDate}_{endDate}.pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<Resource> exportIzvestaj(@PathVariable("startDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
+                                                   @PathVariable("endDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate) throws DatatypeConfigurationException {
+        return pdfService.exportToResource(izvestajService.generateNew(startDate, endDate));
     }
 }
