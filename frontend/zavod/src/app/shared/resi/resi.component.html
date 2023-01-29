@@ -25,11 +25,11 @@
 
 		<mat-form-field appearance="outline" style="width: 80%; margin-left: 15px;" *ngIf="!status">
 			<mat-label>Obrazloženje</mat-label>
-			<textarea matInput style="height: 60px;"></textarea>
+			<textarea matInput style="height: 60px;" [(ngModel)]="obrazlozenje"></textarea>
 		</mat-form-field>
 
 	</mat-card-content>
 	<mat-card-footer>
-		<button mat-raised-button color="primary" style="margin-left: 35px; margin-top: 10px; margin-bottom: 20px; ">Podnesi</button>
+		<button mat-raised-button color="primary" style="margin-left: 35px; margin-top: 10px; margin-bottom: 20px;" (click)="podnesi()">Podnesi</button>
 	</mat-card-footer>
 </div>
