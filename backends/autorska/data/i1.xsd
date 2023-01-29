@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:i="http://www.zavod.com/Izvestaj"
+    targetNamespace="http://www.zavod.com/Izvestaj" elementFormDefault="qualified">
+
+    <xs:complexType name="TIzvestaj">
+        <xs:sequence>
+            <xs:element name="broj_podnetih">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="broj_prihvacenih">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="broj_odbijenih">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="datumOd" type="xs:date" use="required"/>
+        <xs:attribute name="datumDo" type="xs:date" use="required"/>
+    </xs:complexType>
+    <xs:element name="Izvestaj" type="i:TIzvestaj"/>
+</xs:schema>
