@@ -1,16 +1,15 @@
 package com.zavod.controller;
 
 import com.zavod.api.ResponseOk;
+import com.zavod.dto.KorisnikDTO;
 import com.zavod.dto.KorisnikRegisterDTO;
 import com.zavod.dto.Kredencijali;
 import com.zavod.dto.TokenDTO;
 import com.zavod.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/auth")
@@ -28,6 +27,11 @@ public class AuthController {
     public ResponseOk register(@RequestBody KorisnikRegisterDTO korisnik) {
         authService.register(korisnik);
         return new ResponseOk("Korisnik kreiran.");
+    }
+
+    @GetMapping(path = "/me", produces = MediaType.APPLICATION_XML_VALUE)
+    public KorisnikDTO me(Authentication authentication) {
+        return (KorisnikDTO) authentication.getPrincipal();
     }
 
 }

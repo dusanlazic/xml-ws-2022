@@ -7,9 +7,11 @@
 				</mat-card>
 			</div>
 		</mat-grid-tile>
-		<mat-grid-tile colspan="2" style="height: 100%;" *ngIf="loggedUser?.uloga === 'sluzbenik'">
+		<mat-grid-tile colspan="2" style="height: 100%;">
 			<div style="display: flex; align-items: flex-start; width: 100%; height: 100%;">
-				<app-resi-zig></app-resi-zig>
+				<mat-card style="width: 80%; height: 25%; margin: 20px; padding: 2%;" class="mat-elevation-z5">
+					<app-resi></app-resi>
+				</mat-card>
 			</div>
 		</mat-grid-tile>
 	</mat-grid-list>

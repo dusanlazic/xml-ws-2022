@@ -67,13 +67,13 @@
 				<h2>Žig</h2>
 				<table>
 					<tbody>
-						<tr><td><strong>Boja:</strong></td><td> {{zahtev?.zig.boja._text}}</td>
-						<tr><td><strong>Opis:</strong></td><td> {{zahtev?.zig.opis._text}}</td>
-						<tr><td><strong>Prevod:</strong></td><td> {{zahtev?.zig.prevod._text}}</td>
-						<tr><td><strong>Transliteracija:</strong></td> <td> {{zahtev?.zig.transliteracija._text}}</td>
-						<tr><td><strong>Tip ziga:</strong></td> <td> {{zahtev?.zig.tip_ziga._text}}</td>
-						<tr><td><strong>Tip znaka:</strong></td><td> {{zahtev?.zig.tip_znaka._text}}</td>
-						<tr><td><strong>Pravo prvenstva:</strong></td><td> {{zahtev?.zig.pravo_prvenstva._text}}</td>
+						<tr><td><strong>Boja:</strong></td><td> {{zahtev?.zig.boja._text}}</td></tr>
+						<tr><td><strong>Opis:</strong></td><td> {{zahtev?.zig.opis._text}}</td></tr>
+						<tr><td><strong>Prevod:</strong></td><td> {{zahtev?.zig.prevod._text}}</td></tr>
+						<tr><td><strong>Transliteracija:</strong></td> <td> {{zahtev?.zig.transliteracija._text}}</td></tr>
+						<tr><td><strong>Tip ziga:</strong></td> <td> {{zahtev?.zig.tip_ziga._text}}</td></tr>
+						<tr><td><strong>Tip znaka:</strong></td><td> {{zahtev?.zig.tip_znaka._text}}</td></tr>
+						<tr><td><strong>Pravo prvenstva:</strong></td><td> {{zahtev?.zig.pravo_prvenstva._text}}</td></tr>
 						<tr><td><strong>Klase robe:</strong></td> 
 							<td>
 								<span *ngFor="let klasa of zahtev?.zig.klase_robe.klasa">
@@ -93,6 +93,14 @@
 					<tr><td><strong>Punomoćje će biti naknadno priloženo:</strong></td><td> {{zahtev?.informacije_zavoda.prilozi.punomocje_ce_biti_naknadno_dostavljeno._text ? "Da" : "Ne"}}</td></tr>
 				</table>
 			</div>
+		</div>
+	</div>
+	<div>
+		<div style="display: flex; margin-left: 45px; flex-direction: row-reverse;" class="btns">
+			<button mat-flat-button color="primary" (click)="exportRDF()">RDF</button>
+			<button mat-flat-button color="primary" (click)="exportJSON()">JSON</button>
+			<button mat-flat-button color="primary" (click)="exportHTML()">HTML</button>
+			<button mat-flat-button color="primary" (click)="exportPDF()">PDF</button>
 		</div>
 	</div>
 	

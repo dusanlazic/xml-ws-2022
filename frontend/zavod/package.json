@@ -23,6 +23,8 @@
     "@material/chips": "^14.0.0",
     "@ngx-formly/core": "^6.0.4",
     "@ngx-formly/material": "^6.0.4",
+    "@types/file-saver": "^2.0.5",
+    "file-saver": "^2.0.5",
     "ngx-toastr": "^15.2.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

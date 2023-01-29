@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/model/user';
-import { HttpRequestService, korisinciBackend } from '../util/http-request.service';
+import { HttpRequestService, korisinciBackend, zigBackend } from '../util/http-request.service';
 var convert = require('xml-js');
 import { IndividualConfig, ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from '../util/local-storage.service';
+import { ParserService } from '../parser.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,23 @@ export class AuthService {
   constructor(
     private httpRequestService: HttpRequestService,
     private toastrService: ToastrService,
-    private localStorage: LocalStorageService
-  ) { }
+    private localStorage: LocalStorageService,
+    private parser: ParserService
+  ) {
+
+    let ob = this.httpRequestService.get(zigBackend + "/auth/me")
+    ob.subscribe((data: any) => {
+      let parsedUser = this.parser.xml2js(data)
+      let user = {
+        email: parsedUser.korisnik.email._text,
+        ime: parsedUser.korisnik.ime._text,
+        prezime: parsedUser.korisnik.prezime._text,
+        uloga: parsedUser.korisnik.uloga._text,
+      }
+      this.loggedUser.next(user);
+    });
+
+  }
 
   loggedUser: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
 
@@ -36,7 +52,7 @@ export class AuthService {
     //     <lozinka>cascaded</lozinka>
     // </kredencijali>
   
-    let resp: Observable<any> = this.httpRequestService.post(korisinciBackend + "/auth/login", parsedKredencijali)
+    let resp: Observable<any> = this.httpRequestService.post(zigBackend + "/auth/login", parsedKredencijali)
     
     resp.subscribe({
       next: (v) =>  {
@@ -67,12 +83,13 @@ export class AuthService {
     
   }
 
-  getLoggedUser() {
+  getLoggedUser(): Observable<User | undefined> {
     return this.loggedUser.asObservable();
   }
 
   logout() {
     this.localStorage.remove("access_token");
+    this.localStorage.clearAll();
     this.loggedUser.next(undefined);
   }
 

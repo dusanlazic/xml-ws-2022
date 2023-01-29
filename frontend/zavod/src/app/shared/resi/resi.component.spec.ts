@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResiZigComponent } from './resi-zig.component';
+import { ResiComponent } from './resi.component';
 
-describe('ResiZigComponent', () => {
-  let component: ResiZigComponent;
-  let fixture: ComponentFixture<ResiZigComponent>;
+describe('ResiComponent', () => {
+  let component: ResiComponent;
+  let fixture: ComponentFixture<ResiComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ResiZigComponent ]
+      declarations: [ ResiComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ResiZigComponent);
+    fixture = TestBed.createComponent(ResiComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

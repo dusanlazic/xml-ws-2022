@@ -20,7 +20,7 @@ export class HttpRequestService {
         let token = this.localStorageService.get("access_token");
         let headers = new HttpHeaders({
             'Content-type': 'application/xml',
-            'Accept': 'application/xml'
+            'Accept': '*/*'
         });
 
         if (token) {
@@ -41,8 +41,8 @@ export class HttpRequestService {
         return this.httpClient.post(url, body, {headers, withCredentials: false, responseType: 'text'}) 
     }
 
-    get(url: string) : Observable<any> {
-        const headers = this.createHeaders();
+    get(url: string, optHeaders?: HttpHeaders) : Observable<any> {
+        let headers = this.createHeaders();
         return this.httpClient.get(url, {headers, withCredentials: false, responseType: 'text'}) 
     }
 

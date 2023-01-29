@@ -48,7 +48,8 @@ import { ZigComponent } from './zig/zig.component';
 import { PretragaRezultatZigComponent } from './shared/pretraga/pretraga-rezultati/pretraga-rezultat-zig/pretraga-rezultat-zig.component';
 import { ZahtevZigComponent } from './zig/zahtev-zig/zahtev-zig.component';
 import { ZahtevZigContentComponent } from './zig/zahtev-zig/zahtev-zig-content/zahtev-zig-content.component';
-import { ResiZigComponent } from './zig/resi-zig/resi-zig.component'; 
+import { ResiComponent } from './shared/resi/resi.component';
+import { ResenjeComponent } from './shared/resenje/resenje.component'; 
 
 
 @NgModule({
@@ -75,7 +76,7 @@ import { ResiZigComponent } from './zig/resi-zig/resi-zig.component';
     PretragaRezultatZigComponent, 
     ZahtevZigComponent, 
     ZahtevZigContentComponent, 
-    ResiZigComponent,
+    ResiComponent, ResenjeComponent,
   ],
   imports: [
     BrowserModule,
