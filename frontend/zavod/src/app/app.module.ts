@@ -45,7 +45,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ZahteviComponent } from './sluzbenik/zahtevi/zahtevi.component';
 import { IzvestajiComponent } from './sluzbenik/izvestaji/izvestaji.component';
 import { ZigComponent } from './zig/zig.component';
-import { PretragaRezultatZigComponent } from './shared/pretraga/pretraga-rezultati/pretraga-rezultat-zig/pretraga-rezultat-zig.component'; 
+import { PretragaRezultatZigComponent } from './shared/pretraga/pretraga-rezultati/pretraga-rezultat-zig/pretraga-rezultat-zig.component';
+import { ZahtevZigComponent } from './zig/zahtev-zig/zahtev-zig.component';
+import { ZahtevZigContentComponent } from './zig/zahtev-zig/zahtev-zig-content/zahtev-zig-content.component';
+import { ResiZigComponent } from './zig/resi-zig/resi-zig.component'; 
 
 
 @NgModule({
@@ -60,7 +63,19 @@ import { PretragaRezultatZigComponent } from './shared/pretraga/pretraga-rezulta
     MojProfilComponent,
     PretragaComponent,
     LoginComponent,
-    FileValueAccessor, FormlyFieldFile, PretragaMetapodaciComponent, PretragaRezultatiComponent, PretragaRezultatAutorskaComponent, PretragaObicnaComponent, ZahteviComponent, IzvestajiComponent, ZigComponent, PretragaRezultatZigComponent,
+    FileValueAccessor, 
+    FormlyFieldFile,
+    PretragaMetapodaciComponent,
+    PretragaRezultatiComponent,
+    PretragaRezultatAutorskaComponent, 
+    PretragaObicnaComponent, 
+    ZahteviComponent,
+    IzvestajiComponent, 
+    ZigComponent, 
+    PretragaRezultatZigComponent, 
+    ZahtevZigComponent, 
+    ZahtevZigContentComponent, 
+    ResiZigComponent,
   ],
   imports: [
     BrowserModule,

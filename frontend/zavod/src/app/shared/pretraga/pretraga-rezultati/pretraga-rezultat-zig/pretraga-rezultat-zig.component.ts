@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pretraga-rezultat-zig',
@@ -6,12 +7,20 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./pretraga-rezultat-zig.component.sass']
 })
 export class PretragaRezultatZigComponent implements OnInit {
+
   
   @Input() rezultat: any
   
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  detailed() {
+    console.log(this.rezultat);
+    
+    let brojPrijave = this.rezultat.informacije_zavoda.broj_prijave._text;
+    this.router.navigate(['zig/zahtev/' + brojPrijave])
   }
 
 }

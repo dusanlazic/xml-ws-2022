@@ -18,14 +18,14 @@ export class PretragaRezultatiComponent implements OnInit {
 
   ngOnInit(): void {
     this.resultService.subscribeToResult().subscribe((data: any) => {
-        if(!data || !data.Zahtevi || !data.Zahtevi.Zahtev) {
+        if(!data || !data.zahtevi || !data.zahtevi.zahtev) {
           this.rezultati = [];
           return;
         }
-        if(Array.isArray(data.Zahtevi.Zahtev)) {
-          this.rezultati = data.Zahtevi.Zahtev;
+        if(Array.isArray(data.zahtevi.zahtev)) {
+          this.rezultati = data.zahtevi.zahtev;
         } else {
-          this.rezultati = [data.Zahtevi.Zahtev];
+          this.rezultati = [data.zahtevi.zahtev];
         }
     });
   }

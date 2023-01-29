@@ -3,9 +3,9 @@ import {FormControl} from '@angular/forms';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth/auth.service';
+import { ParserService } from 'src/services/parser.service';
 import { HttpRequestService, autorskaBackend, zigBackend } from 'src/services/util/http-request.service';
 import { ResultService } from 'src/services/util/result.service';
-var convert = require('xml-js');
 
 @Component({
   selector: 'app-pretraga-obicna',
@@ -24,6 +24,7 @@ export class PretragaObicnaComponent {
     private resultService: ResultService,
     private router: Router,
     private authService: AuthService,
+    private parser: ParserService,
   ) { 
     this.serviceName = this.router.url.split("/")[1];
     if(this.serviceName == "autorska") {
@@ -56,25 +57,15 @@ export class PretragaObicnaComponent {
       parsed.search_request.query.push(condition);
     }
 
-    const xml = convert.js2xml(parsed, {compact: true, spaces: 4});
+    const xml = this.parser.js2xml(parsed);
     console.log(xml);
     let url = this.backend + "/zahtevi/search"
     
     this.httpService.post(url, xml).subscribe((data: any) => {
-        let options = {ignoreComment: true, alwaysChildren: true, compact: true, elementNameFn: this.parseName };
-        let results = convert.xml2js(data, options);
+        let results = this.parser.xml2js(data);
         console.log(results);
         this.resultService.setResult(results);
     });
   }
-
-  parseName(name: string) {
-    let splitted = name.split(":");
-    if(splitted.length > 1) {
-      return splitted[1];
-    }
-    return splitted[0];
-  }
-    
 
 }
