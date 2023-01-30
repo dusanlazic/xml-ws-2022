@@ -46,6 +46,11 @@ public class ZahtevController {
         return new ResponseOk("Zahtev kreiran.");
     }
 
+    @GetMapping(path = "/{brojPrijave}", produces = MediaType.APPLICATION_XML_VALUE)
+    public Zahtev getZahtev(@PathVariable String brojPrijave) throws Exception {
+        return zahtevService.getZahtev(brojPrijave);
+    }
+
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_XML_VALUE)
     @PreAuthorize("hasAuthority('SLUZBENIK')")
     public Zahtevi getAll() {

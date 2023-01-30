@@ -10,6 +10,7 @@ import { ZahteviComponent } from './sluzbenik/zahtevi/zahtevi.component';
 import { IzvestajiComponent } from './sluzbenik/izvestaji/izvestaji.component';
 import { ZigComponent } from './zig/zig.component';
 import { ZahtevZigComponent } from './zig/zahtev-zig/zahtev-zig.component';
+import { ZahtevAutorskaComponent } from './autorska/zahtev-autorska/zahtev-autorska.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'pretraga', component: PretragaComponent },
       { path: 'moji-zahtevi', component: MojiZahteviComponent },
       { path: 'novi-zahtev', component: NoviZahtevAutorskaComponent},
+      { path: 'zahtev/:broj_prijave', component: ZahtevAutorskaComponent }
     ]
   },
   { path: 'zig', component: ZigComponent, children: [
