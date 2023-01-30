@@ -2,10 +2,7 @@ package com.zavod.service;
 
 import com.zavod.dto.KorisnikDTO;
 import com.zavod.dto.ResenjeDTO;
-import com.zavod.model.resenje.Resenje;
-import com.zavod.model.resenje.TInformacijeOZahtevu;
-import com.zavod.model.resenje.TOdluka;
-import com.zavod.model.resenje.TSluzbenik;
+import com.zavod.model.resenje.*;
 import com.zavod.model.zahtev.Zahtev;
 import com.zavod.repository.MetadataRepository;
 import com.zavod.repository.ResenjeRepository;
@@ -56,8 +53,8 @@ public class ResenjeService {
 
     private void updateMetadata(Zahtev zahtev, StatusResenja status) {
         metadataRepository.updateRdf(
-                "http://www.zavod.com/Autorska/" + zahtev.getInformacijeZavoda().getBrojPrijave(),
-                "http://www.zavod.com/Autorska/pred/Status_resenja",
+                "http://www.zavod.com/Zig/" + zahtev.getInformacijeZavoda().getBrojPrijave(),
+                "http://www.zavod.com/Zig/pred/Status_resenja",
                 status.toString()
         );
     }

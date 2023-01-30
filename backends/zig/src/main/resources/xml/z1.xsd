@@ -106,7 +106,7 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
-            <xs:element name="datum_podsnosenja" type="xs:date"/>
+            <xs:element name="datum_podnosenja" type="xs:date"/>
             <xs:element name="prilozi">
                 <xs:complexType>
                     <xs:sequence>

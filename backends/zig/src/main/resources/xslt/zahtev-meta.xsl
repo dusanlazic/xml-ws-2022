@@ -18,7 +18,7 @@
                 <xsl:value-of select="./z:Informacije_Zavoda/z:broj_prijave"></xsl:value-of>
             </pred:Broj_prijave>
             <pred:Datum_podnosenja>
-                <xsl:value-of select="./z:Informacije_Zavoda/z:datum_podsnosenja"></xsl:value-of>
+                <xsl:value-of select="./z:Informacije_Zavoda/z:datum_podnosenja"></xsl:value-of>
             </pred:Datum_podnosenja>
         </rdf:Description>
     </xsl:template>

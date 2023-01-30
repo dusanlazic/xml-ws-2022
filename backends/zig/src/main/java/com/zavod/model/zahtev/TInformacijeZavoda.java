@@ -32,7 +32,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
- *         &lt;element name="datum_podsnosenja" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *         &lt;element name="datum_podnosenja" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="prilozi">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -61,15 +61,15 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TInformacije_Zavoda", propOrder = {
     "brojPrijave",
-    "datumPodsnosenja",
+    "datumPodnosenja",
     "prilozi"
 })
 public class TInformacijeZavoda {
 
     @XmlElement(name = "broj_prijave", required = true)
     protected String brojPrijave;
-    @XmlElement(name = "datum_podsnosenja", required = true)
-    protected XMLGregorianCalendar datumPodsnosenja;
+    @XmlElement(name = "datum_podnosenja", required = true)
+    protected XMLGregorianCalendar datumPodnosenja;
     @XmlElement(required = true)
     protected Prilozi prilozi;
 
@@ -98,27 +98,27 @@ public class TInformacijeZavoda {
     }
 
     /**
-     * Gets the value of the datumPodsnosenja property.
+     * Gets the value of the datumPodnosenja property.
      * 
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDatumPodsnosenja() {
-        return datumPodsnosenja;
+    public XMLGregorianCalendar getDatumPodnosenja() {
+        return datumPodnosenja;
     }
 
     /**
-     * Sets the value of the datumPodsnosenja property.
+     * Sets the value of the datumPodnosenja property.
      * 
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDatumPodsnosenja(XMLGregorianCalendar value) {
-        this.datumPodsnosenja = value;
+    public void setDatumPodnosenja(XMLGregorianCalendar value) {
+        this.datumPodnosenja = value;
     }
 
     /**

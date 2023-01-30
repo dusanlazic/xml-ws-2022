@@ -303,7 +303,7 @@
                             <p>Број пријаве жига:</p>
                             <p class="is-blue"><xsl:value-of select="//z:Informacije_Zavoda/z:broj_prijave"></xsl:value-of></p>
                             <p><b>Датум подношења:</b></p>
-                            <p class="is-blue"><xsl:value-of select="//z:Informacije_Zavoda/z:datum_podsnosenja"></xsl:value-of></p>
+                            <p class="is-blue"><xsl:value-of select="//z:Informacije_Zavoda/z:datum_podnosenja"></xsl:value-of></p>
                         </td>
                     </tr>
                 </table>

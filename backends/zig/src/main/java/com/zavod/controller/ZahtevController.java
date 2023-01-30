@@ -97,9 +97,9 @@ public class ZahtevController {
         return new Zahtevi(metadataService.metaSearch(metaSearchRequest));
     }
 
-    @GetMapping(path = "/izvestaj_{startDate}_{endDate}.pdf", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<Resource> exportIzvestaj(@PathVariable("startDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
-                                                   @PathVariable("endDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate) throws DatatypeConfigurationException, XMLDBException {
+    @GetMapping(path = "/izvestaj", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<Resource> exportIzvestaj(@RequestParam("startDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
+                                                   @RequestParam("endDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate) throws DatatypeConfigurationException, XMLDBException {
         return pdfService.exportToResource(izvestajService.generateNew(startDate, endDate));
     }
 }
