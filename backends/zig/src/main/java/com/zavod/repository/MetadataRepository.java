@@ -119,6 +119,22 @@ public class MetadataRepository {
         return results;
     }
 
+    public void updateRdf(String subject, String predicate, String object) {
+        UpdateProcessor processor;
+
+        String deleteTriple = String.format("<%s> <%s> ?anyObject", subject, predicate);
+        String sparqlDelete = SparqlUtil.deleteData(conn.dataEndpoint + SPARQL_NAMED_GRAPH_URI, deleteTriple);
+        UpdateRequest delete = UpdateFactory.create(sparqlDelete);
+        processor = UpdateExecutionFactory.createRemote(delete, conn.updateEndpoint);
+        processor.execute();
+
+        String updateTriple = String.format("<%s> <%s> \"%s\" .", subject, predicate, object);
+        String sparqlUpdate = SparqlUtil.insertData(conn.dataEndpoint + SPARQL_NAMED_GRAPH_URI, updateTriple);
+        UpdateRequest update = UpdateFactory.create(sparqlUpdate);
+        processor = UpdateExecutionFactory.createRemote(update, conn.updateEndpoint);
+        processor.execute();
+    }
+
     public List<String> executeSparqlQuery(String sparqlQuery) {
 
         System.out.println(sparqlQuery);

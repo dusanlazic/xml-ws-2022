@@ -7,6 +7,7 @@ import com.zavod.model.resenje.TInformacijeOZahtevu;
 import com.zavod.model.resenje.TOdluka;
 import com.zavod.model.resenje.TSluzbenik;
 import com.zavod.model.zahtev.Zahtev;
+import com.zavod.repository.MetadataRepository;
 import com.zavod.repository.ResenjeRepository;
 import com.zavod.repository.ZahtevRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,10 @@ public class ResenjeService {
     @Autowired
     private ResenjeRepository resenjeRepository;
 
-    public void addResenje(ResenjeDTO resenjeDTO, String brojPrijave, Authentication authentication) throws XMLDBException, DatatypeConfigurationException {
+    @Autowired
+    private MetadataRepository metadataRepository;
+
+    public Resenje addResenje(ResenjeDTO resenjeDTO, String brojPrijave, Authentication authentication) throws XMLDBException, DatatypeConfigurationException {
         KorisnikDTO korisnikDTO = (KorisnikDTO) authentication.getPrincipal();
         Zahtev zahtev = zahtevRepository.findById(brojPrijave);
 
@@ -37,10 +41,24 @@ public class ResenjeService {
                 new TOdluka(today(), resenjeDTO.getOdluka().getObrazlozenje(), resenjeDTO.getOdluka().isPrihvacen())
         );
 
+        if (resenje.getOdluka().isPrihvacen())
+            updateMetadata(zahtev, StatusResenja.PRIHVACEN);
+        else
+            updateMetadata(zahtev, StatusResenja.ODBIJEN);
+
         resenjeRepository.save(resenje, zahtev.getInformacijeZavoda().getBrojPrijave() + ".xml");
+        return resenje;
     }
 
     public Resenje getResenje(String brojPrijave) throws XMLDBException {
         return resenjeRepository.findById(brojPrijave);
+    }
+
+    private void updateMetadata(Zahtev zahtev, StatusResenja status) {
+        metadataRepository.updateRdf(
+                "http://www.zavod.com/Autorska/" + zahtev.getInformacijeZavoda().getBrojPrijave(),
+                "http://www.zavod.com/Autorska/pred/Status_resenja",
+                status.toString()
+        );
     }
 }

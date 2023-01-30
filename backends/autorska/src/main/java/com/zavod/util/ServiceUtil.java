@@ -32,4 +32,8 @@ public class ServiceUtil {
         return stripTime(xmlDatefromDate(new Date()));
     }
 
+    public static String dateToString(Date date) {
+        return df.format(date);
+    }
+
 }

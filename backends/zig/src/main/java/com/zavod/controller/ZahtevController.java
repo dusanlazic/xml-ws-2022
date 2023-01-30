@@ -99,7 +99,7 @@ public class ZahtevController {
 
     @GetMapping(path = "/izvestaj_{startDate}_{endDate}.pdf", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<Resource> exportIzvestaj(@PathVariable("startDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
-                                                   @PathVariable("endDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate) throws DatatypeConfigurationException {
+                                                   @PathVariable("endDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate) throws DatatypeConfigurationException, XMLDBException {
         return pdfService.exportToResource(izvestajService.generateNew(startDate, endDate));
     }
 }

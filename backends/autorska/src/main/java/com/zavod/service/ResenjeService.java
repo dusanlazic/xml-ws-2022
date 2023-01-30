@@ -2,16 +2,13 @@ package com.zavod.service;
 
 import com.zavod.dto.KorisnikDTO;
 import com.zavod.dto.ResenjeDTO;
-import com.zavod.model.resenje.Resenje;
-import com.zavod.model.resenje.TInformacijeOZahtevu;
-import com.zavod.model.resenje.TOdluka;
-import com.zavod.model.resenje.TSluzbenik;
+import com.zavod.model.resenje.*;
 import com.zavod.model.zahtev.TFizickoLice;
 import com.zavod.model.zahtev.TLice;
 import com.zavod.model.zahtev.Zahtev;
+import com.zavod.repository.MetadataRepository;
 import com.zavod.repository.ResenjeRepository;
 import com.zavod.repository.ZahtevRepository;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -21,11 +18,8 @@ import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.ws.Response;
-
 import java.io.IOException;
 
-import static com.zavod.util.ServiceUtil.*;
 import static com.zavod.util.ServiceUtil.today;
 
 @Service
@@ -38,11 +32,13 @@ public class ResenjeService {
     private ResenjeRepository resenjeRepository;
 
     @Autowired
+    private MetadataRepository metadataRepository;
+
+    @Autowired
     private PDFService pdfService;
 
     @Autowired
     private MailingService mailingService;
-
 
     public Resenje addResenje(ResenjeDTO resenjeDTO, String brojPrijave, Authentication authentication) throws XMLDBException, DatatypeConfigurationException {
         KorisnikDTO korisnikDTO = (KorisnikDTO) authentication.getPrincipal();
@@ -53,6 +49,11 @@ public class ResenjeService {
                 new TInformacijeOZahtevu(brojPrijave),
                 new TOdluka(today(), resenjeDTO.getOdluka().getObrazlozenje(), resenjeDTO.getOdluka().isPrihvacen())
         );
+
+        if (resenje.getOdluka().isPrihvacen())
+            updateMetadata(zahtev, StatusResenja.PRIHVACEN);
+        else
+            updateMetadata(zahtev, StatusResenja.ODBIJEN);
 
         resenjeRepository.save(resenje, zahtev.getInformacijeZavoda().getBrojPrijave() + ".xml");
         return resenje;
@@ -74,5 +75,13 @@ public class ResenjeService {
         System.out.println("dodjem dovde");
         System.out.println(response.getBody());
         mailingService.sendResenjeMail(korisnikDTO, resenje, response.getBody().getFile());
+    }
+
+    private void updateMetadata(Zahtev zahtev, StatusResenja status) {
+        metadataRepository.updateRdf(
+                "http://www.zavod.com/Autorska/" + zahtev.getInformacijeZavoda().getBrojPrijave(),
+                "http://www.zavod.com/Autorska/pred/Status_resenja",
+                status.toString()
+        );
     }
 }
