@@ -62,6 +62,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlType(name = "TInformacije_Zavoda", propOrder = {
     "brojPrijave",
     "datumPodnosenja",
+    "statusResenja",
     "prilozi"
 })
 public class TInformacijeZavoda {
@@ -70,6 +71,8 @@ public class TInformacijeZavoda {
     protected String brojPrijave;
     @XmlElement(name = "datum_podnosenja", required = true)
     protected XMLGregorianCalendar datumPodnosenja;
+    @XmlElement(name = "status_resenja")
+    protected String statusResenja;
     @XmlElement(required = true)
     protected Prilozi prilozi;
 
@@ -119,6 +122,30 @@ public class TInformacijeZavoda {
      */
     public void setDatumPodnosenja(XMLGregorianCalendar value) {
         this.datumPodnosenja = value;
+    }
+
+    /**
+     * Gets the value of the statusResenja property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getStatusResenja() {
+        return statusResenja;
+    }
+
+    /**
+     * Sets the value of the statusResenja property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setStatusResenja(String value) {
+        this.statusResenja = value;
     }
 
     /**

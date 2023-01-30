@@ -38,11 +38,15 @@ public class ResenjeService {
                 new TOdluka(today(), resenjeDTO.getOdluka().getObrazlozenje(), resenjeDTO.getOdluka().isPrihvacen())
         );
 
-        if (resenje.getOdluka().isPrihvacen())
+        if (resenje.getOdluka().isPrihvacen()) {
             updateMetadata(zahtev, StatusResenja.PRIHVACEN);
-        else
+            zahtev.getInformacijeZavoda().setStatusResenja(StatusResenja.PRIHVACEN.toString());
+        } else {
             updateMetadata(zahtev, StatusResenja.ODBIJEN);
+            zahtev.getInformacijeZavoda().setStatusResenja(StatusResenja.ODBIJEN.toString());
+        }
 
+        zahtevRepository.save(zahtev, zahtev.getInformacijeZavoda().getBrojPrijave() + ".xml");
         resenjeRepository.save(resenje, zahtev.getInformacijeZavoda().getBrojPrijave() + ".xml");
         return resenje;
     }

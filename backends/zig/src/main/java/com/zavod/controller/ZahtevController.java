@@ -1,10 +1,7 @@
 package com.zavod.controller;
 
 import com.zavod.api.ResponseOk;
-import com.zavod.dto.MetaSearchQuery;
-import com.zavod.dto.MetaSearchRequest;
-import com.zavod.dto.SearchRequest;
-import com.zavod.dto.Zahtevi;
+import com.zavod.dto.*;
 import com.zavod.model.zahtev.Zahtev;
 import com.zavod.service.IzvestajService;
 import com.zavod.service.MetadataService;
@@ -16,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.xmldb.api.base.XMLDBException;
 
@@ -83,18 +81,24 @@ public class ZahtevController {
 
     @PostMapping(path = "/search", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
     @PreAuthorize("hasAnyAuthority('SLUZBENIK', 'GRADJANIN')")
-    public Zahtevi search(@RequestBody SearchRequest searchRequest) {
+    public Zahtevi search(@RequestBody SearchRequest searchRequest, Authentication authentication) {
+        KorisnikDTO korisnik = (KorisnikDTO) authentication.getPrincipal();
+        boolean hideNeprihvaceni = korisnik.getUloga().equals("gradjanin");
+
         if(searchRequest.getQuery().size() == 0) return new Zahtevi();
-        return new Zahtevi(zahtevService.search(searchRequest.getQuery()));
+        return new Zahtevi(zahtevService.search(searchRequest.getQuery(), hideNeprihvaceni));
     }
 
     @PostMapping(path = "/search-meta", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
     @PreAuthorize("hasAnyAuthority('SLUZBENIK', 'GRADJANIN')")
-    public Zahtevi metaSearch(@RequestBody MetaSearchRequest metaSearchRequest) throws XMLDBException {
+    public Zahtevi metaSearch(@RequestBody MetaSearchRequest metaSearchRequest, Authentication authentication) throws XMLDBException {
+        KorisnikDTO korisnik = (KorisnikDTO) authentication.getPrincipal();
+        boolean hideNeprihvaceni = korisnik.getUloga().equals("gradjanin");
+
         for (MetaSearchQuery searchQuery: metaSearchRequest.getQuery()) {
             System.out.println(searchQuery.getPredicate() + " " + searchQuery.getObject() + " " + searchQuery.getOperator());
         }
-        return new Zahtevi(metadataService.metaSearch(metaSearchRequest));
+        return new Zahtevi(metadataService.metaSearch(metaSearchRequest, hideNeprihvaceni));
     }
 
     @GetMapping(path = "/izvestaj", produces = MediaType.APPLICATION_PDF_VALUE)

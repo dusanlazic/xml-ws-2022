@@ -2,6 +2,7 @@ package com.zavod.service;
 
 import com.zavod.dto.MetaSearchQuery;
 import com.zavod.dto.MetaSearchRequest;
+import com.zavod.model.resenje.StatusResenja;
 import com.zavod.model.zahtev.Zahtev;
 import com.zavod.repository.MetadataRepository;
 import com.zavod.repository.ZahtevRepository;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class MetadataService {
@@ -31,9 +33,17 @@ public class MetadataService {
 
 
 	public List<Zahtev> metaSearch(MetaSearchRequest request) throws XMLDBException {
+		return metaSearch(request, false);
+	}
+
+	public List<Zahtev> metaSearch(MetaSearchRequest request, boolean hideNeprihvaceni) throws XMLDBException {
 		prepreocessMetaSearchRequest(request);
 		String query = this.buildMetaSearchQuery(request, graphName, "select");
 		List<String> ids = metadataRepository.executeSparqlQuery(query);
+		if (hideNeprihvaceni)
+			return zahtevRepository.findByIds(ids).stream()
+					.filter(z -> z.getInformacijeZavoda().getStatusResenja().equals(StatusResenja.PRIHVACEN.toString()))
+					.collect(Collectors.toList());
 		return zahtevRepository.findByIds(ids);
 	}
 
