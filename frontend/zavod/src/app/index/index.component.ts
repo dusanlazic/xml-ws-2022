@@ -49,7 +49,11 @@ export class IndexComponent implements OnInit {
 
   accessZig() {
     if(this.loggedUser) {
-      this.router.navigate(['/zig']);
+      if(this.loggedUser.uloga == "gradjanin") {
+        this.router.navigate(['/zig/novi-zahtev']);
+      } else if(this.loggedUser.uloga == "sluzbenik") {
+        this.router.navigate(['/zig/sluzbenik/pretraga']);
+      }
     } else {
       this.toastr.info("Potrebno je prvo prijaviti se na sistem.")
     }

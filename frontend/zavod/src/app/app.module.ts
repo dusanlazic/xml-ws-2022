@@ -23,7 +23,6 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatButtonModule} from '@angular/material/button';
 import { MojiZahteviComponent } from './autorska/moji-zahtevi/moji-zahtevi.component';
-import { MojProfilComponent } from './shared/moj-profil/moj-profil.component';
 import { PretragaComponent } from './shared/pretraga/pretraga.component';
 import { MatDialogModule} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
@@ -61,7 +60,6 @@ import { ResenjeComponent } from './shared/resenje/resenje.component';
     NoviZahtevAutorskaComponent,
     FormlyFieldStepper,
     MojiZahteviComponent,
-    MojProfilComponent,
     PretragaComponent,
     LoginComponent,
     FileValueAccessor, 
