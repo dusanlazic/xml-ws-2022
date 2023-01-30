@@ -1,0 +1,109 @@
+<div *ngIf="this.zahtev !== undefined">
+	<div style="display: flex; justify-content: center;">
+		<h1>
+			Zahtev broj {{zahtev?.informacije_zavoda.broj_prijave._text}}
+		</h1>
+	</div>
+	<div style="padding: 30px;">
+		<div style="width: 100%; display: flex;">
+			<div style="width: 40%;" class="content">
+				<h2>Podnosilac</h2>
+				<table>
+					<tbody>
+						<tr *ngIf="zahtev?.podnosilac.ime">
+							<td><strong>Ime:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.ime._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.podnosilac.sediste">
+							<td><strong>Sedište:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.sediste._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.podnosilac.prezime">
+							<td><strong>Prezime:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.prezime._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.podnosilac.adresa">
+							<td><strong>Adresa:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.adresa.ulica._text}} {{zahtev?.podnosilac.adresa.broj._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.podnosilac.adresa">
+							<td><strong>Mesto:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.adresa.mesto._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.podnosilac.adresa">
+							<td><strong>Poštanski broj:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.adresa.postanski_broj._text}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="content">
+				<h2>Informacije zavoda</h2>
+				<table>
+					<tr><td><strong>Datum podnošenja:</strong></td><td>{{zahtev?.informacije_zavoda.datum_podnosenja._text}}</td></tr>
+				</table>
+			</div>
+			
+		</div>
+		<div style="display: flex;">
+			<div style="width: 40%;" class="content">
+				<h2>Delo</h2>
+				<table>
+					<tbody>
+						<tr><td><strong>Naslov:</strong></td><td> {{zahtev?.delo.naslov._text}}</td></tr>
+						<tr><td><strong>Alternativni naslov:</strong></td><td> {{zahtev?.delo.alternativni_naslov._text}}</td></tr>
+						<tr><td><strong>Vrsta dela:</strong></td><td> {{zahtev?.delo.vrsta_dela._text}}</td></tr>
+						<tr><td><strong>Forma zapisa:</strong></td> <td> {{zahtev?.delo.forma_zapisa._text}}</td></tr>
+						<tr><td><strong>Način korišćenja:</strong></td><td> {{zahtev?.delo.nacin_koriscenja._text}}</td></tr>
+						<tr><td><strong>Stvoreno u radnom odnosu:</strong></td><td> {{zahtev?.delo.radni_odnos._text ? "Da" : "Ne"}}</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="content">
+				<h2>Prilozi</h2>
+				<table>
+					<tr><td><strong>Opis dela:</strong></td><td> <button mat-raised-button color="primary">Preuzmite</button></td></tr>
+					<tr><td><strong>Primer dela:</strong></td><td> <button mat-raised-button color="primary">Preuzmite</button></td></tr>
+					<tr><td><strong>Punomoćje:</strong></td><td> <button mat-raised-button color="primary">Preuzmite</button></td></tr>
+					<tr><td><strong>Uplata:</strong></td><td> <button mat-raised-button color="primary">Preuzmite</button></td></tr>
+				</table>
+			</div>
+		</div>
+		<div style="display: flex;">
+			<div style="width: 40%;" class="content" *ngIf="zahtev?.autor">
+				<h2>Autor</h2>
+				<table>
+					<tbody>
+						<tr><td><strong>Ime:</strong></td><td> {{zahtev?.autor.ime._text}}</td></tr>
+						<tr><td><strong>Prezime:</strong></td><td> {{zahtev?.autor.prezime._text}}</td></tr>
+						<tr><td><strong>Državljanstvo:</strong></td><td> {{zahtev?.autor.drzavljanstvo._text}}</td></tr>
+						<tr *ngIf="zahtev?.autor.godina_smrti"><td><strong>Godina smrti:</strong></td><td> {{zahtev?.autor.godina_smrti._text}}</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div style="width: 40%;" class="content" *ngIf="zahtev?.punomocnik">
+				<h2>Punomoćnik</h2>
+				<table>
+					<tbody>
+						<tr><td><strong>Ime:</strong></td><td> {{zahtev?.punomocnik.ime._text}}</td></tr>
+						<tr><td><strong>Prezime:</strong></td><td> {{zahtev?.punomocnik.prezime._text}}</td></tr>
+						<tr><td><strong>Državljanstvo:</strong></td><td> {{zahtev?.punomocnik.drzavljanstvo._text}}</td></tr>
+					</tbody>
+				</table>
+			</div>
+		
+		</div>
+	</div>
+	<div>
+		<div style="display: flex; margin-left: 45px; flex-direction: row-reverse;" class="btns">
+			<button mat-flat-button color="primary" (click)="exportRDF()">RDF</button>
+			<button mat-flat-button color="primary" (click)="exportJSON()">JSON</button>
+			<button mat-flat-button color="primary" (click)="exportHTML()">HTML</button>
+			<button mat-flat-button color="primary" (click)="exportPDF()">PDF</button>
+		</div>
+	</div>
+	
+	
+	
+</div>
