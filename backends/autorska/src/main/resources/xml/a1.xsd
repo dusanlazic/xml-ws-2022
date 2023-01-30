@@ -8,15 +8,22 @@
         <xs:sequence>
             <xs:element name="Podnosilac" type="a:TLice"/>
             <xs:element name="Delo" type="a:TDelo"/>
-            <xs:element minOccurs="0" name="Autor">
+            <xs:element minOccurs="1" name="Autori">
                 <xs:complexType>
-                    <xs:complexContent>
-                        <xs:extension base="a:TFizicko_Lice">
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="godina_smrti" type="xs:date"/>
-                            </xs:sequence>
-                        </xs:extension>
-                    </xs:complexContent>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Autor" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:complexContent>
+                                    <xs:extension base="a:TFizicko_Lice">
+                                        <xs:sequence>
+                                            <xs:element minOccurs="0" name="godina_smrti"
+                                                type="xs:date"/>
+                                        </xs:sequence>
+                                    </xs:extension>
+                                </xs:complexContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
                 </xs:complexType>
             </xs:element>
             <xs:element name="Informacije_Zavoda" type="a:TInformacije_Zavoda"/>

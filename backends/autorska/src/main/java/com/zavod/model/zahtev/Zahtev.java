@@ -8,8 +8,12 @@
 
 package com.zavod.model.zahtev;
 
+import com.zavod.autorska.TZahtev;
+
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.ArrayList;
+import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TZahtev", propOrder = {
@@ -25,10 +29,12 @@ public class Zahtev {
 
     @XmlElement(name = "Podnosilac", required = true)
     protected TLice podnosilac;
+
     @XmlElement(name = "Delo", required = true)
     protected TDelo delo;
-    @XmlElement(name = "Autor")
-    protected Autor autor;
+
+    @XmlElement(name = "Autori", required = true)
+    protected Autori autor;
     @XmlElement(name = "Informacije_Zavoda", required = true)
     protected TInformacijeZavoda informacijeZavoda;
     @XmlElement(name = "Punomocnik")
@@ -56,12 +62,15 @@ public class Zahtev {
     }
 
 
-    public Autor getAutor() {
-        return autor;
+    public Autori getAutor() {
+        if (autor == null) {
+            autor = new Autori();
+        }
+        return this.autor;
     }
 
 
-    public void setAutor(Autor value) {
+    public void setAutor(Autori value) {
         this.autor = value;
     }
 
@@ -93,7 +102,29 @@ public class Zahtev {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
+    @XmlType(name = "TAutori", propOrder = {
+            "autor"
+    })
+    public static class Autori {
+
+        @XmlElement(name = "Autor")
+        protected List<Autor> autor;
+
+        public List<Autor> getAutor() {
+            if (autor == null) {
+                autor = new ArrayList<Autor>();
+            }
+            return this.autor;
+        }
+
+        public void setAutor(List<Autor> value) {
+            this.autor = value;
+        }
+
+    }
+
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "TAutor", propOrder = {
             "godinaSmrti"
     })
     public static class Autor extends TFizickoLice
