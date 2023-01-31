@@ -1,9 +1,12 @@
+import { HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup, RequiredValidator } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { Observable } from 'rxjs';
 import { ParserService } from 'src/services/parser.service';
 import { AutoriNoviZahtevService } from 'src/services/util/autori-novi-zahtev.service';
-import { HttpRequestService } from 'src/services/util/http-request.service';
+import { HttpRequestService, autorskaBackend } from 'src/services/util/http-request.service';
+import { LocalStorageService } from 'src/services/util/local-storage.service';
 var _ = require('lodash');
 
 
@@ -90,7 +93,12 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
 	ngOnInit(): void {
 	}
 
-  constructor(private httpRequestService: HttpRequestService, private autoriService: AutoriNoviZahtevService, private parser: ParserService) { }
+  constructor(
+    private httpRequestService: HttpRequestService, 
+    private autoriService: AutoriNoviZahtevService, 
+    private parser: ParserService, 
+    private http: HttpClient,
+    private localStorageService: LocalStorageService) { }
 
   ngAfterViewInit(): void {
     this.changed()
@@ -422,21 +430,24 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
               key: 'opisPrilog',
               type: 'file',
               props: {
-                label: 'Prilog opisa dela'
+                label: 'Prilog opisa dela',
+                fileid: 'opisid'
               }
             },
             {
               key: 'primerPrilog',
               type: 'file',
               props: {
-                label: 'Prilog primera dela'
+                label: 'Prilog primera dela',
+                fileid: 'primerid'
               }
             },
             {
               key: 'punomocjePrilog',
               type: 'file',
               props: {
-                label: 'Punomocje'
+                label: 'Punomocje',
+                fileid: 'punomocjeid'
               },
               expressions: {
                 hide: '!model.postojiPunomocnik'
@@ -446,7 +457,8 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
               key: 'uplataPrilog',
               type: 'file',
               props: {
-                label: 'Uplata'
+                label: 'Uplata',
+                fileid: 'uplataid'
               }
             }
           ]
@@ -521,14 +533,47 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
     let xml = this.parser.js2xml(model);
     console.log(xml);
 
-    this.httpRequestService.post("http://localhost:8081/zahtevi/", xml).subscribe(x => {
-      console.log(x);
-    })
-    
-    
-    // const xml = js2xmlparser.parse("Zahtevi", model);
-    // console.log(xml);
-    // 
+    this.uploadPriloziAndSend(xml);
+
+    // this.httpRequestService.post("http://localhost:8081/zahtevi/", xml).subscribe(x => {
+    //   console.log(x);
+    // })
+  }
+
+  uploadPriloziAndSend(xml: any) {
+    // uplata punomocje primer opis
+    let fileInput: any = document.getElementById("uplataid");
+    let file = fileInput.files[0];
+    this.uploadFile(file).subscribe({
+      next: (event: any) => {
+        console.log("AJMEEEEEEEEEEEEEE");
+        let odg = this.parser.xml2js(event);
+        console.log(odg);
+        
+        
+      }, error(err) {
+          console.log(err);
+      },
+     
+    });
+  }
+
+
+  uploadFile(file: File) {
+
+    let formData = new FormData();
+    formData.append('file', file);
+
+    let token = this.localStorageService.get("access_token")
+
+    const options = {
+      headers: new HttpHeaders({
+        "Authorization": "Bearer " + token
+      }),
+      reportProgress: true,
+    };
+
+    return this.http.post(autorskaBackend + "/dokumenti", formData, { ...options, responseType: "text"});
   }
 
   parseAutori(model: any) {
