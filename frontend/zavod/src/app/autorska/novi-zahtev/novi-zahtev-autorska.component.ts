@@ -2,6 +2,7 @@ import { HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest } from '@an
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup, RequiredValidator } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { ParserService } from 'src/services/parser.service';
 import { AutoriNoviZahtevService } from 'src/services/util/autori-novi-zahtev.service';
@@ -98,7 +99,8 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
     private autoriService: AutoriNoviZahtevService, 
     private parser: ParserService, 
     private http: HttpClient,
-    private localStorageService: LocalStorageService) { }
+    private localStorageService: LocalStorageService,
+    private toastr: ToastrService) { }
 
   ngAfterViewInit(): void {
     this.changed()
@@ -530,31 +532,80 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
     model = this.resolveTypes(model, tipPodnosioca)
     console.log(model);
 
+    this.uploadPriloziAndSend(model);
+
+
     let xml = this.parser.js2xml(model);
     console.log(xml);
 
-    this.uploadPriloziAndSend(xml);
 
     // this.httpRequestService.post("http://localhost:8081/zahtevi/", xml).subscribe(x => {
     //   console.log(x);
     // })
   }
 
-  uploadPriloziAndSend(xml: any) {
+  uploadPriloziAndSend(model: any) {
     // uplata punomocje primer opis
-    let fileInput: any = document.getElementById("uplataid");
-    let file = fileInput.files[0];
-    this.uploadFile(file).subscribe({
+    let uplataInput: any = document.getElementById("uplataid");
+    let fileUplata = uplataInput.files[0];
+
+
+    let primerInput: any = document.getElementById("primerid");
+    let filePrimer = primerInput.files[0];
+
+    let opisInput: any = document.getElementById("opisid");
+    let fileOpis = opisInput.files[0];
+
+    let files = [fileUplata, filePrimer, fileOpis];
+    let names = ["uplata", "primer_dela", "opis_dela"];
+
+    if(model.postojiPunomocnik) {
+      let punomocjeInput: any = document.getElementById("punomocjeid");
+      let filePunomocje = punomocjeInput.files[0];
+
+      files.push(filePunomocje);
+      names.push("punomocje");
+    }
+
+    this.uploadPrilog(model, files, names);
+
+  }
+
+  uploadPrilog(model: any, files: any, names: any, index=0) {
+    let current = files[index];
+    let currentName = names[index];    
+    this.uploadFile(current).subscribe({
       next: (event: any) => {
-        console.log("AJMEEEEEEEEEEEEEE");
         let odg = this.parser.xml2js(event);
         console.log(odg);
-        
-        
+        console.log(model);
+        let filename = odg.fileuploadresponse.filename._text
+        model.Zahtev.Informacije_Zavoda.prilozi[currentName].putanja = filename;
+        model.Zahtev.Informacije_Zavoda.prilozi[currentName].naziv_datoteke = filename.split("/").pop();
+        if(index < files.length - 1) {
+          this.uploadPrilog(model, files, names, index + 1);
+        } else {
+          this.sendModel(model);
+        }
       }, error(err) {
           console.log(err);
       },
      
+    });
+  }
+
+  sendModel(model: any) {
+    model.Zahtev.Informacije_Zavoda.status_resenja = "NA_CEKANJU";
+    let xml = this.parser.js2xml(model);
+    console.log(xml);
+    let that = this;
+    this.httpRequestService.post("http://localhost:8081/zahtevi/", xml).subscribe({
+      next(value) {
+          that.toastr.success("Uspešno ste poslali zahtev");
+      },
+      error(err) {
+          that.toastr.error("Došlo je do greške");
+      }
     });
   }
 

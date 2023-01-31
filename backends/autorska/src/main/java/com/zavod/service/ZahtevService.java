@@ -29,6 +29,7 @@ public class ZahtevService {
 	}
 
 	public void addZahtev(Zahtev zahtev) {
+		zahtev.getInformacijeZavoda().setStatusResenja(StatusResenja.NA_CEKANJU.toString());
 		this.zahtevRepository.save(zahtev, zahtev.getInformacijeZavoda().getBrojPrijave() + ".xml");
 	}
 

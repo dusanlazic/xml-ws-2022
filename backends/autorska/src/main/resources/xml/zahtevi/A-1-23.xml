@@ -4,8 +4,8 @@
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://www.zavod.com/Autorska file:/home/pavle/Documents/XML/Projekat/xml-ws-2022/backends/autorska/src/main/resources/xml/a1.xsd">
     <a:Podnosilac xsi:type="a:TPravno_Lice">
-        <a:ime>ime3</a:ime>
-        <a:sediste>sediste3</a:sediste>
+        <a:ime>ime1</a:ime>
+        <a:sediste>sediste2</a:sediste>
     </a:Podnosilac>
     <a:Delo>
         <a:naslov>naslov0</a:naslov>
@@ -15,8 +15,9 @@
         <a:radni_odnos>false</a:radni_odnos>
         <a:nacin_koriscenja>nacin_koriscenja0</a:nacin_koriscenja>
     </a:Delo>
+    <a:Autori></a:Autori>
     <a:Informacije_Zavoda>
-        <a:broj_prijave>A-0000-00</a:broj_prijave>
+        <a:broj_prijave>A-1-23</a:broj_prijave>
         <a:datum_podnosenja>2006-05-04</a:datum_podnosenja>
         <a:status_resenja>NA_CEKANJU</a:status_resenja>
         <a:prilozi>

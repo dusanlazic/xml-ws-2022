@@ -1,0 +1,24 @@
+{
+  "head": {
+    "vars": [ "subject" , "predicate" , "object" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "subject": { "type": "uri" , "value": "http://www.zavod.com/Autorska/A-0000-01" } ,
+        "predicate": { "type": "uri" , "value": "http://www.zavod.com/Autorska/pred/Datum_podnosenja" } ,
+        "object": { "type": "literal" , "value": "2006-05-04" }
+      } ,
+      {
+        "subject": { "type": "uri" , "value": "http://www.zavod.com/Autorska/A-0000-01" } ,
+        "predicate": { "type": "uri" , "value": "http://www.zavod.com/Autorska/pred/Broj_prijave" } ,
+        "object": { "type": "literal" , "value": "A-0000-01" }
+      } ,
+      {
+        "subject": { "type": "uri" , "value": "http://www.zavod.com/Autorska/A-0000-01" } ,
+        "predicate": { "type": "uri" , "value": "http://www.zavod.com/Autorska/pred/Naziv" } ,
+        "object": { "type": "literal" , "value": "ime1" }
+      }
+    ]
+  }
+}
