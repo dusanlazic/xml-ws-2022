@@ -1,7 +1,83 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup, RequiredValidator } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { ParserService } from 'src/services/parser.service';
+import { AutoriNoviZahtevService } from 'src/services/util/autori-novi-zahtev.service';
 import { HttpRequestService } from 'src/services/util/http-request.service';
+var _ = require('lodash');
+
+
+let autorField = [
+  {
+    key: 'Autor.ime',
+    type: 'input',
+    props: {
+      label: 'Ime',
+      required: true,
+    },
+    expressions: {
+      hide: 'model.podnosilacJeAutor || model.Autor.anoniman'
+    }
+  },
+  {
+    key: 'Autor.prezime',
+    type: 'input',
+    props: {
+      label: 'Prezime',
+      required: true,
+    },
+    expressions: {
+      hide: 'model.podnosilacJeAutor || model.Autor.anoniman'
+    }
+  },
+  {
+    key: 'Autor.pseudonim',
+    type: 'input',
+    props: {
+      label: 'Pseudonim',
+      required: false,
+    },
+    expressions: {
+      hide: 'model.podnosilacJeAutor || model.Autor.anoniman'
+    }
+  },
+  {
+    key: 'Autor.drzavljanstvo',
+    type: 'input',
+    props: {
+      label: 'Državljanstvo',
+      required: true,
+    },
+    expressions: {
+      hide: 'model.podnosilacJeAutor || model.Autor.anoniman'
+    }
+  },
+  {
+    key: 'Autor.godina_smrti',
+    type: 'input',
+    props: {
+      type: 'date',
+      label: 'Datum smrti',
+      required: false,
+    },
+    expressions: {
+      hide: 'model.podnosilacJeAutor || model.Autor.anoniman'
+    }
+  },
+  {
+    key: 'Autor.adresa',
+    type: 'input',
+    props: {
+      type: 'text',
+      label: 'Adresa',
+      required: true,
+    },
+    expressions: {
+      hide: 'model.podnosilacJeAutor || model.Autor.anoniman'
+    }
+  },
+]
+
 
 
 @Component({
@@ -9,22 +85,26 @@ import { HttpRequestService } from 'src/services/util/http-request.service';
   templateUrl: './novi-zahtev-autorska.component.html',
   styleUrls: ['./novi-zahtev-autorska.component.sass']
 })
-export class NoviZahtevAutorskaComponent implements OnInit {
+export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
 
 	ngOnInit(): void {
-
 	}
 
-  constructor(private httpRequestService: HttpRequestService) {
+  constructor(private httpRequestService: HttpRequestService, private autoriService: AutoriNoviZahtevService, private parser: ParserService) { }
+
+  ngAfterViewInit(): void {
+    this.changed()
 
   }
 
 	form = new FormGroup({});
-	model: any = {
+	
+  model: any = {
     tipPodnosioca: 0,
     podnosilacJeAutor: true,
     Autor:{anoniman: undefined}
   };
+
 	options: FormlyFormOptions = {};
 
 	fields: FormlyFieldConfig[] = [
@@ -139,77 +219,10 @@ export class NoviZahtevAutorskaComponent implements OnInit {
                 value: false,
               },
               expressions: {
-                hide: 'model.podnosilacJeAutor'
+                hide: 'model.podnosilacJeAutor',
               }
             },
-            {
-              key: 'Autor.ime',
-              type: 'input',
-              props: {
-                label: 'Ime',
-                required: true,
-              },
-              expressions: {
-                hide: 'model.podnosilacJeAutor || model.Autor.anoniman'
-              }
-            },
-            {
-              key: 'Autor.prezime',
-              type: 'input',
-              props: {
-                label: 'Prezime',
-                required: true,
-              },
-              expressions: {
-                hide: 'model.podnosilacJeAutor || model.Autor.anoniman'
-              }
-            },
-            {
-              key: 'Autor.pseudonim',
-              type: 'input',
-              props: {
-                label: 'Pseudonim',
-                required: false,
-              },
-              expressions: {
-                hide: 'model.podnosilacJeAutor || model.Autor.anoniman'
-              }
-            },
-            {
-              key: 'Autor.drzavljanstvo',
-              type: 'input',
-              props: {
-                label: 'Državljanstvo',
-                required: true,
-              },
-              expressions: {
-                hide: 'model.podnosilacJeAutor || model.Autor.anoniman'
-              }
-            },
-            {
-              key: 'Autor.godina_smrti',
-              type: 'input',
-              props: {
-                type: 'date',
-                label: 'Datum smrti',
-                required: false,
-              },
-              expressions: {
-                hide: 'model.podnosilacJeAutor || model.Autor.anoniman'
-              }
-            },
-            {
-              key: 'Autor.adresa',
-              type: 'input',
-              props: {
-                type: 'text',
-                label: 'Adresa',
-                required: true,
-              },
-              expressions: {
-                hide: 'model.podnosilacJeAutor || model.Autor.anoniman'
-              }
-            },
+            
           ],
         },
 
@@ -442,36 +455,130 @@ export class NoviZahtevAutorskaComponent implements OnInit {
     },
   ];
 
+  baseFields = _.cloneDeep(this.fields);
+  first: boolean = true;
+
+  changed() {
+    this.options.fieldChanges?.subscribe((change) => {
+      if(change.field.key === 'Autor.anoniman') {
+        if (this.model.Autor.anoniman === false) {
+          if (this.autoriService.number.value === 0) {
+            this.autoriService.increaseNumber()
+          }
+        }
+      }
+    });
+    
+    this.autoriService.number.asObservable().subscribe(x => {
+      let nesto = _.cloneDeep(this.baseFields)
+      let group = nesto[0].fieldGroup![1].fieldGroup!;
+
+      for (let i = 0; i < x; i++) {
+        let key = this.autoriService.number;
+        let newFields = this.renameFields(autorField, i + 1);
+        group.push(...newFields);
+      }
+      if(!this.first) {
+        this.autoriService.setStep(1);
+      }
+      this.fields = nesto;
+      this.first = false;
+    })
+  }
+
+  renameFields(fields: any, key: any) {
+    let newFields = _.cloneDeep(fields);
+    newFields.forEach((field: any) => {
+      field.key = field.key + key;
+      field.props.label = field.props.label + " " + key;
+      if(field.fieldGroup) {
+        field.fieldGroup = this.renameFields(field.fieldGroup, key)
+      }
+    });
+  
+    return newFields;
+  }
+
+
   submit() {
     let model = JSON.parse(JSON.stringify(this.model));
     let json = JSON.stringify(model);
-    delete model.podnosilacJeAutor
-    delete model.deloJePrerada
-    delete model.postojiPunomocnik
-    let tipPodnosioca =  model.tipPodnosioca
-    delete model.tipPodnosioca
     console.log(model);
     
-    // model = this.resolveTypes(model, tipPodnosioca)
+    delete model.deloJePrerada
+    let tipPodnosioca =  model.tipPodnosioca
+    delete model.tipPodnosioca
+    this.parseAutori(model);
+    delete model.podnosilacJeAutor
+    delete model.postojiPunomocnik
+
+
+    console.log(model);
+    
+    model = this.resolveTypes(model, tipPodnosioca)
+    console.log(model);
+
+    let xml = this.parser.js2xml(model);
+    console.log(xml);
+
+    this.httpRequestService.post("http://localhost:8081/zahtevi/", xml).subscribe(x => {
+      console.log(x);
+    })
+    
+    
     // const xml = js2xmlparser.parse("Zahtevi", model);
     // console.log(xml);
-    // this.httpRequestService.post("http://localhost:8081/autorska/add", xml).subscribe(x => {
-    //   console.log(x);
-    // })
+    // 
   }
+
+  parseAutori(model: any) {
+    let Autori = []
+    let brojAutora = this.autoriService.number.value;
+    if (model.Autor.anoniman === false && !model.podnosilacJeAutor) {
+      for (let i = 0; i < brojAutora; i++) {
+        try {
+          let autor = {
+            'ime': model.Autor['ime' + (i + 1)],
+            'prezime': model.Autor['prezime' + (i + 1)],
+            'adresa': model.Autor['adresa' + (i + 1)],
+            'drzavljanstvo': model.Autor['drzavljanstvo' + (i + 1)],
+            'godina_smrti': model.Autor['godina_smrti' + (i + 1)],
+          }
+          let autorP: any = this.removeUndefinedProperties(autor);
+          Autori.push(autorP);
+        } catch (error) {
+        }
+      }
+    }
+    model.Autori = Autori;
+    delete model.Autor;
+  }
+
+  removeUndefinedProperties(obj: { [key: string]: any }) {
+    return Object.fromEntries(
+      Object.entries(obj).filter(([key, value]) => value !== undefined)
+    );
+  }
+  
+
 
   resolveTypes(model: any, tipPodnosioca: any) {
     if('Autor' in model) {
       delete model.Autor.anoniman
     }
     if('Punomocnik' in model) {
-      model.Punomocnik['@'] = {'xsi:type': "TFizicko_Lice"}
+      model.Punomocnik['_attributes'] = {'xsi:type': "TFizicko_Lice"}
     }
+
+    if(!model.postojiPunomocnik && model.Punomocnik) {
+      delete model.Punomocnik;
+    }
+
     console.log('here 2');
-    if(tipPodnosioca == 1) {
-      model.Podnosilac['@'] = {'xsi:type': "TPravno_Lice"}
+    if (tipPodnosioca == 1) {
+      model.Podnosilac['_attributes'] = {'xsi:type': "TPravno_Lice"}
     } else {
-      model.Podnosilac['@'] = {'xsi:type': "TFizicko_Lice"}
+      model.Podnosilac['_attributes'] = {'xsi:type': "TFizicko_Lice"}
     }
     console.log('here 3');
 
@@ -505,9 +612,10 @@ export class NoviZahtevAutorskaComponent implements OnInit {
 
     model = this.shuffleType(model, tipPodnosioca);
 
+    model['_attributes'] = {xmlns:"http://www.zavod.com/Autorska", "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance"}
 
     model = {
-      '@': {xmlns:"http://www.zavod.com/Autorska",
+      '_attributes': {xmlns:"http://www.zavod.com/Autorska",
                   "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance"},
       'Zahtev': model
     }
@@ -522,9 +630,15 @@ export class NoviZahtevAutorskaComponent implements OnInit {
       this.shuffleFizickoLice(shuffled, 'Podnosilac')
     }
     shuffled['Delo'] = model.Delo;
-    if('Autor' in model) {
+    if('Autori' in model) {
+      shuffled['Autori'] = {
+        'Autor': []
+      }
+      for(let aut of model.Autori) {
+        let shuffledAut = this.shuffleFizickoLiceNoInsert(aut);
+        shuffled['Autori']['Autor'].push(shuffledAut);
+      }
       shuffled['Autor'] = model.Autor
-      this.shuffleFizickoLice(shuffled, 'Autor')
     }
 
     shuffled['Informacije_Zavoda'] = model.Informacije_Zavoda
@@ -539,8 +653,8 @@ export class NoviZahtevAutorskaComponent implements OnInit {
   shuffleFizickoLice(model: any, fieldName: string) {
     let shuffled: any = {};
     shuffled.ime = model[fieldName].ime;
-    if('@' in model[fieldName]) {
-      shuffled['@'] = model[fieldName]['@']; 
+    if('_attributes' in model[fieldName]) {
+      shuffled['_attributes'] = model[fieldName]['_attributes']; 
     }
     if('telefon' in model[fieldName]) {
       shuffled.telefon = model[fieldName].telefon
@@ -558,6 +672,30 @@ export class NoviZahtevAutorskaComponent implements OnInit {
       shuffled.godina_smrti = model[fieldName].godina_smrti
     }
     model[fieldName] = shuffled;
+  }
+
+  shuffleFizickoLiceNoInsert(model: any) {
+    let shuffled: any = {};
+    shuffled.ime = model.ime;
+    if('_attributes' in model) {
+      shuffled['_attributes'] = model['_attributes']; 
+    }
+    if('telefon' in model) {
+      shuffled.telefon = model.telefon
+    }
+    if('email' in model) {
+      shuffled.email = model.email
+    }
+    if('pseudonim' in model) {
+      shuffled.pseudonim = model.pseudonim
+    }
+    shuffled.prezime = model.prezime;
+    shuffled.adresa = model.adresa
+    shuffled.drzavljanstvo = model.drzavljanstvo
+    if('godina_smrti' in model) {
+      shuffled.godina_smrti = model.godina_smrti
+    }
+    return shuffled;
   }
 
 
