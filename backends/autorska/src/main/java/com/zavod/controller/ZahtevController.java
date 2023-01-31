@@ -7,6 +7,7 @@ import com.zavod.service.IzvestajService;
 import com.zavod.service.MetadataService;
 import com.zavod.service.PDFService;
 import com.zavod.service.ZahtevService;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.transform.TransformerException;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Date;
 
 @RestController
@@ -38,8 +42,9 @@ public class ZahtevController {
 
     @PostMapping(path = "/", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
     @PreAuthorize("hasAuthority('GRADJANIN')")
-    public ResponseOk create(@RequestBody Zahtev zahtev) {
-        zahtevService.addZahtev(zahtev);
+    public ResponseOk create(@RequestBody Zahtev zahtev, Authentication authentication) throws FileNotFoundException, TransformerException {
+        KorisnikDTO korisnik = (KorisnikDTO) authentication.getPrincipal();
+        zahtevService.addZahtev(zahtev, korisnik);
         return new ResponseOk("Zahtev kreiran.");
     }
 
@@ -94,6 +99,24 @@ public class ZahtevController {
             System.out.println(searchQuery.getPredicate() + " " + searchQuery.getObject() + " " + searchQuery.getOperator());
         }
         return new Zahtevi(metadataService.metaSearch(metaSearchRequest, hideNeprihvaceni));
+    }
+
+    @GetMapping(path = "/my", produces = MediaType.APPLICATION_XML_VALUE)
+    @PreAuthorize("hasAnyAuthority('SLUZBENIK', 'GRADJANIN')")
+    public Zahtevi myReqs(Authentication authentication) throws XMLDBException {
+        KorisnikDTO korisnik = (KorisnikDTO) authentication.getPrincipal();
+        MetaSearchRequest metaSearchRequest = new MetaSearchRequest();
+        metaSearchRequest.setQuery(new ArrayList<>());
+        MetaSearchQuery query = new MetaSearchQuery();
+        query.setPredicate("Nalog");
+        query.setObject(korisnik.getEmail());
+        query.setRelation("=");
+        query.setOperator("I");
+        metaSearchRequest.getQuery().add(query);
+        for (MetaSearchQuery searchQuery: metaSearchRequest.getQuery()) {
+            System.out.println(searchQuery.getPredicate() + " " + searchQuery.getObject() + " " + searchQuery.getOperator());
+        }
+        return new Zahtevi(metadataService.metaSearch(metaSearchRequest, false));
     }
 
     @GetMapping(path = "/izvestaj", produces = MediaType.APPLICATION_PDF_VALUE)

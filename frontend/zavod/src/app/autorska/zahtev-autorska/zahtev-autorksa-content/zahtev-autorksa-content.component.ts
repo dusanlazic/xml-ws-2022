@@ -12,6 +12,7 @@ var _ = require('lodash');
 })
 export class ZahtevAutorksaContentComponent implements OnInit {
 
+
   @Input() in: any;
   zahtev: any;
 
@@ -24,6 +25,22 @@ export class ZahtevAutorksaContentComponent implements OnInit {
   
 
   ngOnInit(): void {
+  }
+
+  download(url: any) {
+    // get the file extension from url
+    let ext = url.split('.').pop();
+    let filename = url.split('/').pop();
+
+    // method that downloads the file from url that is of any type and saves it to the local file system
+    
+    this.http.get(url, {responseType: 'blob'}).subscribe((data: any) => {
+      console.log(data);
+      // set blob type based on the file extension
+      let blob = new Blob([data], {type: 'application/' + ext});
+      // save the file to the local file system
+      saveAs(blob, filename);
+    });
   }
 
 

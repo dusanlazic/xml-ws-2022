@@ -30,6 +30,12 @@
             <pred:Datum_podnosenja>
                 <xsl:value-of select="./a:Informacije_Zavoda/a:datum_podnosenja"></xsl:value-of>
             </pred:Datum_podnosenja>
+            <pred:Nalog>
+                <xsl:apply-templates select="./a:Informacije_Sistema/a:email"></xsl:apply-templates>
+            </pred:Nalog>
+            <pred:Vrsta_dela>
+                <xsl:apply-templates select="./a:Delo/a:vrsta_dela"></xsl:apply-templates>
+            </pred:Vrsta_dela>
         </rdf:Description>
     </xsl:template>
 </xsl:stylesheet>
