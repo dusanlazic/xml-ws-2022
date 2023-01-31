@@ -6,6 +6,7 @@ import lombok.var;
 import org.exist.xmldb.EXistResource;
 import org.xmldb.api.base.*;
 import org.xmldb.api.modules.XMLResource;
+import org.xmldb.api.modules.XPathQueryService;
 import org.xmldb.api.modules.XQueryService;
 
 import java.io.ByteArrayOutputStream;
@@ -118,6 +119,23 @@ public abstract class ExistRepository<T> {
         } finally {
             cleanup(col, res);
         }
+    }
+
+    public ResourceSet executeXPath(String expression) {
+        col = null;
+        res = null;
+        try {
+            col = db.getCollection();
+            XPathQueryService service = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+            service.setProperty("indent", "yes");
+            service.setNamespace("", TARGET_NAMESPACE);
+            return service.query(expression);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cleanup(col, res);
+        }
+        return null;
     }
 
     public void saveAll(List<T> documents, List<String> docNames) {

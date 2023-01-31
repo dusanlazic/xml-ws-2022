@@ -146,24 +146,27 @@
                     </div>
                     <div class="item">
                         8) Podaci o autoru ako podnosilac prijave iz tačke 1. ovog zahteva nije autor i to: prezime, ime, adresa i državljanstvo autora (grupe autora ili koautora), a ako su u pitanju jedan ili više autora koji nisu živi, imena autora i godine smrti autora a ako je u pitanju autorsko delo anonimnog autora navod da je autorsko delo delo anonimnog autora:
+                        ovo
                         <xsl:choose>
-                            <xsl:when test="//a:Delo/a:Autor/a:ime">
-                                <p class="answer"><xsl:value-of select="/a:Delo/a:Autor/a:originalni_naslov" /></p>
-                                <br></br>
-                                <table>
-                                    <tr>
-                                        <td>Ime autora:</td>
-                                        <td class="answer"><xsl:value-of select="/a:Delo/a:Autor/a:ime" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Prezime autora:</td>
-                                        <td class="answer"><xsl:value-of select="/a:Delo/a:Autor/a:prezime" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Drzavljanstvo autora:</td>
-                                        <td class="answer"><xsl:value-of select="/a:Delo/a:Autor/a:drzavljanstvo" /></td>
-                                    </tr>
-                                </table>
+                            <xsl:when test="//a:Autori">
+                                mjau
+                                <xsl:for-each select="//a:Autori/a:Autor">
+                                    <table>
+                                        <tr>
+                                            <td>Ime autora:</td>
+                                            <td class="answer"><xsl:value-of select="a:ime" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Prezime autora:</td>
+                                            <td class="answer"><xsl:value-of select="a:prezime" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Drzavljanstvo autora:</td>
+                                            <td class="answer"><xsl:value-of select="a:drzavljanstvo" /></td>
+                                        </tr>
+                                    </table>
+                                </xsl:for-each>
+
                             </xsl:when>
                             <xsl:otherwise>
                                 <p class="answer"><xsl:text>Podnosilac je autor</xsl:text></p>
