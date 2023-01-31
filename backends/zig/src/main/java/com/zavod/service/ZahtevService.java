@@ -1,5 +1,6 @@
 package com.zavod.service;
 
+import com.zavod.dto.KorisnikDTO;
 import com.zavod.model.resenje.StatusResenja;
 import com.zavod.model.zahtev.Zahtev;
 import com.zavod.repository.MetadataRepository;
@@ -10,6 +11,8 @@ import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
 
+import javax.xml.transform.TransformerException;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -32,11 +35,14 @@ public class ZahtevService {
         return zahtevRepository.findById(id);
     }
 
-    public void addZahtev(Zahtev zahtev) {
+    public void addZahtev(Zahtev zahtev, KorisnikDTO korisnik) throws FileNotFoundException, TransformerException {
         String id = createId();
-        System.out.println("Assigned id to new request: " + id);
         zahtev.getInformacijeZavoda().setBrojPrijave(id);
+        zahtev.getInformacijeZavoda().setStatusResenja(StatusResenja.NA_CEKANJU.toString());
+        zahtev.getInformacijeSistema().setEmail(korisnik.getEmail());
         this.zahtevRepository.save(zahtev, zahtev.getInformacijeZavoda().getBrojPrijave() + ".xml");
+        String rdf = this.metadataRepository.loadRdf(zahtev);
+        this.metadataRepository.writeRdf(rdf);
     }
 
     private String createId() {

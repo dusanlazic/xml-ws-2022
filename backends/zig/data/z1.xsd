@@ -12,6 +12,7 @@
             <xs:element name="Zig" type="z:TZig"/>
             <xs:element name="Placanje" type="z:TPlacanje"/>
             <xs:element name="Informacije_Zavoda" type="z:TInformacije_Zavoda"/>
+            <xs:element name="Informacije_Sistema" type="z:TInformacije_Sistema"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="TLice" abstract="true">
@@ -140,6 +141,11 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TInformacije_Sistema">
+        <xs:sequence>
+            <xs:element name="email" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="TPrilog">

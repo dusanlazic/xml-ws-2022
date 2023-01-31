@@ -40,6 +40,10 @@ public class ObjectFactory {
     public ObjectFactory() {
     }
 
+    public TInformacijeSistema createTInformacijeSistema() {
+        return new TInformacijeSistema();
+    }
+
     /**
      * Create an instance of {@link Zahtev }
      * 

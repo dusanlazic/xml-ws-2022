@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.transform.TransformerException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -39,8 +41,9 @@ public class ZahtevController {
 
     @PostMapping(path = "/", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
     @PreAuthorize("hasAuthority('GRADJANIN')")
-    public ResponseOk create(@RequestBody Zahtev zahtev) {
-        zahtevService.addZahtev(zahtev);
+    public ResponseOk create(@RequestBody Zahtev zahtev, Authentication authentication) throws FileNotFoundException, TransformerException {
+        KorisnikDTO korisnik = (KorisnikDTO) authentication.getPrincipal();
+        zahtevService.addZahtev(zahtev, korisnik);
         return new ResponseOk("Zahtev kreiran.");
     }
 

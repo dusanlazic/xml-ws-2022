@@ -42,7 +42,8 @@ import javax.xml.bind.annotation.*;
     "predstavnik",
     "zig",
     "placanje",
-    "informacijeZavoda"
+    "informacijeZavoda",
+    "informacijeSistema"
 })
 @XmlRootElement(name = "Zahtev")
 public class Zahtev {
@@ -59,6 +60,8 @@ public class Zahtev {
     protected TPlacanje placanje;
     @XmlElement(name = "Informacije_Zavoda", required = true)
     protected TInformacijeZavoda informacijeZavoda;
+    @XmlElement(name = "Informacije_Sistema", required = true)
+    protected TInformacijeSistema informacijeSistema;
 
     /**
      * Gets the value of the podnosilac property.
@@ -202,6 +205,14 @@ public class Zahtev {
      */
     public void setInformacijeZavoda(TInformacijeZavoda value) {
         this.informacijeZavoda = value;
+    }
+
+    public TInformacijeSistema getInformacijeSistema() {
+        return informacijeSistema;
+    }
+
+    public void setInformacijeSistema(TInformacijeSistema value) {
+        this.informacijeSistema = value;
     }
 
 }
