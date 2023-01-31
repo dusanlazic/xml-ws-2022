@@ -47,8 +47,10 @@ public class ResenjeService {
         Resenje resenje = new Resenje(
                 new TSluzbenik(korisnikDTO.getIme(), korisnikDTO.getPrezime()),
                 new TInformacijeOZahtevu(brojPrijave),
-                new TOdluka(today(), resenjeDTO.getOdluka().getObrazlozenje(), resenjeDTO.getOdluka().isPrihvacen())
+                new TOdluka(today(), resenjeDTO.getOdluka().getObrazlozenje(), resenjeDTO.getOdluka().isPrihvacen(), resenjeDTO.getOdluka().getDostavioPrimer(), resenjeDTO.getOdluka().getDostavioOpis())
         );
+
+
 
         if (resenje.getOdluka().isPrihvacen()) {
             updateMetadata(zahtev, StatusResenja.PRIHVACEN);

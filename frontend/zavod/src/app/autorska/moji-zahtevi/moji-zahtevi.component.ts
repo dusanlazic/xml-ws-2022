@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/services/auth/auth.service';
 import { ParserService } from 'src/services/parser.service';
-import { HttpRequestService, autorskaBackend } from 'src/services/util/http-request.service';
+import { HttpRequestService, autorskaBackend, zigBackend } from 'src/services/util/http-request.service';
 
 @Component({
   selector: 'app-moji-zahtevi',
@@ -13,23 +13,40 @@ import { HttpRequestService, autorskaBackend } from 'src/services/util/http-requ
 export class MojiZahteviComponent implements OnInit {
 
 
-  constructor(private router: Router, private httpRequest: HttpRequestService, private parser: ParserService, private authService: AuthService, private toastr: ToastrService) { }
+  constructor(
+    private router: Router,
+    private httpRequest: HttpRequestService,
+    private parser: ParserService, 
+    private authService: AuthService, 
+    private toastr: ToastrService) { }
+
+
+  serviceName : string = "";
 
   ngOnInit(): void {
+    this.serviceName = this.router.url.split('/')[1];
     
     this.authService.getLoggedUser().subscribe(
       (user) => {
         if(!user) return; 
+        let url: string = "";
+        if (this.serviceName === 'autorska') {
+          url = autorskaBackend;
+        } else if (this.serviceName === 'zig') {
+          url = zigBackend;
+        } else {
+          return;
+        }
       
-          this.httpRequest.get(autorskaBackend + '/zahtevi/my').subscribe({
-            next: (data: any) => {
-              let parsedData = this.parser.xml2js(data); 
-              this.mojiZahtevi = parsedData.zahtevi.zahtev;
-            },
-            error: (err) => {
-              this.toastr.error("Greška!")
-            }
-          });
+        this.httpRequest.get(url + '/zahtevi/my').subscribe({
+          next: (data: any) => {
+            let parsedData = this.parser.xml2js(data); 
+            this.mojiZahtevi = parsedData.zahtevi.zahtev;
+          },
+          error: (err) => {
+            this.toastr.error("Greška!")
+          }
+        });
 
       }
     );
@@ -37,7 +54,10 @@ export class MojiZahteviComponent implements OnInit {
   }
 
   detailed(broj_prijave: string) {
-    this.router.navigate(['/autorska/zahtev/' + broj_prijave]);
+    if(this.serviceName === 'autorska')
+      this.router.navigate(['/autorska/zahtev/' + broj_prijave]);
+    else if(this.serviceName === 'zig')
+      this.router.navigate(['/zig/zahtev/' + broj_prijave]);
   }
 
 

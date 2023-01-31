@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
+import java.util.ArrayList;
 import java.util.Date;
 
 @RestController
@@ -99,6 +100,24 @@ public class ZahtevController {
             System.out.println(searchQuery.getPredicate() + " " + searchQuery.getObject() + " " + searchQuery.getOperator());
         }
         return new Zahtevi(metadataService.metaSearch(metaSearchRequest, hideNeprihvaceni));
+    }
+
+    @GetMapping(path = "/my", produces = MediaType.APPLICATION_XML_VALUE)
+    @PreAuthorize("hasAnyAuthority('SLUZBENIK', 'GRADJANIN')")
+    public Zahtevi myReqs(Authentication authentication) throws XMLDBException {
+        KorisnikDTO korisnik = (KorisnikDTO) authentication.getPrincipal();
+        MetaSearchRequest metaSearchRequest = new MetaSearchRequest();
+        metaSearchRequest.setQuery(new ArrayList<>());
+        MetaSearchQuery query = new MetaSearchQuery();
+        query.setPredicate("Nalog");
+        query.setObject(korisnik.getEmail());
+        query.setRelation("=");
+        query.setOperator("I");
+        metaSearchRequest.getQuery().add(query);
+        for (MetaSearchQuery searchQuery: metaSearchRequest.getQuery()) {
+            System.out.println(searchQuery.getPredicate() + " " + searchQuery.getObject() + " " + searchQuery.getOperator());
+        }
+        return new Zahtevi(metadataService.metaSearch(metaSearchRequest, false));
     }
 
     @GetMapping(path = "/izvestaj", produces = MediaType.APPLICATION_PDF_VALUE)

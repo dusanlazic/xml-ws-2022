@@ -51,7 +51,7 @@ import { ResiComponent } from './shared/resi/resi.component';
 import { ResenjeComponent } from './shared/resenje/resenje.component';
 import { ZahtevAutorskaComponent } from './autorska/zahtev-autorska/zahtev-autorska.component';
 import { ZahtevAutorksaContentComponent } from './autorska/zahtev-autorska/zahtev-autorksa-content/zahtev-autorksa-content.component'; 
-
+import {MatCheckboxModule} from '@angular/material/checkbox'; 
 
 @NgModule({
   declarations: [
@@ -88,6 +88,7 @@ import { ZahtevAutorksaContentComponent } from './autorska/zahtev-autorska/zahte
     FormlyMaterialModule,
     MatChipsModule,
     BrowserAnimationsModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatNativeDateModule,

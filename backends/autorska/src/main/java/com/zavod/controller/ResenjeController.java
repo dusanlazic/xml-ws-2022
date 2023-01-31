@@ -48,6 +48,7 @@ public class ResenjeController {
 
     @GetMapping(path = "/{brojPrijave}", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
     public Resenje getResenje(@PathVariable String brojPrijave) throws XMLDBException {
+        System.out.println("GET RES " + brojPrijave);
         return resenjeService.getResenje(brojPrijave);
     }
 

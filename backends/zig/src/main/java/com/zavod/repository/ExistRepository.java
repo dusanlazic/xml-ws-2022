@@ -51,7 +51,11 @@ public abstract class ExistRepository<T> {
     }
 
     public T findById(String id) throws XMLDBException {
-        return marshallingService.unmarshall(this.getResource(id + ".xml").getContentAsDOM());
+        XMLResource resource = this.getResource(id + ".xml");
+        if (resource == null) {
+            return null;
+        }
+        return marshallingService.unmarshall(resource.getContentAsDOM());
     }
 
     public List<T> findByIds(List<String> ids) throws XMLDBException {

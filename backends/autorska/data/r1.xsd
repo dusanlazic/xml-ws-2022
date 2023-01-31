@@ -33,6 +33,8 @@
             <xs:element name="datum" type="xs:date"/>
             <xs:element name="obrazlozenje" type="xs:string"/>
             <xs:element name="prihvacen" type="xs:boolean"/>
+            <xs:element name="dostavio_primer" type="xs:boolean"/>
+            <xs:element name="dostavio_opis" type="xs:boolean"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

@@ -50,6 +50,7 @@ public class ZahtevController {
 
     @GetMapping(path = "/{brojPrijave}", produces = MediaType.APPLICATION_XML_VALUE)
     public Zahtev getZahtev(@PathVariable String brojPrijave) throws Exception {
+        System.out.println("ZahtevController.getZahtev " + brojPrijave);
         return zahtevService.getZahtev(brojPrijave);
     }
 

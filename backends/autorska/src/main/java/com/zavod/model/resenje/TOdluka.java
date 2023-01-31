@@ -40,7 +40,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlType(name = "TOdluka", propOrder = {
     "datum",
     "obrazlozenje",
-    "prihvacen"
+    "prihvacen",
+    "dostavioPrimer",
+    "dostavioOpis"
 })
 public class TOdluka {
 
@@ -50,14 +52,21 @@ public class TOdluka {
     protected String obrazlozenje;
     @XmlElement(required = true)
     protected boolean prihvacen;
+    @XmlElement(name = "dostavio_primer", required = true)
+    protected boolean dostavioPrimer;
+    @XmlElement(name = "dostavio_opis", required = true)
+    protected boolean dostavioOpis;
+
 
     public TOdluka() {
     }
 
-    public TOdluka(XMLGregorianCalendar datum, String obrazlozenje, boolean prihvacen) {
+    public TOdluka(XMLGregorianCalendar datum, String obrazlozenje, boolean prihvacen, boolean dostavioPrimer, boolean dostavioOpis) {
         this.datum = datum;
         this.obrazlozenje = obrazlozenje;
         this.prihvacen = prihvacen;
+        this.dostavioPrimer = dostavioPrimer;
+        this.dostavioOpis = dostavioOpis;
     }
 
     /**

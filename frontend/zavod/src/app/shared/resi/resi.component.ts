@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/model/user';
 import { AuthService } from 'src/services/auth/auth.service';
 import { ParserService } from 'src/services/parser.service';
 import { HttpRequestService, autorskaBackend, zigBackend } from 'src/services/util/http-request.service';
+var _ = require('lodash');
 
 @Component({
   selector: 'app-resi',
@@ -13,13 +14,22 @@ import { HttpRequestService, autorskaBackend, zigBackend } from 'src/services/ut
 })
 export class ResiComponent implements OnInit {
 
+  @Input() in: any;
+  zahtev: any;
 
   status : boolean = true;
   loggedUser: User | undefined;
   obrazlozenje: string = "";
+  sluzbenikIme: string = "";
+  sluzbenikPrezime: string = "";
 
   date = new Date()
   dateStr = this.date.toISOString().split('T')[0]
+  serviceName: string = "";
+  podneoOpis: boolean = false;
+  podneoPrimer: boolean = false;
+
+  cantModify: boolean = true;
 
 
   constructor(private authService: AuthService, 
@@ -30,30 +40,88 @@ export class ResiComponent implements OnInit {
     this.authService.getLoggedUser().subscribe((user: User | undefined) => {
       this.loggedUser = user;
       console.log(this.loggedUser);
-      
+      this.serviceName = this.router.url.split("/")[1];
+      if(this.serviceName !== 'autorska') {
+        this.podneoOpis = true;
+        this.podneoPrimer = true;
+      }
     });
    }
+
+
+   ngOnChanges(changes: SimpleChanges): void {
+    if(!this.in) return;
+    this.zahtev = _.cloneDeep(this.in.zahtev);
+
+    if (this.zahtev.informacije_zavoda.status === 'NA_CEKANJU') {
+      this.sluzbenikIme = this.loggedUser?.ime!;
+      this.sluzbenikPrezime = this.loggedUser?.prezime!;
+      this.cantModify = false;
+    } 
+    else {
+      let that = this;
+      this.httpService.get(autorskaBackend + '/resenja/' + this.zahtev.informacije_zavoda.broj_prijave._text).subscribe({
+        next: (data) => {
+          let resenje = that.parser.xml2js(data);
+          console.log(resenje);
+          if (!resenje.resenje || !resenje.resenje.odluka) {
+            that.cantModify = false;
+            console.log();
+            
+            return;
+          }
+
+          that.obrazlozenje = resenje.resenje.odluka.obrazlozenje._text;
+          that.status = resenje.resenje.odluka.prihvacen._text === 'true' ? true : false;
+          that.podneoOpis = resenje.resenje.odluka.dostavio_opis._text === 'true' ? true : false;
+          that.podneoPrimer = resenje.resenje.odluka.dostavio_primer._text === 'true' ? true : false;
+          that.sluzbenikIme = resenje.resenje.sluzbenik.ime._text;
+          that.sluzbenikPrezime = resenje.resenje.sluzbenik.prezime._text;
+          
+          that.cantModify = true;
+
+        },
+        error: (err) => {
+          this.toastr.error("Došlo je do greške", "Greška");
+        }
+      });
+    }
+  }
 
   ngOnInit(): void {
     
   }
 
   podnesi() {
-    let serviceName = this.router.url.split("/")[1];
+    
     let brojZahteva = this.router.url.split("/")[3];
     let backend = "";
 
-    if (serviceName == "autorska") {
+    if (this.serviceName == "autorska") {
       backend = autorskaBackend;
-    } else if (serviceName == "zig") {
+    } else if (this.serviceName == "zig") {
       backend = zigBackend;
     }
 
-    let resenje = {
-      Resenje: {
-        odluka: {
-          obrazlozenje: this.obrazlozenje,
-          prihvacen: this.status,
+    let resenje;
+    if (this.serviceName == "autorska") {
+      resenje = {
+        Resenje: {
+          odluka: {
+            obrazlozenje: this.obrazlozenje,
+            prihvacen: this.status,
+            dostavio_primer: this.podneoPrimer,
+            dostavio_opis: this.podneoOpis,
+          }
+        }
+      }
+    } else {
+      resenje = {
+        Resenje: {
+          odluka: {
+            obrazlozenje: this.obrazlozenje,
+            prihvacen: this.status,
+          }
         }
       }
     }

@@ -38,7 +38,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TOdluka", propOrder = {
     "obrazlozenje",
-    "prihvacen"
+    "prihvacen",
+    "dostavioPrimer",
+    "dostavioOpis"
 })
 public class OdlukaDTO {
 
@@ -46,6 +48,10 @@ public class OdlukaDTO {
     protected String obrazlozenje;
     @XmlElement(required = true)
     protected boolean prihvacen;
+    @XmlElement(name = "dostavio_primer", required = true)
+    protected boolean dostavioPrimer;
+    @XmlElement(name = "dostavio_opis", required = true)
+    protected boolean dostavioOpis;
 
     public String getObrazlozenje() {
         return obrazlozenje;
@@ -61,6 +67,20 @@ public class OdlukaDTO {
 
     public void setPrihvacen(boolean value) {
         this.prihvacen = value;
+    }
+
+    public boolean getDostavioPrimer() {
+        return dostavioPrimer;
+    }
+    public void setDostavioPrimer(boolean dostavio) {
+        this.dostavioPrimer = dostavio;
+    }
+
+    public boolean getDostavioOpis() {
+        return dostavioOpis;
+    }
+    public void setDostavioOpis(boolean dostavio) {
+        this.dostavioOpis = dostavio;
     }
 
 }

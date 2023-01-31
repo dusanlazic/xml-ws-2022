@@ -16,6 +16,8 @@ export class ZahtevAutorskaComponent implements OnInit {
 
   loggedUser : User | undefined;
 
+  showResenje: boolean = false;
+
   constructor(
     private authService: AuthService,
     private httpRequestService: HttpRequestService,
@@ -32,6 +34,18 @@ export class ZahtevAutorskaComponent implements OnInit {
         this.httpRequestService.get(autorskaBackend + '/zahtevi/' +  brojPrijave).subscribe((data: any) => {
           console.log(data);
           this.zahtev = this.parser.xml2js(data);
+          console.log(this.zahtev);
+          
+          if (this.zahtev.zahtev.informacije_zavoda.status_resenja._text === 'NA_CEKANJU' && this.loggedUser?.uloga === 'gradjanin') {
+            this.showResenje = false;
+          } else {
+            this.showResenje = true;
+          }
+
+          console.log("JOJOJOJOOJLJOJOJOJOJ");
+          console.log(this.zahtev);
+          
+          
         })
       });
 
