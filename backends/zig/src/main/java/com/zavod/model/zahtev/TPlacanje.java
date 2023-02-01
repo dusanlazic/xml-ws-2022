@@ -53,6 +53,16 @@ public class TPlacanje {
     protected float taksaGrafickogResenja;
     protected float ukupno;
 
+    public TPlacanje() {
+    }
+
+    public TPlacanje(float osnovnaTaksa, float taksaKlasa, float taksaGrafickogResenja, float ukupno) {
+        this.osnovnaTaksa = osnovnaTaksa;
+        this.taksaKlasa = taksaKlasa;
+        this.taksaGrafickogResenja = taksaGrafickogResenja;
+        this.ukupno = ukupno;
+    }
+
     /**
      * Gets the value of the osnovnaTaksa property.
      * 

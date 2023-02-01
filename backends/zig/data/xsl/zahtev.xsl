@@ -4,6 +4,7 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://www.zavod.com/Zig file:/home/s4ndu/FTN/semestar-7/XML/xml-ws-2022/zavod/data/z1.xsd">
     <xsl:param name="qr_code_image" />
+    <xsl:param name="primerak_znaka" />
     <xsl:template match="/">
         <html>
             <style>
@@ -200,7 +201,11 @@
                             <span class="is-blue"><xsl:value-of select="//z:Zig/z:tip_znaka"></xsl:value-of></span>
                         </td>
                         <td class="pl-1 is-centered" rowspan="5">
-                            <img src="https://via.placeholder.com/200x200" />
+                            <img>
+                                <xsl:attribute name="src">
+                                    <xsl:value-of select="$primerak_znaka"/>
+                                </xsl:attribute>
+                            </img>
                         </td>
                     </tr>
                     <tr>
@@ -258,7 +263,7 @@
                         <td colspan="1" class="pl-1 h-5 is-top-vertical"><b>Динара</b></td>
                         <td colspan="1" rowspan="4" class="pl-1 h-5 is-top-vertical is-centered">
                             <p class="mb-1 mt-0"><b>Потпис подносиоца захтева</b></p>
-                            <img src="https://via.placeholder.com/300x150" />
+
                         </td>
                     </tr>
                     <tr class="h-6 pl-2">

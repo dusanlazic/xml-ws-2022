@@ -119,7 +119,7 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
 
 	fields: FormlyFieldConfig[] = [
 	{
-      type: 'stepper',
+      type: 'stepper-autorska',
       fieldGroup: [
         {
           props: { label: 'Podaci o podnosiocu' },

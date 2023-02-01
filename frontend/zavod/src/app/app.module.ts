@@ -9,10 +9,11 @@ import { SluzbenikComponent } from './sluzbenik/sluzbenik.component';
 import { AutorskaComponent } from './autorska/autorska.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoviZahtevAutorskaComponent } from './autorska/novi-zahtev/novi-zahtev-autorska.component';
+import { NoviZahtevZigComponent } from './zig/novi-zahtev/novi-zahtev-zig.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { RouterModule } from '@angular/router';
-import { FormlyFieldStepper } from './autorska/novi-zahtev/stepper.type';
+import { FormlyFieldAutorskaStepper } from './autorska/novi-zahtev/stepper.type';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { MatStepperModule } from '@angular/material/stepper'
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -52,6 +53,7 @@ import { ResenjeComponent } from './shared/resenje/resenje.component';
 import { ZahtevAutorskaComponent } from './autorska/zahtev-autorska/zahtev-autorska.component';
 import { ZahtevAutorksaContentComponent } from './autorska/zahtev-autorska/zahtev-autorksa-content/zahtev-autorksa-content.component'; 
 import {MatCheckboxModule} from '@angular/material/checkbox'; 
+import { FormlyFieldZigStepper } from './zig/novi-zahtev/stepper-zig.type';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     SluzbenikComponent,
     AutorskaComponent,
     NoviZahtevAutorskaComponent,
-    FormlyFieldStepper,
+    NoviZahtevZigComponent,
+    FormlyFieldAutorskaStepper,
+    FormlyFieldZigStepper,
     MojiZahteviComponent,
     PretragaComponent,
     LoginComponent,
@@ -106,7 +110,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatCardModule,
     FormlyModule.forRoot({
       validationMessages: [{ name: 'required', message: 'This field is required' }],
-      types: [{ name: 'stepper', component: FormlyFieldStepper, wrappers: [] },
+      types: [{ name: 'stepper-autorska', component: FormlyFieldAutorskaStepper, wrappers: [] },
+              { name: 'stepper-zig', component: FormlyFieldZigStepper, wrappers: [] },
               { name: 'file', component: FormlyFieldFile, wrappers: [] }],
     }),
     ToastrModule.forRoot()

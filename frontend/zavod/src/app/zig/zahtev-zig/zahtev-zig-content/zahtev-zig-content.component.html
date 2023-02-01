@@ -28,7 +28,7 @@
 						</tr>
 						<tr>
 							<td><strong>Mesto:</strong></td>
-							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.adresa.mesto._text}}</td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.adresa.mesto._text}}, {{zahtev?.podnosilac.adresa.drzava._text}}</td>
 						</tr>
 						<tr>
 							<td><strong>Poštanski broj:</strong></td>
@@ -46,7 +46,7 @@
 							<td>&nbsp;&nbsp;{{zahtev?.placanje.osnovna_taksa._text}} rsd</td>
 						</tr>
 						<tr>
-							<td><strong>Taksa za klasu:</strong></td>
+							<td><strong>Taksa za broj klasa (3+{{zahtev?.zig.klase_robe.klasa.length-3}}):</strong></td>
 							<td>&nbsp;&nbsp;{{zahtev?.placanje.taksa_klasa._text}} rsd</td>
 						</tr>
 						<tr>
@@ -83,14 +83,14 @@
 						</tr>
 					</tbody>
 				</table>
-				
 			</div>
 			<div class="content">
 				<h2>Informacije zavoda</h2>
 				<table>
-					<tr><td><strong>Datum podnošenja:</strong></td><td>{{zahtev?.informacije_zavoda.datum_podsnosenja._text}}</td></tr>
+					<tr><td><strong>Datum podnošenja:</strong></td><td>{{zahtev?.informacije_zavoda.datum_podnosenja._text}}</td></tr>
 					<tr><td><strong>Generalno punomoćje ranije priloženo:</strong></td><td> {{zahtev?.informacije_zavoda.prilozi.generalno_punomocje_ranije_prilozeno._text ? "Da" : "Ne"}}</td></tr>
 					<tr><td><strong>Punomoćje će biti naknadno priloženo:</strong></td><td> {{zahtev?.informacije_zavoda.prilozi.punomocje_ce_biti_naknadno_dostavljeno._text ? "Da" : "Ne"}}</td></tr>
+					<tr><td><img style="width: 100px; height: 100px;" src="http://localhost:8082/zahtevi/qr/{{zahtev?.informacije_zavoda.broj_prijave._text}}.png"></td></tr>
 				</table>
 			</div>
 		</div>

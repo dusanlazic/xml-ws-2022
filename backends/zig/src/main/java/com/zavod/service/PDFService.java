@@ -128,6 +128,7 @@ public class PDFService {
             // Generate XHTML
             transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
             transformer.setParameter("qr_code_image", qrCodeImageUrl);
+            transformer.setParameter("primerak_znaka", zahtev.getInformacijeZavoda().getPrilozi().getPrimerakZnaka().getPutanja());
 
             // Transform DOM to HTML
             zahtev.getInformacijeZavoda().setBrojPrijave(brojToHumanReadable(zahtev.getInformacijeZavoda().getBrojPrijave()));

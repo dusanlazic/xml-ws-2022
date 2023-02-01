@@ -6,6 +6,7 @@ import { AutorskaComponent } from './autorska/autorska.component';
 import { PretragaComponent } from './shared/pretraga/pretraga.component';
 import { MojiZahteviComponent } from './autorska/moji-zahtevi/moji-zahtevi.component';
 import { NoviZahtevAutorskaComponent } from './autorska/novi-zahtev/novi-zahtev-autorska.component';
+import { NoviZahtevZigComponent } from './zig/novi-zahtev/novi-zahtev-zig.component';
 import { ZahteviComponent } from './sluzbenik/zahtevi/zahtevi.component';
 import { IzvestajiComponent } from './sluzbenik/izvestaji/izvestaji.component';
 import { ZigComponent } from './zig/zig.component';
@@ -24,7 +25,7 @@ const routes: Routes = [
   { path: 'zig', component: ZigComponent, children: [
       { path: 'pretraga', component: PretragaComponent },
       { path: 'moji-zahtevi', component: MojiZahteviComponent },
-      { path: 'novi-zahtev', component: NoviZahtevAutorskaComponent },
+      { path: 'novi-zahtev', component: NoviZahtevZigComponent },
       { path: 'zahtev/:broj_prijave', component: ZahtevZigComponent }
     ]
   },
