@@ -33,6 +33,9 @@
 			<textarea matInput style="height: 60px;" [disabled]="cantModify" [(ngModel)]="obrazlozenje"></textarea>
 		</mat-form-field>
 
+		<div style="display: flex; margin-left: 15px; margin-top: 10px; margin-bottom: 10px;" *ngIf="this.serviceName === 'zig'">
+			<img style="width: 100px; height: 100px;" src="http://localhost:8082/resenja/qr/{{getBrojZahteva()}}.png">
+		</div>
 	</mat-card-content>
 	<mat-card-footer *ngIf="cantModify === false">
 		<button mat-raised-button color="primary" style="margin-left: 35px; margin-top: 10px; margin-bottom: 20px;" (click)="podnesi()">Podnesi</button>

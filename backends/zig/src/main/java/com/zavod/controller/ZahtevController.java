@@ -41,7 +41,7 @@ public class ZahtevController {
 
     @PostMapping(path = "/", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
     @PreAuthorize("hasAuthority('GRADJANIN')")
-    public ResponseOk create(@RequestBody Zahtev zahtev, Authentication authentication) throws FileNotFoundException, TransformerException {
+    public ResponseOk create(@RequestBody Zahtev zahtev, Authentication authentication) throws FileNotFoundException, TransformerException, DatatypeConfigurationException {
         KorisnikDTO korisnik = (KorisnikDTO) authentication.getPrincipal();
         zahtevService.addZahtev(zahtev, korisnik);
         return new ResponseOk("Zahtev kreiran.");

@@ -205,6 +205,7 @@
                                 <xsl:attribute name="src">
                                     <xsl:value-of select="$primerak_znaka"/>
                                 </xsl:attribute>
+                                <xsl:attribute name="style">width: 300px; height: 300px;</xsl:attribute>
                             </img>
                         </td>
                     </tr>

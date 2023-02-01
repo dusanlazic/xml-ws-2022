@@ -11,12 +11,15 @@ import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.zavod.util.ServiceUtil.today;
 
 @Service
 public class ZahtevService {
@@ -35,10 +38,11 @@ public class ZahtevService {
 		return zahtevRepository.findById(id);
 	}
 
-	public void addZahtev(Zahtev zahtev, KorisnikDTO korisnik) throws FileNotFoundException, TransformerException {
+	public void addZahtev(Zahtev zahtev, KorisnikDTO korisnik) throws FileNotFoundException, TransformerException, DatatypeConfigurationException {
 		String id = createId();
 		zahtev.getInformacijeZavoda().setBrojPrijave(id);
 		zahtev.getInformacijeZavoda().setStatusResenja(StatusResenja.NA_CEKANJU.toString());
+		zahtev.getInformacijeZavoda().setDatumPodnosenja(today());
 		zahtev.getInformacijeSistema().setEmail(korisnik.getEmail());
 		this.zahtevRepository.save(zahtev, zahtev.getInformacijeZavoda().getBrojPrijave() + ".xml");
 		String rdf = this.metadataRepository.loadRdf(zahtev);

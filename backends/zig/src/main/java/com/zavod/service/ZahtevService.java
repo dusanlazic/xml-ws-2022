@@ -6,18 +6,22 @@ import com.zavod.model.zahtev.TPlacanje;
 import com.zavod.model.zahtev.Zahtev;
 import com.zavod.repository.MetadataRepository;
 import com.zavod.repository.ZahtevRepository;
+import com.zavod.util.ServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.zavod.util.ServiceUtil.today;
 
 @Service
 public class ZahtevService {
@@ -36,10 +40,11 @@ public class ZahtevService {
         return zahtevRepository.findById(id);
     }
 
-    public void addZahtev(Zahtev zahtev, KorisnikDTO korisnik) throws FileNotFoundException, TransformerException {
+    public void addZahtev(Zahtev zahtev, KorisnikDTO korisnik) throws FileNotFoundException, TransformerException, DatatypeConfigurationException {
         String id = createId();
         zahtev.getInformacijeZavoda().setBrojPrijave(id);
         zahtev.getInformacijeZavoda().setStatusResenja(StatusResenja.NA_CEKANJU.toString());
+        zahtev.getInformacijeZavoda().setDatumPodnosenja(today());
         zahtev.getInformacijeSistema().setEmail(korisnik.getEmail());
         zahtev.setPlacanje(createPlacanje(zahtev));
         this.zahtevRepository.save(zahtev, zahtev.getInformacijeZavoda().getBrojPrijave() + ".xml");

@@ -6,6 +6,7 @@ import com.zavod.model.resenje.Resenje;
 import com.zavod.service.ResenjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -30,5 +31,10 @@ public class ResenjeController {
     @GetMapping(path = "/{brojPrijave}", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
     public Resenje getResenje(@PathVariable String brojPrijave) throws XMLDBException {
         return resenjeService.getResenje(brojPrijave);
+    }
+
+    @GetMapping(path = "/qr/{brojPrijave}.png", produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<byte[]> qr(@PathVariable String brojPrijave) throws Exception {
+        return resenjeService.qrCodeToResource(brojPrijave);
     }
 }

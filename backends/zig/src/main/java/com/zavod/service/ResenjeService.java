@@ -1,5 +1,7 @@
 package com.zavod.service;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.pdf.qrcode.WriterException;
 import com.zavod.dto.KorisnikDTO;
 import com.zavod.dto.ResenjeDTO;
 import com.zavod.model.resenje.*;
@@ -7,12 +9,16 @@ import com.zavod.model.zahtev.Zahtev;
 import com.zavod.repository.MetadataRepository;
 import com.zavod.repository.ResenjeRepository;
 import com.zavod.repository.ZahtevRepository;
+import com.zavod.util.QRCodeEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
+
+import java.io.IOException;
 
 import static com.zavod.util.ServiceUtil.*;
 
@@ -61,5 +67,10 @@ public class ResenjeService {
                 "http://www.zavod.com/Zig/pred/Status_resenja",
                 status.toString()
         );
+    }
+
+    public ResponseEntity<byte[]> qrCodeToResource(String brojPrijave) throws BadElementException, IOException, WriterException {
+        String url = "http://localhost:8082/resenja/" + brojPrijave;
+        return QRCodeEncoder.generateQRCodeImage(url);
     }
 }

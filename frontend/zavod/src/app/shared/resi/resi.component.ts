@@ -26,6 +26,7 @@ export class ResiComponent implements OnInit {
   date = new Date()
   dateStr = this.date.toISOString().split('T')[0]
   serviceName: string = "";
+  backend: string = "";
   podneoOpis: boolean = false;
   podneoPrimer: boolean = false;
 
@@ -53,6 +54,12 @@ export class ResiComponent implements OnInit {
     if(!this.in) return;
     this.zahtev = _.cloneDeep(this.in.zahtev);
 
+    if (this.serviceName == "autorska") {
+      this.backend = autorskaBackend;
+    } else if (this.serviceName == "zig") {
+      this.backend = zigBackend;
+    }
+
     if (this.zahtev.informacije_zavoda.status === 'NA_CEKANJU') {
       this.sluzbenikIme = this.loggedUser?.ime!;
       this.sluzbenikPrezime = this.loggedUser?.prezime!;
@@ -60,7 +67,7 @@ export class ResiComponent implements OnInit {
     } 
     else {
       let that = this;
-      this.httpService.get(autorskaBackend + '/resenja/' + this.zahtev.informacije_zavoda.broj_prijave._text).subscribe({
+      this.httpService.get(this.backend + '/resenja/' + this.zahtev.informacije_zavoda.broj_prijave._text).subscribe({
         next: (data) => {
           let resenje = that.parser.xml2js(data);
           console.log(resenje);
@@ -89,19 +96,16 @@ export class ResiComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    if (this.serviceName == "autorska") {
+      this.backend = autorskaBackend;
+    } else if (this.serviceName == "zig") {
+      this.backend = zigBackend;
+    }
   }
 
   podnesi() {
     
     let brojZahteva = this.router.url.split("/")[3];
-    let backend = "";
-
-    if (this.serviceName == "autorska") {
-      backend = autorskaBackend;
-    } else if (this.serviceName == "zig") {
-      backend = zigBackend;
-    }
 
     let resenje;
     if (this.serviceName == "autorska") {
@@ -129,7 +133,7 @@ export class ResiComponent implements OnInit {
     let parsed = this.parser.js2xml(resenje);
     console.log(parsed);
     
-    this.httpService.post(backend + "/resenja/" + brojZahteva, parsed).subscribe({
+    this.httpService.post(this.backend + "/resenja/" + brojZahteva, parsed).subscribe({
       next: (data) => {
         this.toastr.success("Uspešno ste podneli rešenje", "Uspešno");
       },
@@ -137,6 +141,10 @@ export class ResiComponent implements OnInit {
         this.toastr.error("Došlo je do greške", "Greška");
       }
     });
+  }
+
+  getBrojZahteva() : string {
+    return this.router.url.split('/')[3];
   }
 
 }
