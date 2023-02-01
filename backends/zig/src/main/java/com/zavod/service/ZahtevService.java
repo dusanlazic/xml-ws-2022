@@ -78,11 +78,11 @@ public class ZahtevService {
 
         if (zahtev.getZig().getTipZiga().equals("individualni")) {
             osnovnaTaksa = 16470;
-            klasaTaksa = (float) (3300 * Math.max(0, zahtev.getZig().getKlaseRobe().getKlasa().size() - 3));
+            klasaTaksa = (float) (3300 * Math.max(0, zahtev.getZig().getKlaseRobe().getKlasa().size() - 2));
             taksaGrafickogResenja = (float) (imaGrafResenje ? 3300 : 0);
         } else {
             osnovnaTaksa = 32920;
-            klasaTaksa = (float) (4940 * Math.max(0, zahtev.getZig().getKlaseRobe().getKlasa().size() - 3));
+            klasaTaksa = (float) (4940 * Math.max(0, zahtev.getZig().getKlaseRobe().getKlasa().size() - 2));
             taksaGrafickogResenja = (float) (imaGrafResenje ? 4940 : 0);
         }
         ukupno = osnovnaTaksa + klasaTaksa + taksaGrafickogResenja;

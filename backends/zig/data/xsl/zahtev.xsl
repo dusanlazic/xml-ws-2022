@@ -5,6 +5,7 @@
                 xsi:schemaLocation="http://www.zavod.com/Zig file:/home/s4ndu/FTN/semestar-7/XML/xml-ws-2022/zavod/data/z1.xsd">
     <xsl:param name="qr_code_image" />
     <xsl:param name="primerak_znaka" />
+    <xsl:param name="broj_klasa" />
     <xsl:template match="/">
         <html>
             <style>
@@ -277,11 +278,13 @@
                     </tr>
                     <tr class="h-6 pl-2">
                         <td colspan="1" class="pl-1">
-                            <b>б) за <span class="is-blue"><xsl:value-of select="//z:Placanje/z:taksa_klasa"></xsl:value-of></span> класа</b>
+                            <b>б) за <span class="is-blue"><xsl:value-of select="$broj_klasa"/></span> класа</b>
                             <br></br>
                             <b>в) за графичко решење</b>
                         </td>
                         <td colspan="1" class="pl-2 is-blue">
+                            <xsl:value-of select="//z:Placanje/z:taksa_klasa"></xsl:value-of>
+                            <br></br>
                             <xsl:value-of select="//z:Placanje/z:taksa_grafickog_resenja"></xsl:value-of>
                         </td>
                     </tr>

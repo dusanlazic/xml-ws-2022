@@ -94,6 +94,63 @@
 				</table>
 			</div>
 		</div>
+		<div style="display: flex;">
+			<div class="content">
+				<h2>Prilozi</h2>
+				<table>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.primerak_znaka.putanja._text">
+						<td>
+							<strong>Primerak znaka:</strong>
+						</td>
+						<td>
+							<button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.primerak_znaka.putanja._text)">
+								{{zahtev?.informacije_zavoda.prilozi.primerak_znaka.naziv_datoteke._text}}
+							</button>
+						</td>
+					</tr>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.punomocje.putanja._text">
+						<td>
+							<strong>Punomoćje:</strong>
+						</td>
+						<td>
+							<button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.punomocje.putanja._text)">
+								{{zahtev?.informacije_zavoda.prilozi.punomocje.naziv_datoteke._text}}
+							</button>
+						</td>
+					</tr>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.opsti_akt_o_kolektivnom_zigu_garancije.putanja._text">
+						<td>
+							<strong>Opšti akt o kolektivnom žigu/žigu garancije:</strong>
+						</td>
+						<td>
+							<button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.opsti_akt_o_kolektivnom_zigu_garancije.putanja._text)">
+								{{zahtev?.informacije_zavoda.prilozi.opsti_akt_o_kolektivnom_zigu_garancije.naziv_datoteke._text}}
+							</button>
+						</td>
+					</tr>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.dokaz_o_pravu_prvenstva.putanja._text">
+						<td>
+							<strong>Dokaz o pravu prvenstva:</strong>
+						</td>
+						<td>
+							<button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.dokaz_o_pravu_prvenstva.putanja._text)">
+								{{zahtev?.informacije_zavoda.prilozi.dokaz_o_pravu_prvenstva.naziv_datoteke._text}}
+							</button>
+						</td>
+					</tr>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.dokaz_o_uplati_takse.putanja._text">
+						<td>
+							<strong>Dokaz o uplati takse:</strong>
+						</td>
+						<td>
+							<button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.dokaz_o_uplati_takse.putanja._text)">
+								{{zahtev?.informacije_zavoda.prilozi.dokaz_o_uplati_takse.naziv_datoteke._text}}
+							</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
 	</div>
 	<div>
 		<div style="display: flex; margin-left: 45px; flex-direction: row-reverse;" class="btns">
