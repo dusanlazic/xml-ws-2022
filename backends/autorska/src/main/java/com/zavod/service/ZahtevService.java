@@ -34,7 +34,6 @@ public class ZahtevService {
 	@Autowired
 	public MetadataRepository metadataRepository;
 
-	MarshallingService<Zahtev> marshallingService;
 
 	public List<Zahtev> getAll() {
 		return zahtevRepository.getAll();
