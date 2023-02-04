@@ -38,9 +38,8 @@
 
             </style>
             <body>
-                aaaaaaaaaaaaaaaaaaaaaa
-                <h2>ИЗВЕШТАЈ О ЗАХТЕВИМА ЗА ПРИЗНАЊЕ ЖИГА</h2>
-                <h3>Извештај за период од <xsl:value-of select="//i:Izvestaj/@datumOd"/> до <xsl:value-of select="//i:Izvestaj/@datumDo"/></h3>
+                <h2>IZVEŠTAJ O ZAHTEVIMA ZA PRIZNANjE ŽIGA</h2>
+                <h3>Izveštaj za period od <xsl:value-of select="//i:Izvestaj/@datumOd"/> do <xsl:value-of select="//i:Izvestaj/@datumDo"/></h3>
 
                 <table>
                     <colgroup>
@@ -49,7 +48,7 @@
                     </colgroup>
                     <tr>
                         <td>
-                            Број прихваћених захтева
+                            Broj prihvaćenih zahteva
                         </td>
                         <td>
                             <strong><xsl:value-of select="//i:Izvestaj/i:broj_prihvacenih"/></strong>
@@ -57,7 +56,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Број одбијених захтева
+                            Broj odbijenih zahteva
                         </td>
                         <td>
                             <strong><xsl:value-of select="//i:Izvestaj/i:broj_odbijenih"/></strong>
@@ -65,7 +64,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Укупан број поднетих захтева
+                            Ukupan broj podnetih zahteva
                         </td>
                         <td>
                             <strong><xsl:value-of select="//i:Izvestaj/i:broj_podnetih"/></strong>

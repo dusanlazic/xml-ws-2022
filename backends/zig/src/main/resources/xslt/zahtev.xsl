@@ -101,14 +101,14 @@
                 }
             </style>
             <body>
-                <h2>ЗАХТЕВ ЗА ПРИЗНАЊЕ ЖИГА</h2>
-                <h3>Завод за интелектуалну својину, Књегиње Љубице 5, 11000 Београд</h3>
-                <p class="is-centered">(попунити на рачунару)</p>
+                <h2>ZAHTEV ZA PRIZNANjE ŽIGA</h2>
+                <h3>Zavod za intelektualnu svojinu, Knjeginje Ljubice 5, 11000 Beograd</h3>
+                <p class="is-centered">(popuniti na računaru)</p>
                 <table>
                     <tr>
-                        <td colspan="3" class="pl-1"><b>1. Подносилац пријаве:</b> име и презиме/пословно име, улица и број, поштански
-                            број, место,
-                            држава пребивалишта/седишта:</td>
+                        <td colspan="3" class="pl-1"><b>1. Podnosilac prijave:</b> ime i prezime/poslovno ime, ulica i broj, poštanski
+                            broj, mesto,
+                            država prebivališta/sedišta:</td>
                     </tr>
                     <tr class="h-6">
                         <td colspan="3" class="pl-2 is-blue">
@@ -125,16 +125,16 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="pl-1">телефон: <span class="is-blue"><xsl:value-of select="//z:Podnosilac/z:telefon"></xsl:value-of></span></td>
+                        <td class="pl-1">telefon: <span class="is-blue"><xsl:value-of select="//z:Podnosilac/z:telefon"></xsl:value-of></span></td>
                         <td class="pl-1">e-mail: <span class="is-blue"><xsl:value-of select="//z:Podnosilac/z:email"></xsl:value-of></span></td>
-                        <td class="pl-1">факс: <span class="is-blue"><xsl:value-of select="//z:Podnosilac/z:faks"></xsl:value-of></span></td>
+                        <td class="pl-1">faks: <span class="is-blue"><xsl:value-of select="//z:Podnosilac/z:faks"></xsl:value-of></span></td>
                     </tr>
                 </table>
                 <table class="border-top-none">
                     <tr>
-                        <td colspan="3" class="pl-1"><b>2. Пуномоћник:</b> име и презиме/пословно име, улица и број, поштански број,
-                            место, држава
-                            пребивалишта/седишта:</td>
+                        <td colspan="3" class="pl-1"><b>2. Punomoćnik:</b> ime i prezime/poslovno ime, ulica i broj, poštanski broj,
+                            mesto, država
+                            prebivališta/sedišta:</td>
                     </tr>
                     <tr class="h-6">
                         <td colspan="3" class="pl-2 is-blue">
@@ -151,14 +151,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="pl-1">телефон: <span class="is-blue"><xsl:value-of select="//z:Punomocnik/z:telefon"></xsl:value-of></span></td>
+                        <td class="pl-1">telefon: <span class="is-blue"><xsl:value-of select="//z:Punomocnik/z:telefon"></xsl:value-of></span></td>
                         <td class="pl-1">e-mail: <span class="is-blue"><xsl:value-of select="//z:Punomocnik/z:email"></xsl:value-of></span></td>
-                        <td class="pl-1">факс: <span class="is-blue"><xsl:value-of select="//z:Punomocnik/z:faks"></xsl:value-of></span></td>
+                        <td class="pl-1">faks: <span class="is-blue"><xsl:value-of select="//z:Punomocnik/z:faks"></xsl:value-of></span></td>
                     </tr>
                 </table>
                 <table class="border-top-none">
                     <tr>
-                        <td colspan="3" class="pl-1"><b>3. Подаци о заједничком представнику ако постоји више подносилаца пријаве:</b>
+                        <td colspan="3" class="pl-1"><b>3. Podaci o zajedničkom predstavniku ako postoji više podnosilaca prijave:</b>
                         </td>
                     </tr>
                     <tr class="h-6 pl-2">
@@ -176,9 +176,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="pl-1">телефон: <span class="is-blue"><xsl:value-of select="//z:Predstavnik/z:telefon"></xsl:value-of></span></td>
+                        <td class="pl-1">telefon: <span class="is-blue"><xsl:value-of select="//z:Predstavnik/z:telefon"></xsl:value-of></span></td>
                         <td class="pl-1">e-mail: <span class="is-blue"><xsl:value-of select="//z:Predstavnik/z:email"></xsl:value-of></span></td>
-                        <td class="pl-1">факс: <span class="is-blue"><xsl:value-of select="//z:Predstavnik/z:faks"></xsl:value-of></span></td>
+                        <td class="pl-1">faks: <span class="is-blue"><xsl:value-of select="//z:Predstavnik/z:faks"></xsl:value-of></span></td>
                     </tr>
                 </table>
                 <table class="border-top-none">
@@ -187,18 +187,18 @@
                         <col span="1" style="width: 50%;"/>
                     </colgroup>
                     <tr>
-                        <td class="pl-1"><b>4. Пријава се подноси за:</b></td>
-                        <td class="pl-1" rowspan="2"><b>в) изглед знака:</b></td>
+                        <td class="pl-1"><b>4. Prijava se podnosi za:</b></td>
+                        <td class="pl-1" rowspan="2"><b>v) izgled znaka:</b></td>
                     </tr>
                     <tr>
                         <td class="pl-1">
-                            <b>а)</b>
+                            <b>a)</b>
                             <span class="is-blue"><xsl:value-of select="//z:Zig/z:tip_ziga"></xsl:value-of></span>
                         </td>
                     </tr>
                     <tr>
                         <td class="pl-1">
-                            <b>б)</b>
+                            <b>b)</b>
                             <span class="is-blue"><xsl:value-of select="//z:Zig/z:tip_znaka"></xsl:value-of></span>
                         </td>
                         <td class="pl-1 is-centered" rowspan="5">
@@ -212,32 +212,32 @@
                     </tr>
                     <tr>
                         <td class="pl-1 is-top-vertical">
-                            <b>5. Назначење боје, односно боја из којих се знак састоји:</b>
+                            <b>5. Naznačenje boje, odnosno boja iz kojih se znak sastoji:</b>
                             <p class="is-blue mb-0"><xsl:value-of select="//z:Zig/z:boja"></xsl:value-of></p>
                         </td>
                     </tr>
                     <tr>
                         <td class="pl-1 is-top-vertical">
-                            <b>6. Транслитерација знака:</b>
+                            <b>6. Transliteracija znaka:</b>
                             <p class="is-blue mb-0"><xsl:value-of select="//z:Zig/z:transliteracija"></xsl:value-of></p>
                         </td>
                     </tr>
                     <tr>
                         <td class="pl-1 is-top-vertical">
-                            <b>7. Превод знака*:</b>
+                            <b>7. Prevod znaka*:</b>
                             <p class="is-blue mb-0"><xsl:value-of select="//z:Zig/z:prevod"></xsl:value-of></p>
                         </td>
                     </tr>
                     <tr>
                         <td class="pl-1 is-top-vertical">
-                            <b>8. Опис знака:</b>
+                            <b>8. Opis znaka:</b>
                             <p class="is-blue mb-0"><xsl:value-of select="//z:Zig/z:opis"></xsl:value-of></p>
                         </td>
                     </tr>
                 </table>
                 <table class="border-top-none">
                     <tr>
-                        <td colspan="3" class="pl-1"><b>9. Бројеви класа робе и услуга према Ничанској класификацији:</b></td>
+                        <td colspan="3" class="pl-1"><b>9. Brojevi klasa robe i usluga prema Ničanskoj klasifikaciji:</b></td>
                     </tr>
                     <tr class="h-6 pl-2">
                         <td colspan="3" class="pl-2 is-blue">
@@ -248,7 +248,7 @@
                 <table class="border-top-none">
                     <tr>
                         <td colspan="3" class="pl-1 h-6">
-                            <b>10. Затражено право првенства и основ:</b>
+                            <b>10. Zatraženo pravo prvenstva i osnov:</b>
                             <p class="is-blue pl-2"><xsl:value-of select="//z:Zig/z:pravo_prvenstva"></xsl:value-of></p>
                         </td>
                     </tr>
@@ -261,16 +261,16 @@
                         <col span="1" style="width: 50%;"/>
                     </colgroup>
                     <tr>
-                        <td colspan="1" class="pl-1 h-5 is-top-vertical"><b>11. Плаћене таксе:</b></td>
-                        <td colspan="1" class="pl-1 h-5 is-top-vertical"><b>Динара</b></td>
+                        <td colspan="1" class="pl-1 h-5 is-top-vertical"><b>11. Plaćene takse:</b></td>
+                        <td colspan="1" class="pl-1 h-5 is-top-vertical"><b>Dinara</b></td>
                         <td colspan="1" rowspan="4" class="pl-1 h-5 is-top-vertical is-centered">
-                            <p class="mb-1 mt-0"><b>Потпис подносиоца захтева</b></p>
+                            <p class="mb-1 mt-0"><b>Potpis podnosioca zahteva</b></p>
 
                         </td>
                     </tr>
                     <tr class="h-6 pl-2">
                         <td colspan="1" class="pl-1">
-                            <b>а) основна такса</b>
+                            <b>a) osnovna taksa</b>
                         </td>
                         <td colspan="1" class="pl-2 is-blue">
                             <xsl:value-of select="//z:Placanje/z:osnovna_taksa"></xsl:value-of>
@@ -278,9 +278,9 @@
                     </tr>
                     <tr class="h-6 pl-2">
                         <td colspan="1" class="pl-1">
-                            <b>б) за <span class="is-blue"><xsl:value-of select="$broj_klasa"/></span> класа</b>
+                            <b>b) za <span class="is-blue"><xsl:value-of select="$broj_klasa"/></span> klasa</b>
                             <br></br>
-                            <b>в) за графичко решење</b>
+                            <b>v) za grafičko rešenje</b>
                         </td>
                         <td colspan="1" class="pl-2 is-blue">
                             <xsl:value-of select="//z:Placanje/z:taksa_klasa"></xsl:value-of>
@@ -290,7 +290,7 @@
                     </tr>
                     <tr class="h-6 pl-2">
                         <td colspan="1" class="pl-1">
-                            <b>УКУПНО</b>
+                            <b>UKUPNO</b>
                         </td>
                         <td colspan="1" class="pl-2 is-blue">
                             <xsl:value-of select="//z:Placanje/z:ukupno"></xsl:value-of>
@@ -305,7 +305,7 @@
                     </colgroup>
                     <tr>
                         <td colspan="1" class="is-centered">
-                            <p>QR код до документа</p>
+                            <p>QR kod do dokumenta</p>
                             <img>
                                 <xsl:attribute name="src">
                                     <xsl:value-of select="$qr_code_image"/>
@@ -313,9 +313,9 @@
                             </img>
                         </td>
                         <td colspan="1" class="is-centered">
-                            <p>Број пријаве жига:</p>
+                            <p>Broj prijave žiga:</p>
                             <p class="is-blue"><xsl:value-of select="//z:Informacije_Zavoda/z:broj_prijave"></xsl:value-of></p>
-                            <p><b>Датум подношења:</b></p>
+                            <p><b>Datum podnošenja:</b></p>
                             <p class="is-blue"><xsl:value-of select="//z:Informacije_Zavoda/z:datum_podnosenja"></xsl:value-of></p>
                         </td>
                     </tr>
