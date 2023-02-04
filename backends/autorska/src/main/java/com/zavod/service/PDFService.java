@@ -146,7 +146,7 @@ public class PDFService {
     public void generateHTML(Zahtev zahtev, String htmlFilename) throws FileNotFoundException {
         try {
             // Initialize Transformer instance
-            StreamSource transformSource = new StreamSource(new File("data/xsl/zahtev.xsl"));
+            StreamSource transformSource = new StreamSource(new File("src/main/resources/xslt/zahtev.xsl"));
             Transformer transformer = transformerFactory.newTransformer(transformSource);
             transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -172,7 +172,7 @@ public class PDFService {
     public void generateHTML(Resenje resenje, String htmlFilename) throws FileNotFoundException {
         try {
             // Initialize Transformer instance
-            StreamSource transformSource = new StreamSource(new File("data/xsl/resenje.xsl"));
+            StreamSource transformSource = new StreamSource(new File("src/main/resources/xslt/resenje.xsl"));
             Transformer transformer = transformerFactory.newTransformer(transformSource);
             transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -197,7 +197,7 @@ public class PDFService {
     public void generateHTML(Izvestaj izvestaj, String htmlFilename) {
         try {
             // Initialize Transformer instance
-            StreamSource transformSource = new StreamSource(new File("data/xsl/izvestaj.xsl"));
+            StreamSource transformSource = new StreamSource(new File("src/main/resources/xslt/izvestaj.xsl"));
             Transformer transformer = transformerFactory.newTransformer(transformSource);
             transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");

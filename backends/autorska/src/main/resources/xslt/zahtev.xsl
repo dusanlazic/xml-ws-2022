@@ -8,23 +8,23 @@
         <html>
             <style>
                 body {
-                    border: 2px solid black;
+                border: 2px solid black;
                 }
                 h1, h2 {
-                    text-align: center;
+                text-align: center;
                 }
                 .box {
-                    border-bottom: 2px solid black;
-                    padding: 1%;
+                border-bottom: 2px solid black;
+                padding: 1%;
                 }
                 .section1 {
-                    padding: 1%;
+                padding: 1%;
                 }
                 .item {
-                    margin-bottom: 40px;
+                margin-bottom: 40px;
                 }
                 .answer {
-                    color: navy;
+                color: navy;
                 }
             </style>
             <body>
@@ -33,7 +33,7 @@
                     Beograd, Kneginje Ljubice 5
                     <br />
                     <h1>
-                        ZAHTEV ZA UNOŠENJE U EVIDENCIJU I DEPONOVANjE AUTORSKIH DELA
+                        ZAHTEV ZA UNOŠENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA
                     </h1>
                 </div>
 
@@ -42,20 +42,51 @@
                         1) Podnosilac - ime, prezime, adresa i državljanstvo autora ili drugog nosioca autorskog prava ako je podnosilac fizičko lice, odnosno poslovno ime i sedište nosioca autorskog prava ako je podnosilac pravno lice*:
                         <table>
                             <tbody>
-                                <tr><td class="answer"><xsl:value-of select="//a:Podnosilac/a:ime" /></td>
+                                <tr>
+                                    <td>Ime:</td>
+                                    <td class="answer"><xsl:value-of select="//a:Podnosilac/a:ime" /></td>
+                                </tr>
                                 <xsl:choose>
                                     <xsl:when test="//a:Podnosilac/a:sediste">
-                                        <td class="answer"><xsl:value-of select="//a:Podnosilac/a:sediste" /></td>
+                                        <tr>
+                                            <td>Sedište:</td>
+                                            <td class="answer"><xsl:value-of select="//a:Podnosilac/a:sediste" /></td>
+                                        </tr>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <td class="answer"><xsl:value-of select="//a:Podnosilac/a:prezime" /></td>
-                                        <td class="answer"><xsl:value-of select="//a:Podnosilac/a:drzavljanstvo" /></td>
+                                        <tr>
+                                            <td>Prezime:</td>
+                                            <td class="answer"><xsl:value-of select="//a:Podnosilac/a:prezime" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Drzavljanstvo:</td>
+                                            <td class="answer"><xsl:value-of select="//a:Podnosilac/a:drzavljanstvo" /></td>
+                                        </tr>
                                     </xsl:otherwise>
                                 </xsl:choose>
-                                <td class="answer"><xsl:value-of select="//a:Podnosilac/a:telefon" /></td>
-                                <td class="answer"><xsl:value-of select="//a:Podnosilac/a:email" /></td></tr>
+                                <tr>
+                                    <td>Broj telefona:</td>
+                                    <td class="answer"><xsl:value-of select="//a:Podnosilac/a:telefon" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Email:</td>
+                                    <td class="answer"><xsl:value-of select="//a:Podnosilac/a:email" /></td>
+                                </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="item">
+                        2) Pseudonim ili znak autora, (ako ga ima):
+                        <p class="answer">
+                            <xsl:choose>
+                                <xsl:when test="//a:Podnosilac/a:pseudonim">
+                                    <xsl:value-of select="//a:Podnosilac/a:pseudonim" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>Nema pseudonima</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </p>
                     </div>
                     <div class="item">
                         3) Ime, prezime i adresa punomoćnika, ako se prijava podnosi preko punomoćnika:
@@ -75,28 +106,37 @@
                         </p>
                     </div>
                     <div class="item">
-                        2) Pseudonim ili znak autora, (ako ga ima):
-                        <p class="answer">
-                            <xsl:choose>
-                                <xsl:when test="//a:Podnosilac/a:pseudonim">
-                                    <xsl:value-of select="//a:Podnosilac/a:pseudonim" />
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:text>Nema pseudonima</xsl:text>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </p>
-                    </div>
-                    <div class="item">
                         4) Naslov autorskog dela, odnosno alternativni naslov, ako ga ima, po kome autorsko delo može da se identifikuje*:
                         <p class="answer"><xsl:value-of select="//a:Delo/a:naslov" /></p>
                         <p class="answer"><xsl:value-of select="//a:Delo/a:alternativni_naslov" /></p>
                     </div>
                     <div class="item">
                         5) Podaci o naslovu autorskog dela na kome se zasniva delo prerade, ako je u pitanju autorsko delo prerade, kao i podatak o autoru izvornog dela:
-
+                        <xsl:choose>
+                            <xsl:when test="//a:Delo/a:Originalni_Autor/a:ime">
+                                <p class="answer"><xsl:value-of select="/a:Delo/a:Originalni_Autor/a:originalni_naslov" /></p>
+                                <br></br>
+                                <table>
+                                    <tr>
+                                        <td>Ime autora:</td>
+                                        <td class="answer"><xsl:value-of select="/a:Delo/a:Originalni_Autor/a:ime" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prezime autora:</td>
+                                        <td class="answer"><xsl:value-of select="/a:Delo/a:Originalni_Autor/a:prezime" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Drzavljanstvo autora:</td>
+                                        <td class="answer"><xsl:value-of select="/a:Delo/a:Originalni_Autor/a:drzavljanstvo" /></td>
+                                    </tr>
+                                </table>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <p class="answer"><xsl:text>Nije prerada</xsl:text></p>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </div>
-                    <div class="item">
+                    <div class="item" style="margin-top: 20px;">
                         6) Podaci o vrsti autorskog dela (književno delo, muzičko delo, likovno delo, računarski program i dr.) *:
                         <p class="answer"><xsl:value-of select="//a:Delo/a:vrsta_dela" /></p>
                     </div>
@@ -106,6 +146,32 @@
                     </div>
                     <div class="item">
                         8) Podaci o autoru ako podnosilac prijave iz tačke 1. ovog zahteva nije autor i to: prezime, ime, adresa i državljanstvo autora (grupe autora ili koautora), a ako su u pitanju jedan ili više autora koji nisu živi, imena autora i godine smrti autora a ako je u pitanju autorsko delo anonimnog autora navod da je autorsko delo delo anonimnog autora:
+                        ovo
+                        <xsl:choose>
+                            <xsl:when test="//a:Autori">
+                                mjau
+                                <xsl:for-each select="//a:Autori/a:Autor">
+                                    <table>
+                                        <tr>
+                                            <td>Ime autora:</td>
+                                            <td class="answer"><xsl:value-of select="a:ime" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Prezime autora:</td>
+                                            <td class="answer"><xsl:value-of select="a:prezime" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Drzavljanstvo autora:</td>
+                                            <td class="answer"><xsl:value-of select="a:drzavljanstvo" /></td>
+                                        </tr>
+                                    </table>
+                                </xsl:for-each>
+
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <p class="answer"><xsl:text>Podnosilac je autor</xsl:text></p>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </div>
                     <div class="item">
                         9) Podatak da li je u pitanju autorsko delo stvoreno u radnom odnosu:
@@ -126,7 +192,7 @@
                     </div>
                 </div>
                 <h2>
-                    POPUNjAVA ZAVOD:
+                    POPUNJAVA ZAVOD:
                 </h2>
                 <div class="section1">
                     <strong>Prilozi uz prijavu:</strong>
