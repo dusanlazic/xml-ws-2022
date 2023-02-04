@@ -32,13 +32,16 @@ const routes: Routes = [
   { path: 'autorska/sluzbenik', component: SluzbenikComponent, children: [
       { path: 'pretraga', component: PretragaComponent },
       { path: 'zahtevi', component: ZahteviComponent },
-      { path: 'izvestaji', component: IzvestajiComponent }
+      { path: 'izvestaji', component: IzvestajiComponent },
+      { path: 'zahtev/:broj_prijave', component: ZahtevAutorskaComponent }
     ]
   },
   { path: 'zig/sluzbenik', component: SluzbenikComponent, children: [
     { path: 'pretraga', component: PretragaComponent },
     { path: 'zahtevi', component: ZahteviComponent },
-    { path: 'izvestaji', component: IzvestajiComponent }
+    { path: 'izvestaji', component: IzvestajiComponent },
+    { path: 'zahtev/:broj_prijave', component: ZahtevZigComponent }
+
   ]
 },
 

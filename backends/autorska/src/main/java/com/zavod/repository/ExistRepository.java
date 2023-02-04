@@ -94,7 +94,7 @@ public abstract class ExistRepository<T> {
         }
     }
 
-    private T readResource(XMLResource resource) {
+    public T readResource(XMLResource resource) {
         col = null;
         res = null;
         try {

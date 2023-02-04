@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/model/user';
+import { AuthService } from 'src/services/auth/auth.service';
 
 @Component({
   selector: 'app-pretraga-rezultat-autorska',
@@ -10,9 +12,17 @@ export class PretragaRezultatAutorskaComponent implements OnInit {
 
   @Input() rezultat: any
 
-  constructor(private router: Router) { }
+
+  sluzbenikPrefix = ""
+
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.getLoggedUser().subscribe((user: User | undefined) => {
+      if(user?.uloga === 'sluzbenik') {
+        this.sluzbenikPrefix = 'sluzbenik/'
+      }
+    });
 
   }
 
@@ -20,7 +30,7 @@ export class PretragaRezultatAutorskaComponent implements OnInit {
     console.log(this.rezultat);
     
     let brojPrijave = this.rezultat.informacije_zavoda.broj_prijave._text;
-    this.router.navigate(['autorska/zahtev/' + brojPrijave])
+    this.router.navigate(['autorska/'+this.sluzbenikPrefix+'zahtev/' + brojPrijave])
   }
 
 

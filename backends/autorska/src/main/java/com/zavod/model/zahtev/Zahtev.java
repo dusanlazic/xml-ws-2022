@@ -8,7 +8,7 @@
 
 package com.zavod.model.zahtev;
 
-import com.zavod.autorska.TZahtev;
+
 
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;

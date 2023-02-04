@@ -10,11 +10,13 @@ import com.zavod.service.ZahtevService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -121,6 +123,15 @@ public class ZahtevController {
             System.out.println(searchQuery.getPredicate() + " " + searchQuery.getObject() + " " + searchQuery.getOperator());
         }
         return new Zahtevi(metadataService.metaSearch(metaSearchRequest, false));
+    }
+
+    @GetMapping(path = "/nereseni", produces = MediaType.APPLICATION_XML_VALUE)
+    public Zahtevi getNereseni(Authentication authentication) throws XMLDBException {
+        KorisnikDTO korisnik = (KorisnikDTO) authentication.getPrincipal();
+        if (korisnik.getUloga().equals("gradjanin")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Nemate pravo pristupa");
+        }
+        return new Zahtevi(zahtevService.getUnresolved());
     }
 
     @GetMapping(path = "/izvestaj", produces = MediaType.APPLICATION_PDF_VALUE)

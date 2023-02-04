@@ -5,17 +5,21 @@ import com.zavod.model.resenje.StatusResenja;
 import com.zavod.model.zahtev.Zahtev;
 import com.zavod.repository.MetadataRepository;
 import com.zavod.repository.ZahtevRepository;
+import com.zavod.util.MarshallingService;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
+import org.xmldb.api.modules.XMLResource;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +33,8 @@ public class ZahtevService {
 
 	@Autowired
 	public MetadataRepository metadataRepository;
+
+	MarshallingService<Zahtev> marshallingService;
 
 	public List<Zahtev> getAll() {
 		return zahtevRepository.getAll();
@@ -75,5 +81,18 @@ public class ZahtevService {
 					.filter(z -> z.getInformacijeZavoda().getStatusResenja().equals(StatusResenja.PRIHVACEN.toString()))
 					.collect(Collectors.toList());
 		return zahtevRepository.search(query);
+	}
+
+	public List<Zahtev> getUnresolved() throws XMLDBException {
+		ResourceSet resourceSet = zahtevRepository.executeXPath("//Zahtev[Informacije_Zavoda/status_resenja/text() = '"+StatusResenja.NA_CEKANJU+"']");
+		ResourceIterator iterator = resourceSet.getIterator();
+		List<Zahtev> results = new ArrayList<>();
+		System.out.println("---------------------");
+		while (iterator.hasMoreResources()) {
+			var res = iterator.nextResource();
+			Zahtev zahtev = zahtevRepository.readResource((XMLResource) res);
+			results.add(zahtev);
+		}
+		return results;
 	}
 }
