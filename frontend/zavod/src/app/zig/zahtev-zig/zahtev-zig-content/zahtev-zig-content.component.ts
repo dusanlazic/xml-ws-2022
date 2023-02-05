@@ -51,6 +51,10 @@ export class ZahtevZigContentComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if(!this.in) return;
     this.zahtev = _.cloneDeep(this.in.zahtev);
+    if(this.zahtev.zig.klase_robe.klasa && !Array.isArray(this.zahtev.zig.klase_robe.klasa)) {
+      this.zahtev.zig.klase_robe.klasa = [this.zahtev.zig.klase_robe.klasa];
+    }
+    console.log(this.zahtev);
   }
 
   exportHTML() {
