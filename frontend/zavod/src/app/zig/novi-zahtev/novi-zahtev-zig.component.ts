@@ -941,7 +941,7 @@ export class NoviZahtevZigComponent implements OnInit, AfterViewInit {
   }
 
   shufflePoslovnoLice(model: any, fieldName: string) {
-    let shuffled: any = {};
+    let shuffled: any = {adresa: {}};
     shuffled.adresa.ulica = model[fieldName].adresa.ulica;
     shuffled.adresa.broj = model[fieldName].adresa.broj;
     shuffled.adresa.mesto = model[fieldName].adresa.mesto;
