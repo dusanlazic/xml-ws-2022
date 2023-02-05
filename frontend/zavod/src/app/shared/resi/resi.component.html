@@ -28,7 +28,7 @@
 		</mat-radio-group>
 		  
 
-		<mat-form-field appearance="outline" style="width: 80%; margin-left: 15px;" *ngIf="!status && podneoOpis && podneoPrimer">
+		<mat-form-field appearance="outline" style="width: 80%; margin-left: 15px;" *ngIf="!status">
 			<mat-label>Obrazloženje</mat-label>
 			<textarea matInput style="height: 60px;" [disabled]="cantModify" [(ngModel)]="obrazlozenje"></textarea>
 		</mat-form-field>

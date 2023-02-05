@@ -22,6 +22,10 @@
 							<td><strong>Prezime:</strong></td>
 							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.prezime._text}}</td>
 						</tr>
+						<tr *ngIf="zahtev?.podnosilac.pseudonim">
+							<td><strong>Pseudonim:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.pseudonim._text}}</td>
+						</tr>
 						<tr *ngIf="zahtev?.podnosilac.adresa">
 							<td><strong>Adresa:</strong></td>
 							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.adresa._text}}</td>
@@ -98,6 +102,7 @@
 						<tbody>
 							<tr><td><strong>Ime:</strong></td><td> {{zahtev?.autori.autor[i].ime._text}}</td></tr>
 							<tr><td><strong>Prezime:</strong></td><td> {{zahtev?.autori.autor[i].prezime._text}}</td></tr>
+							<tr *ngIf="zahtev?.autori.autor[i].pseudonim"><td><strong>Pseudonim:</strong></td><td> {{zahtev?.autori.autor[i].pseudonim?._text}}</td></tr>
 							<tr><td><strong>Drzavljanstvo:</strong></td><td> {{zahtev?.autori.autor[i].drzavljanstvo._text}}</td></tr>
 							<tr><td><strong>Adresa:</strong></td><td> {{zahtev?.autori.autor[i].adresa._text}}</td></tr>
 							<tr *ngIf="zahtev?.autori.autor[i].godina_smrti"><td><strong>Datum smrti:</strong></td><td> {{zahtev?.autori.autor[i].godina_smrti._text}}</td></tr>
@@ -110,6 +115,7 @@
 						<tbody>
 							<tr><td><strong>Ime:</strong></td><td> {{zahtev?.autori.autor[i + 1].ime._text}}</td></tr>
 							<tr><td><strong>Prezime:</strong></td><td> {{zahtev?.autori.autor[i + 1].prezime._text}}</td></tr>
+							<tr *ngIf="zahtev?.autori.autor[i + 1].pseudonim"><td><strong>Pseudonim:</strong></td><td> {{zahtev?.autori.autor[i + 1].pseudonim?._text}}</td></tr>
 							<tr><td><strong>Drzavljanstvo:</strong></td><td> {{zahtev?.autori.autor[i + 1].drzavljanstvo._text}}</td></tr>
 							<tr><td><strong>Adresa:</strong></td><td> {{zahtev?.autori.autor[i + 1].adresa._text}}</td></tr>
 							<tr *ngIf="zahtev?.autori.autor[i + 1].godina_smrti"><td><strong>Datum smrti:</strong></td><td> {{zahtev?.autori.autor[i + 1].godina_smrti._text}}</td></tr>
