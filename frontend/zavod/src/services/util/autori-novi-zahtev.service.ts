@@ -14,7 +14,7 @@ export class AutoriNoviZahtevService {
 
 	step: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
-	show: boolean = false;
+	show: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 	setStep(step: number) {
 		this.step.next(step);
@@ -30,12 +30,9 @@ export class AutoriNoviZahtevService {
 		this.number.next(this.number.value + 1);
 	}
 
-	showButtons(): boolean {
-		return this.show;
-	}
 
 	setButtons(show: boolean): void {
-		this.show = show;
+		this.show.next(show)
 	}
 
 }

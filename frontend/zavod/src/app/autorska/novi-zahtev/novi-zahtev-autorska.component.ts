@@ -131,7 +131,7 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
                 label: 'Tip lica',
                 required: true,
                 options: [
-                  {value: 0, label:'Fizičko'},
+                  {value: 0, label:'Fizičko `'},
                   {value: 1, label:'Pravno'}
                 ]
               }
@@ -448,7 +448,7 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
               key: 'punomocjePrilog',
               type: 'file',
               props: {
-                label: 'Punomocje',
+                label: 'Punomoćje',
                 fileid: 'punomocjeid'
               },
               expressions: {
@@ -476,9 +476,12 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
     this.options.fieldChanges?.subscribe((change) => {
       if(change.field.key === 'Autor.anoniman') {
         if (this.model.Autor.anoniman === false) {
+          this.autoriService.show.next(true);
           if (this.autoriService.number.value === 0) {
             this.autoriService.increaseNumber()
           }
+        } else {
+          this.autoriService.show.next(false);
         }
       }
     });
@@ -515,21 +518,36 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
 
 
   submit() {
+    console.log(this.model);
+    
     let model = JSON.parse(JSON.stringify(this.model));
     let json = JSON.stringify(model);
+    console.log(json);
+    
     console.log(model);
     
+    let autorJePodnosilac = model.podnosilacJeAutor ? true : false
+    let autorJeAnoniman = model.Autor.anoniman ? true : false
+
     delete model.deloJePrerada
     let tipPodnosioca =  model.tipPodnosioca
     delete model.tipPodnosioca
     this.parseAutori(model);
-    delete model.podnosilacJeAutor
-    delete model.postojiPunomocnik
-
 
     console.log(model);
     
     model = this.resolveTypes(model, tipPodnosioca)
+
+    delete model.podnosilacJeAutor
+    delete model.postojiPunomocnik
+
+
+    model.Zahtev.Autori = {
+      podnosilac_je_autor: autorJePodnosilac,
+      autor_je_anoniman: autorJeAnoniman,
+      ...model.Zahtev.Autori
+    }
+    
     console.log(model);
 
     this.uploadPriloziAndSend(model);

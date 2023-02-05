@@ -15,9 +15,19 @@
         <a:radni_odnos>false</a:radni_odnos>
         <a:nacin_koriscenja>nacin_koriscenja0</a:nacin_koriscenja>
     </a:Delo>
-    <a:Autori></a:Autori>
+    <a:Autori>
+        <a:podnosilac_je_autor>false</a:podnosilac_je_autor>
+        <a:autor_je_anoniman>false</a:autor_je_anoniman>
+        <a:Autor>
+            <a:ime>Ime</a:ime>
+            <a:prezime>Prezime</a:prezime>
+            <a:adresa>/</a:adresa>
+            <a:drzavljanstvo>Nepoznato</a:drzavljanstvo>
+            <a:godina_smrti>1984</a:godina_smrti>
+        </a:Autor>
+    </a:Autori>
     <a:Informacije_Zavoda>
-        <a:broj_prijave>A-1-23</a:broj_prijave>
+        <a:broj_prijave>A-1-2023</a:broj_prijave>
         <a:datum_podnosenja>2006-05-04</a:datum_podnosenja>
         <a:status_resenja>NA_CEKANJU</a:status_resenja>
         <a:prilozi>

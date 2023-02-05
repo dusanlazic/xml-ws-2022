@@ -15,9 +15,12 @@
         <a:radni_odnos>false</a:radni_odnos>
         <a:nacin_koriscenja>nacin_koriscenja0</a:nacin_koriscenja>
     </a:Delo>
-    <a:Autori></a:Autori>
+    <a:Autori>
+        <a:podnosilac_je_autor>true</a:podnosilac_je_autor>
+        <a:autor_je_anoniman>false</a:autor_je_anoniman>
+    </a:Autori>
     <a:Informacije_Zavoda>
-        <a:broj_prijave>A-0-23</a:broj_prijave>
+        <a:broj_prijave>A-0-2023</a:broj_prijave>
         <a:datum_podnosenja>2006-05-04</a:datum_podnosenja>
         <a:status_resenja>NA_CEKANJU</a:status_resenja>
         <a:prilozi>

@@ -47,6 +47,9 @@ export class ZahtevAutorksaContentComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if(!this.in) return;
     this.zahtev = _.cloneDeep(this.in.zahtev);
+    if(this.zahtev.autori.autor && !Array.isArray(this.zahtev.autori.autor)) {
+      this.zahtev.autori.autor = [this.zahtev.autori.autor];
+    }
     console.log(this.zahtev);
   }
 

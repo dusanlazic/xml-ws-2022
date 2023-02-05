@@ -103,9 +103,17 @@ public class Zahtev {
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "TAutori", propOrder = {
+            "podnosilacJeAutor",
+            "autorJeAnoniman",
             "autor"
     })
     public static class Autori {
+
+        @XmlElement(name = "podnosilac_je_autor", required = true)
+        protected boolean podnosilacJeAutor = false;
+
+        @XmlElement(name = "autor_je_anoniman", required = true)
+        protected boolean autorJeAnoniman = false;
 
         @XmlElement(name = "Autor")
         protected List<Autor> autor;
@@ -119,6 +127,22 @@ public class Zahtev {
 
         public void setAutor(List<Autor> value) {
             this.autor = value;
+        }
+
+        public boolean getPodnosilacJeAutor() {
+            return podnosilacJeAutor;
+        }
+
+        public void setPodnosilacJeAutor(boolean value) {
+            this.podnosilacJeAutor = value;
+        }
+
+        public boolean getAutorJeAnoniman() {
+            return autorJeAnoniman;
+        }
+
+        public void setAutorJeAnoniman(boolean value) {
+            this.autorJeAnoniman = value;
         }
 
     }

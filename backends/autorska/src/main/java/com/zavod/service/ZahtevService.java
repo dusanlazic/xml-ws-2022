@@ -63,11 +63,11 @@ public class ZahtevService {
 				String id = iterator.nextResource().getContent().toString();
 				long ordinalPart = Long.parseLong(id.split("-")[1]);
 				long yearPart = Long.parseLong(id.split("-")[2]);
-				if (ordinalPart > maximum && yearPart == LocalDate.now().getYear() % 100) {
+				if (ordinalPart > maximum && yearPart == LocalDate.now().getYear()) {
 					maximum = ordinalPart;
 				}
 			}
-			return "A-" + (maximum + 1) + "-" + LocalDate.now().format(DateTimeFormatter.ofPattern("yy"));
+			return "A-" + (maximum + 1) + "-" + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
 		} catch (XMLDBException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

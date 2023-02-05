@@ -34,6 +34,10 @@
 							<td><strong>Telefon:</strong></td>
 							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.telefon._text}}</td>
 						</tr>
+						<tr *ngIf="zahtev?.autori.podnosilac_je_autor._text === 'true'">
+							<td><strong>Podnosilac je autor:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.autori.podnosilac_je_autor._text ? "Da" : "Ne"}}</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -56,6 +60,10 @@
 						<tr><td><strong>Forma zapisa:</strong></td> <td> {{zahtev?.delo.forma_zapisa._text}}</td></tr>
 						<tr><td><strong>Način korišćenja:</strong></td><td> {{zahtev?.delo.nacin_koriscenja._text}}</td></tr>
 						<tr><td><strong>Stvoreno u radnom odnosu:</strong></td><td> {{zahtev?.delo.radni_odnos._text ? "Da" : "Ne"}}</td></tr>
+						<tr><td><strong>Način korišćenja:</strong></td><td> {{zahtev?.delo.nacin_koriscenja._text}}</td></tr>
+						<tr *ngIf="zahtev?.delo.prerada"><td><strong>Originalan naslov:</strong></td><td> {{zahtev?.delo.prerada.originalni_naslov._text}}</td></tr>
+						<tr *ngIf="zahtev?.delo.prerada"><td><strong>Ime originalnog autora:</strong></td><td> {{zahtev?.delo.prerada.originalni_autor.ime._text}}</td></tr>
+						<tr *ngIf="zahtev?.delo.prerada"><td><strong>Prezime originalnog autora:</strong></td><td> {{zahtev?.delo.prerada.originalni_autor.prezime._text}}</td></tr>
 					</tbody>
 				</table>
 			</div>
@@ -70,18 +78,6 @@
 			</div>
 		</div>
 		<div style="display: flex;">
-			<div style="width: 40%;" class="content" *ngIf="zahtev?.autor">
-				<h2>Autor</h2>
-				<table>
-					<tbody>
-						<tr><td><strong>Ime:</strong></td><td> {{zahtev?.autor.ime._text}}</td></tr>
-						<tr><td><strong>Prezime:</strong></td><td> {{zahtev?.autor.prezime._text}}</td></tr>
-						<tr><td><strong>Državljanstvo:</strong></td><td> {{zahtev?.autor.drzavljanstvo._text}}</td></tr>
-						<tr *ngIf="zahtev?.autor.godina_smrti"><td><strong>Godina smrti:</strong></td><td> {{zahtev?.autor.godina_smrti._text}}</td></tr>
-					</tbody>
-				</table>
-			</div>
-
 			<div style="width: 40%;" class="content" *ngIf="zahtev?.punomocnik">
 				<h2>Punomoćnik</h2>
 				<table>
@@ -94,7 +90,7 @@
 			</div>
 		</div>
 
-		<ng-container *ngFor="let autorce of zahtev.autori.autor; let i = index">
+		<div *ngFor="let autorce of zahtev.autori.autor; let i = index">
 			<div *ngIf="i % 2 === 0" style="display: flex;">
 				<div style="width: 40%;" class="content">
 					<h2>Autor</h2>
@@ -121,7 +117,7 @@
 					</table>
 				</div>
 			</div>
-		</ng-container>
+		</div>
 
 		  
 

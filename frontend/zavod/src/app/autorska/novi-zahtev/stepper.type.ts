@@ -6,12 +6,11 @@ import { AutoriNoviZahtevService } from 'src/services/util/autori-novi-zahtev.se
   selector: 'formly-field-stepper',
   template: `
     <mat-horizontal-stepper [selectedIndex]="step">
-      <mat-step *ngFor="let step of field.fieldGroup; let index = index; let last = last">
-        <ng-template matStepLabel>{{ step.props!.label }}</ng-template>
+      <mat-step *ngFor="let step of field.fieldGroup; let index = index; let last = last" [label]="step.props!.label!">
         <formly-field [field]="step"></formly-field>
         <div *ngIf="index === 1" style="margin-bottom: 20px;">
           <button mat-raised-button color="warn" *ngIf="number > 1" (click)="decrease()">-1 autor</button>
-          <button mat-raised-button color="primary" style="margin-left: 10px;" (click)="increase()">+1 autor</button>
+          <button mat-raised-button color="primary" *ngIf="show" style="margin-left: 10px;" (click)="increase()">+1 autor</button>
         </div>
         <div>
           <button matStepperPrevious *ngIf="index !== 0" class="btn btn-primary" type="button">Back</button>
@@ -32,6 +31,8 @@ export class FormlyFieldAutorskaStepper extends FieldType {
 
   step: number = 0;
 
+  show: boolean = false;
+
   constructor(private autoriNoviZahtevService: AutoriNoviZahtevService) {
     super();
     autoriNoviZahtevService.number.asObservable().subscribe((data: any) => {
@@ -41,6 +42,10 @@ export class FormlyFieldAutorskaStepper extends FieldType {
 
     autoriNoviZahtevService.step.asObservable().subscribe((data: any) => {
       this.step = data;
+    });
+
+    autoriNoviZahtevService.show.asObservable().subscribe((data: any) => {
+      this.show = data;
     });
   }
 

@@ -11,8 +11,9 @@
             </div>
             <span class="example-spacer"></span>
             <span style="margin-right: 10px;" (click)="openDialog()" *ngIf="!loggedUser">Prijava</span>
+            <span style="align-items: center; display: flex;" *ngIf="!loggedUser" (click)="openDialog()"><mat-icon>input</mat-icon></span>
             <span style="margin-right: 10px;" (click)="logout()" *ngIf="loggedUser">Odjava</span>
-            <span style="align-items: center; display: flex;" (click)="openDialog()"><mat-icon>input</mat-icon></span>
+            <span style="align-items: center; display: flex;" *ngIf="loggedUser" (click)="logout()"><mat-icon>input</mat-icon></span>
         </mat-toolbar>
     </div>
     
