@@ -46,7 +46,7 @@
 							<td>&nbsp;&nbsp;{{zahtev?.placanje.osnovna_taksa._text}} rsd</td>
 						</tr>
 						<tr *ngIf="zahtev?.zig.klase_robe.klasa">
-							<td><strong>Taksa za broj klasa (3+{{zahtev?.zig.klase_robe.klasa.length-3}}):</strong></td>
+							<td><strong>Taksa za broj klasa ({{formatBrojKlasa()}}):</strong></td>
 							<td>&nbsp;&nbsp;{{zahtev?.placanje.taksa_klasa._text}} rsd</td>
 						</tr>
 						<tr>
@@ -75,7 +75,7 @@
 						<tr><td><strong>Tip znaka:</strong></td><td> {{zahtev?.zig.tip_znaka._text}}</td></tr>
 						<tr><td><strong>Pravo prvenstva:</strong></td><td> {{zahtev?.zig.pravo_prvenstva._text}}</td></tr>
 						<tr><td><strong>Klase robe:</strong></td> 
-							<td *ngIf="zahtev?.zig.klasa_robe">
+							<td *ngIf="zahtev?.zig.klase_robe">
 								<span *ngFor="let klasa of zahtev?.zig.klase_robe.klasa">
 										{{klasa._text}}
 								</span>
@@ -156,7 +156,7 @@
 		</div>
 	</div>
 	<div>
-		<div style="display: flex; margin-left: 45px; flex-direction: row-reverse;" class="btns">
+		<div *ngIf="canExport" style="display: flex; margin-left: 45px; flex-direction: row-reverse;" class="btns">
 			<button mat-flat-button color="primary" (click)="exportRDF()">RDF</button>
 			<button mat-flat-button color="primary" (click)="exportJSON()">JSON</button>
 			<button mat-flat-button color="primary" (click)="exportHTML()">HTML</button>

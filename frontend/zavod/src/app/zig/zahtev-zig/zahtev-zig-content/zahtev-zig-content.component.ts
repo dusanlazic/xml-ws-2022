@@ -3,6 +3,8 @@ import { HttpRequestService, zigBackend } from 'src/services/util/http-request.s
 var _ = require('lodash');
 import { saveAs } from 'file-saver';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/services/auth/auth.service';
+import { User } from 'src/model/user';
 
 @Component({
   selector: 'app-zahtev-zig-content',
@@ -15,15 +17,20 @@ export class ZahtevZigContentComponent implements OnInit, OnChanges {
   @Input() in: any;
   zahtev: any;
 
+  canExport: boolean = false;
+
   constructor(
     private httpRequestService: HttpRequestService,
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
     ) { 
 
   }
   
-
   ngOnInit(): void {
+    this.authService.getLoggedUser().subscribe((user) => {
+      this.canExport = user?.uloga == "sluzbenik";
+    })
   }
 
   download(url: any) {
@@ -89,6 +96,15 @@ export class ZahtevZigContentComponent implements OnInit, OnChanges {
       .replace("Z", "Ž")
       .replace("-", " ")
       .replace("-", "/");
+  }
+
+  formatBrojKlasa() : String {
+    let brojKlasa = this.zahtev.zig.klase_robe.klasa.length;
+    if (brojKlasa > 3) {
+      return "3+" + Math.max(0, brojKlasa - 3);
+    } else {
+      return brojKlasa;
+    }
   }
 
 }

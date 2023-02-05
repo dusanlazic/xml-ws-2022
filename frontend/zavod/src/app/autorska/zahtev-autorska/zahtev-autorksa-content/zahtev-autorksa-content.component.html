@@ -123,7 +123,7 @@
 
 	</div>
 	<div>
-		<div style="display: flex; margin-left: 45px; flex-direction: row-reverse;" class="btns">
+		<div *ngIf="canExport" style="display: flex; margin-left: 45px; flex-direction: row-reverse;" class="btns">
 			<button mat-flat-button color="primary" (click)="exportRDF()">RDF</button>
 			<button mat-flat-button color="primary" (click)="exportJSON()">JSON</button>
 			<button mat-flat-button color="primary" (click)="exportHTML()">HTML</button>

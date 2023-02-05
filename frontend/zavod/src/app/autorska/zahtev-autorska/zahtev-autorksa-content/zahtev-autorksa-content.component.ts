@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { HttpRequestService, autorskaBackend } from 'src/services/util/http-request.service';
 import { saveAs } from 'file-saver';
+import { AuthService } from 'src/services/auth/auth.service';
 var _ = require('lodash');
 
 
@@ -16,15 +17,20 @@ export class ZahtevAutorksaContentComponent implements OnInit {
   @Input() in: any;
   zahtev: any;
 
+  canExport : boolean = false;
+
   constructor(
     private httpRequestService: HttpRequestService,
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
     ) { 
 
   }
-  
 
   ngOnInit(): void {
+    this.authService.getLoggedUser().subscribe((user) => {
+      this.canExport = user?.uloga == "sluzbenik";
+    })
   }
 
   download(url: any) {

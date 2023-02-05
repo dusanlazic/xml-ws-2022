@@ -80,8 +80,8 @@ export class ResiComponent implements OnInit {
 
           that.obrazlozenje = resenje.resenje.odluka.obrazlozenje._text;
           that.status = resenje.resenje.odluka.prihvacen._text === 'true' ? true : false;
-          that.podneoOpis = resenje.resenje.odluka.dostavio_opis._text === 'true' ? true : false;
-          that.podneoPrimer = resenje.resenje.odluka.dostavio_primer._text === 'true' ? true : false;
+          that.podneoOpis = resenje.resenje.odluka.dostavio_opis?._text === 'true' ? true : false;
+          that.podneoPrimer = resenje.resenje.odluka.dostavio_primer?._text === 'true' ? true : false;
           that.sluzbenikIme = resenje.resenje.sluzbenik.ime._text;
           that.sluzbenikPrezime = resenje.resenje.sluzbenik.prezime._text;
           

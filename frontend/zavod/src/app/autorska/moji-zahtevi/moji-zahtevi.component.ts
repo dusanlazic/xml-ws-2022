@@ -79,6 +79,16 @@ export class MojiZahteviComponent implements OnInit {
     }
   }
 
+  humanReadableStatus(status: string) {
+    if (status == "NA_CEKANJU") {
+      return "NA ČEKANJU";
+    }
+    if (status == "PRIHVACEN") {
+      return "PRIHVAĆEN";
+    }
+    return status
+  }
+
 
   mojiZahtevi = [
     {
