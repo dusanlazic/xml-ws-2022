@@ -83,9 +83,9 @@ export class MojiZahteviComponent implements OnInit {
   mojiZahtevi = [
     {
       informacije_zavoda :{
-        broj_prijave: {_text: 'A-0-23'},
-        datum_podnosenja: {_text: '2023-01-01'},
-        status_resenja: {_text: 'NA_CEKANJU'},
+        broj_prijave: {_text: '...'},
+        datum_podnosenja: {_text: '...'},
+        status_resenja: {_text: '...'},
       }
     },
     

@@ -32,9 +32,4 @@ public class ResenjeController {
     public Resenje getResenje(@PathVariable String brojPrijave) throws XMLDBException {
         return resenjeService.getResenje(brojPrijave);
     }
-
-    @GetMapping(path = "/qr/{brojPrijave}.png", produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<byte[]> qr(@PathVariable String brojPrijave) throws Exception {
-        return resenjeService.qrCodeToResource(brojPrijave);
-    }
 }
