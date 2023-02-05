@@ -14,11 +14,10 @@ public class ServiceUtil {
     public static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
     public static String brojToHumanReadable(String brojPrijave) {
-        String retVal = brojPrijave.replace("Z","Ж");
-        int idx = retVal.lastIndexOf("-");
-        if (idx != -1)
-            return retVal.substring(0, idx) + "/" + retVal.substring(idx + 1);
-        return retVal;
+        return brojPrijave
+                .replace("Z","Ž")
+                .replaceFirst("-", " ")
+                .replace("-", "/");
     }
 
     public static XMLGregorianCalendar xmlDatefromDate(Date date) throws DatatypeConfigurationException {

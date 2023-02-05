@@ -84,4 +84,11 @@ export class ZahtevZigContentComponent implements OnInit, OnChanges {
     });
   }
 
+  humanReadable(broj_prijave: string) {
+    return broj_prijave
+      .replace("Z", "Ž")
+      .replace("-", " ")
+      .replace("-", "/");
+  }
+
 }

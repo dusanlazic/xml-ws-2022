@@ -60,6 +60,22 @@ export class MojiZahteviComponent implements OnInit {
       this.router.navigate(['/zig/zahtev/' + broj_prijave]);
   }
 
+  humanReadable(broj_prijave: string) {
+    if(this.serviceName === 'autorska') {
+      let c = broj_prijave.lastIndexOf("-");
+      if (c != -1)
+        return broj_prijave.substring(0, c) + "/" + broj_prijave.substring(c + 1);
+      return broj_prijave
+    } else if (this.serviceName === 'zig') {
+      return broj_prijave
+        .replace("Z", "Ž")
+        .replace("-", " ")
+        .replace("-", "/");
+    } else {
+      return broj_prijave
+    }
+  }
+
 
   mojiZahtevi = [
     {
