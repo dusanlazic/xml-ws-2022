@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
+    vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://www.zavod.com/Korisnik"
+    xmlns:k="http://www.zavod.com/Korisnik">
+    <xs:element name="Korisnik" type="k:TKorisnik"/>
+    <xs:complexType name="Korisnik" abstract="false">
+        <xs:sequence>
+            <xs:element name="id">
+                <xs:simpleType>
+                    <xs:restriction base="xs:long">
+                        <xs:minInclusive value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="email">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[A-Za-z0-9\-]+@[A-Za-z0-9]+\.[A-Za-z]{2,4}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="lozinka" type="xs:string"/>
+            <xs:element name="ime" type="xs:string"/>
+            <xs:element name="prezime" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

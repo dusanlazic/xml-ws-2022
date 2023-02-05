@@ -1,0 +1,69 @@
+<div style="min-height: 900px !important;">
+    <div style="display: flex; justify-content: center;" class="cont">
+        <mat-toolbar style="height: 200px;" style="width: 80%; margin-top: 20px;">
+            <div style="align-items: center; display: flex;">
+                <span>
+                    <img src="assets/images/grb.png" height="90px">
+                </span>
+                <span style="margin-left: 10px;">
+                    <img src="assets/images/zis-logo.png" height="80px">
+                </span>
+            </div>
+            <span class="example-spacer"></span>
+            <span style="margin-right: 10px;" (click)="openDialog()" *ngIf="!loggedUser">Prijava</span>
+            <span style="align-items: center; display: flex;" *ngIf="!loggedUser" (click)="openDialog()"><mat-icon>input</mat-icon></span>
+            <span style="margin-right: 10px;" (click)="logout()" *ngIf="loggedUser">Odjava</span>
+            <span style="align-items: center; display: flex;" *ngIf="loggedUser" (click)="logout()"><mat-icon>input</mat-icon></span>
+        </mat-toolbar>
+    </div>
+    
+    <div style="display: flex; justify-content: center; min-height: 800px !important;" class="cont">
+        <mat-grid-list cols="2" rowHeight="2:1" style="width: 80%;">
+            <mat-grid-tile style="height: 100%;">
+                <div style="height: 100%;">
+                    <h1 style="font-size: 70px; color: #3f3f3f;">Zavod za intelektualnu svojinu</h1>
+                    <p style="font-size: 26px; color: #7f7f7f;">
+                        Zavod je posebna organizacija u sistemu državne uprave u
+                        čijoj su nadležnosti poslovi koji se odnose na prava industrijske svojine i autorsko i srodna prava.
+                    </p>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile >
+                    <mat-card style="width: 30%; height: 75%;" class="mat-elevation-z8">
+                        <div style="display: flex; justify-content: center;">
+                            <mat-card style="margin-top: -40px;" class="mat-elevation-z8">
+                                <img src="assets/images/zigovi-logo.svg" >
+                            </mat-card>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <div class="card-title">Žigovi</div>
+                            <br>
+                            <div class="card-content">
+                                Servis za pristup svim dostupnim registrima i bazama za zigove
+                            </div>
+                            <div class="card-btn" style="">
+                                <button mat-stroked-button style="color: #F3A712; border-color: #F3A712;" (click)="accessZig()">Pristuspite <mat-icon>arrow_forward</mat-icon></button>
+                            </div>
+                        </div>
+                    </mat-card>
+                    <mat-card style="width: 30%; height: 75%; margin-left: 10px;" class="mat-elevation-z8">
+                        <div style="display: flex; justify-content: center;">
+                            <mat-card style="margin-top: -40px;" class="mat-elevation-z8">
+                                <img src="assets/images/autorska-logo.svg" >
+                            </mat-card>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <div class="card-title">Autorska prava</div>
+                            <br>
+                            <div class="card-content">
+                                Servis za pristup svim registrima i bazama za autorska prava
+                            </div>
+                            <div class="card-btn">
+                                <button mat-stroked-button style="color: #00A7E1; border-color: #00A7E1;" (click)="accessAutorska()">Pristuspite <mat-icon>arrow_forward</mat-icon></button>
+                            </div>
+                        </div>
+                    </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</div>

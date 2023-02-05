@@ -1,0 +1,18 @@
+<div style="margin-top: 1em;">
+	<div style="display: flex; justify-content: center;"> 
+		<mat-card style="width: 80%;">
+			<mat-card-header>
+				<mat-card-title style="color: #3f3f3f;">Kreiranje novog zahteva</mat-card-title>
+			  </mat-card-header>
+			<mat-card-content>
+				<div>
+					<form [formGroup]="form" (ngSubmit)="submit()">
+						<formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+					</form>
+				</div>
+			</mat-card-content>
+		</mat-card>
+	</div>
+	
+</div>
+

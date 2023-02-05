@@ -1,0 +1,18 @@
+<mat-sidenav-container class="example-container" style="height: 940px !important;">
+	<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
+		<mat-nav-list>
+			<div>
+				<a mat-list-item routerLink="/"><mat-icon>home</mat-icon>&nbsp; Početna</a>
+				<a mat-list-item routerLink="zahtevi"><mat-icon>create</mat-icon>&nbsp;Zahtevi</a>
+				<a mat-list-item routerLink="pretraga"><mat-icon> search</mat-icon>&nbsp;Pretraga</a>
+				<a mat-list-item routerLink="izvestaji"><mat-icon>description</mat-icon>&nbsp;Izveštaji</a>
+				<a mat-list-item (click)="logout()"><mat-icon>exit_to_app</mat-icon>&nbsp;Izloguj se</a>
+			</div>
+		</mat-nav-list>
+	</mat-sidenav>
+
+	<div class="example-sidenav-content" style="height: 940px;">
+		<router-outlet></router-outlet>
+	</div>
+
+</mat-sidenav-container>

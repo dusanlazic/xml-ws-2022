@@ -1,0 +1,169 @@
+<div *ngIf="this.zahtev !== undefined">
+	<div style="display: flex; justify-content: center;">
+		<h1>
+			Zahtev broj {{humanReadable(zahtev?.informacije_zavoda.broj_prijave._text)}}
+		</h1>
+	</div>
+	<div style="padding: 30px;">
+		<div style="width: 100%; display: flex;">
+			<div style="width: 40%;" class="content">
+				<h2>Podnosilac</h2>
+				<table>
+					<tbody>
+						<tr *ngIf="zahtev?.podnosilac.ime">
+							<td><strong>Ime:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.ime._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.podnosilac.prezime">
+							<td><strong>Prezime:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.prezime._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.podnosilac.poslovno_ime">
+							<td><strong>Poslovni naziv:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.poslovno_ime._text}}</td>
+						</tr>
+						<tr>
+							<td><strong>Adresa:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.adresa.ulica._text}} {{zahtev?.podnosilac.adresa.broj._text}}</td>
+						</tr>
+						<tr>
+							<td><strong>Mesto:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.adresa.mesto._text}}, {{zahtev?.podnosilac.adresa.drzava._text}}</td>
+						</tr>
+						<tr>
+							<td><strong>Poštanski broj:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.adresa.postanski_broj._text}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="content">
+				<h2>Plaćanje</h2>
+				<table>
+					<tbody>
+						<tr>
+							<td><strong>Osnovna taksa:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.placanje.osnovna_taksa._text}} rsd</td>
+						</tr>
+						<tr *ngIf="zahtev?.zig.klase_robe.klasa">
+							<td><strong>Taksa za broj klasa ({{formatBrojKlasa()}}):</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.placanje.taksa_klasa._text}} rsd</td>
+						</tr>
+						<tr>
+							<td><strong>Taksa za grafičko rešenje:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.placanje.taksa_grafickog_resenja._text}} rsd</td>
+						</tr>
+						<tr>
+							<td><strong>Ukupno:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.placanje.ukupno._text}} rsd</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+		<div style="display: flex;">
+			<div style="width: 40%;" class="content">
+				<h2>Žig</h2>
+				<table>
+					<tbody>
+						<tr><td><strong>Boja:</strong></td><td> {{zahtev?.zig.boja._text}}</td></tr>
+						<tr><td><strong>Opis:</strong></td><td> {{zahtev?.zig.opis._text}}</td></tr>
+						<tr><td><strong>Prevod:</strong></td><td> {{zahtev?.zig.prevod._text}}</td></tr>
+						<tr><td><strong>Transliteracija:</strong></td> <td> {{zahtev?.zig.transliteracija._text}}</td></tr>
+						<tr><td><strong>Tip ziga:</strong></td> <td> {{zahtev?.zig.tip_ziga._text}}</td></tr>
+						<tr><td><strong>Tip znaka:</strong></td><td> {{zahtev?.zig.tip_znaka._text}}</td></tr>
+						<tr><td><strong>Pravo prvenstva:</strong></td><td> {{zahtev?.zig.pravo_prvenstva._text}}</td></tr>
+						<tr><td><strong>Klase robe:</strong></td> 
+							<td *ngIf="zahtev?.zig.klase_robe">
+								<span *ngFor="let klasa of zahtev?.zig.klase_robe.klasa">
+										{{klasa._text}}
+								</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="content">
+				<h2>Informacije zavoda</h2>
+				<table>
+					<tr><td><strong>Datum podnošenja:</strong></td><td>{{zahtev?.informacije_zavoda.datum_podnosenja._text}}</td></tr>
+					<tr><td><strong>Generalno punomoćje ranije priloženo:</strong></td><td> {{zahtev?.informacije_zavoda.prilozi.generalno_punomocje_ranije_prilozeno._text ? "Da" : "Ne"}}</td></tr>
+					<tr><td><strong>Punomoćje će biti naknadno priloženo:</strong></td><td> {{zahtev?.informacije_zavoda.prilozi.punomocje_ce_biti_naknadno_dostavljeno._text ? "Da" : "Ne"}}</td></tr>
+					<tr>
+						<td><img style="width: 100px; height: 100px;" src="http://localhost:8082/zahtevi/qr/{{zahtev?.informacije_zavoda.broj_prijave._text}}.png"></td>
+						<td><img style="width: 100px; height: 100px;" src="{{zahtev?.informacije_zavoda.prilozi.primerak_znaka.putanja._text}}" alt="Primerak znaka"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div style="display: flex;">
+			<div class="content">
+				<h2>Prilozi</h2>
+				<table>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.primerak_znaka.putanja._text">
+						<td>
+							<strong>Primerak znaka:</strong>
+						</td>
+						<td>
+							<button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.primerak_znaka.putanja._text)">
+								{{zahtev?.informacije_zavoda.prilozi.primerak_znaka.naziv_datoteke._text}}
+							</button>
+						</td>
+					</tr>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.punomocje.putanja._text">
+						<td>
+							<strong>Punomoćje:</strong>
+						</td>
+						<td>
+							<button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.punomocje.putanja._text)">
+								{{zahtev?.informacije_zavoda.prilozi.punomocje.naziv_datoteke._text}}
+							</button>
+						</td>
+					</tr>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.opsti_akt_o_kolektivnom_zigu_garancije.putanja._text">
+						<td>
+							<strong>Opšti akt o kolektivnom žigu/žigu garancije:</strong>
+						</td>
+						<td>
+							<button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.opsti_akt_o_kolektivnom_zigu_garancije.putanja._text)">
+								{{zahtev?.informacije_zavoda.prilozi.opsti_akt_o_kolektivnom_zigu_garancije.naziv_datoteke._text}}
+							</button>
+						</td>
+					</tr>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.dokaz_o_pravu_prvenstva.putanja._text">
+						<td>
+							<strong>Dokaz o pravu prvenstva:</strong>
+						</td>
+						<td>
+							<button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.dokaz_o_pravu_prvenstva.putanja._text)">
+								{{zahtev?.informacije_zavoda.prilozi.dokaz_o_pravu_prvenstva.naziv_datoteke._text}}
+							</button>
+						</td>
+					</tr>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.dokaz_o_uplati_takse.putanja._text">
+						<td>
+							<strong>Dokaz o uplati takse:</strong>
+						</td>
+						<td>
+							<button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.dokaz_o_uplati_takse.putanja._text)">
+								{{zahtev?.informacije_zavoda.prilozi.dokaz_o_uplati_takse.naziv_datoteke._text}}
+							</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div>
+		<div *ngIf="canExport" style="display: flex; margin-left: 45px; flex-direction: row-reverse;" class="btns">
+			<button mat-flat-button color="primary" (click)="exportRDF()">RDF</button>
+			<button mat-flat-button color="primary" (click)="exportJSON()">JSON</button>
+			<button mat-flat-button color="primary" (click)="exportHTML()">HTML</button>
+			<button mat-flat-button color="primary" (click)="exportPDF()">PDF</button>
+		</div>
+	</div>
+	
+	
+	
+</div>

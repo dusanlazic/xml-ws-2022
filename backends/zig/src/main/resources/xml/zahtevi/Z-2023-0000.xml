@@ -1,0 +1,66 @@
+<Zahtev xmlns="http://www.zavod.com/Zig">
+    <Podnosilac xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="TFizicko_Lice">
+        <adresa>
+            <ulica>Bulevar Oslobodjenja</ulica>
+            <broj>30</broj>
+            <mesto>Novi Sad</mesto>
+            <drzava>Srbija</drzava>
+            <postanski_broj>21000</postanski_broj>
+        </adresa>
+        <telefon>06511114444</telefon>
+        <email>stevan@gmail.com</email>
+        <ime>Stevan</ime>
+        <prezime>Stevanović</prezime>
+    </Podnosilac>
+    <Zig>
+        <tip_ziga>individualni</tip_ziga>
+        <tip_znaka>verbalni</tip_znaka>
+        <boja>Crna i bela</boja>
+        <transliteracija>abibas</transliteracija>
+        <prevod>abibas</prevod>
+        <opis>Logo za ABIBAS brend</opis>
+        <klase_robe>
+            <klasa>10</klasa>
+            <klasa>30</klasa>
+        </klase_robe>
+        <pravo_prvenstva>Izmislio sam ovaj brend i hoću da stavim žig na odeću i obuću</pravo_prvenstva>
+    </Zig>
+    <Placanje>
+        <osnovna_taksa>16470.0</osnovna_taksa>
+        <taksa_klasa>0.0</taksa_klasa>
+        <taksa_grafickog_resenja>3300.0</taksa_grafickog_resenja>
+        <ukupno>19770.0</ukupno>
+    </Placanje>
+    <Informacije_Zavoda>
+        <broj_prijave>Z-2023-0000</broj_prijave>
+        <datum_podnosenja>2023-02-05</datum_podnosenja>
+        <status_resenja>NA_CEKANJU</status_resenja>
+        <prilozi>
+            <primerak_znaka>
+                <putanja>http://localhost:8082/dokumenti/c34ba58cbe4f731a0741a1f7c29491da/abibas.png</putanja>
+                <naziv_datoteke>abibas.png</naziv_datoteke>
+            </primerak_znaka>
+            <punomocje>
+                <putanja/>
+                <naziv_datoteke/>
+            </punomocje>
+            <generalno_punomocje_ranije_prilozeno>false</generalno_punomocje_ranije_prilozeno>
+            <punomocje_ce_biti_naknadno_dostavljeno>false</punomocje_ce_biti_naknadno_dostavljeno>
+            <opsti_akt_o_kolektivnom_zigu_garancije>
+                <putanja/>
+                <naziv_datoteke/>
+            </opsti_akt_o_kolektivnom_zigu_garancije>
+            <dokaz_o_pravu_prvenstva>
+                <putanja>http://localhost:8082/dokumenti/c34ba58cbe4f731a0741a1f7c29491da/Пројекат-проширена_спецификација.pdf</putanja>
+                <naziv_datoteke>Пројекат-проширена_спецификација.pdf</naziv_datoteke>
+            </dokaz_o_pravu_prvenstva>
+            <dokaz_o_uplati_takse>
+                <putanja/>
+                <naziv_datoteke/>
+            </dokaz_o_uplati_takse>
+        </prilozi>
+    </Informacije_Zavoda>
+    <Informacije_Sistema>
+        <email>hello@mail2.com</email>
+    </Informacije_Sistema>
+</Zahtev>

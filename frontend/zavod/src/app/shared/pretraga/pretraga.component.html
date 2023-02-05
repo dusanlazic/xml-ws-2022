@@ -1,0 +1,27 @@
+<div style="height: 100%;">
+	<mat-grid-list cols="5" style="height: 100%;">
+		<mat-grid-tile colspan="3" style="height: 100%;">
+			<div style="display: flex; align-items: flex-start; width: 100%; height: 100%;">
+				<mat-card style="width: 100%; height: 50%; margin: 2%; padding: 2%;" class="mat-elevation-z5">
+					<mat-tab-group style="width: 100%; height: 100%;" >
+						<mat-tab label="Obična pretraga">
+							<app-pretraga-obicna style="height: 100%;"></app-pretraga-obicna>
+						</mat-tab>
+						<mat-tab label="Napredna pretraga">
+							<app-pretraga-metapodaci style="height: 100%;"></app-pretraga-metapodaci>
+						</mat-tab>
+					</mat-tab-group>
+				</mat-card>
+			</div>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2" style="height: 100%;">
+			<div style="display: flex; align-items: flex-start; width: 100%; height: 100%;">
+				<!-- <mat-card style="width: 80%; height: 50%; margin-top: 20px; margin-left: 10px;" class="mat-elevation-z5"> -->
+					<app-pretraga-rezultati style="height: 100%; width: 80%; margin-left: 10px;"></app-pretraga-rezultati>
+				<!-- </mat-card> -->
+			</div>
+		</mat-grid-tile>
+	</mat-grid-list>
+</div>
+
+  

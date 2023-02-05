@@ -1,0 +1,11 @@
+<div style="margin-top: 20px; margin-bottom: 50px;">
+	<div>
+		Rezultati pretrage
+	</div>
+	<div *ngIf="this.serviceName === 'autorska'">
+		<app-pretraga-rezultat-autorska  *ngFor="let rezultat of rezultati" [rezultat]="rezultat"></app-pretraga-rezultat-autorska>
+	</div>
+	<div *ngIf="this.serviceName === 'zig'">
+		<app-pretraga-rezultat-zig  *ngFor="let rezultat of rezultati" [rezultat]="rezultat"></app-pretraga-rezultat-zig>
+	</div>
+</div>

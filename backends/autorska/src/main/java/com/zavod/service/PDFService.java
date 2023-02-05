@@ -1,5 +1,23 @@
 package com.zavod.service;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.qrcode.WriterException;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
+import com.zavod.model.izvestaj.Izvestaj;
+import com.zavod.model.resenje.Resenje;
+import com.zavod.model.zahtev.Zahtev;
+import com.zavod.util.MarshallingService;
+import com.zavod.util.XUpdateUtil;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.xml.sax.InputSource;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.*;
@@ -8,17 +26,10 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
-import com.zavod.model.TZahtev;
-import com.zavod.util.MarshallingService;
-import com.zavod.util.XUpdateUtil;
-import org.springframework.stereotype.Service;
-import org.xml.sax.InputSource;
+import static com.zavod.util.ServiceUtil.df;
 
 @Service
 public class PDFService {
@@ -26,11 +37,9 @@ public class PDFService {
 
     private static TransformerFactory transformerFactory;
 
-    public static final String XSL_FILE = "data/xsl/zahtev.xsl";
+    public static final String HTML_DIR = "gen/itext/";
 
-    public static final String HTML_FILE = "gen/itext/zahtev.html";
-
-    public static final String OUTPUT_FILE = "gen/itext/zahtev.pdf";
+    public static final String OUTPUT_DIR = "gen/output/";
 
     static {
 
@@ -45,32 +54,21 @@ public class PDFService {
 
     }
 
-    public void generatePDF(String filePath) throws IOException, DocumentException {
-
-        // Step 1
+    public void generatePDF(String pdfFilename, String htmlFilename) throws IOException, DocumentException {
         Document document = new Document();
-
-        // Step 2
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
-
-        // Step 3
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfFilename));
         document.open();
-
-        // Step 4
-        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(HTML_FILE));
-
-        // Step 5
+        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(htmlFilename));
         document.close();
-
     }
 
-    public org.w3c.dom.Document buildDocument(TZahtev zahtev) {
+    public org.w3c.dom.Document buildDocument(Zahtev zahtev) {
 
         org.w3c.dom.Document document = null;
         try {
 
             DocumentBuilder builder = documentFactory.newDocumentBuilder();
-            MarshallingService<TZahtev> marshallingService = new MarshallingService<>(TZahtev.class);
+            MarshallingService<Zahtev> marshallingService = new MarshallingService<>(Zahtev.class);
             String marshalled = marshallingService.marshallString(zahtev);
             marshalled = XUpdateUtil.clipStringTwo(marshalled);
             System.out.println(marshalled);
@@ -91,12 +89,64 @@ public class PDFService {
         return document;
     }
 
-    public void generateHTML(TZahtev zahtev, String xslPath) throws FileNotFoundException {
+    public org.w3c.dom.Document buildDocument(Resenje resenje) {
 
+        org.w3c.dom.Document document = null;
         try {
 
+            DocumentBuilder builder = documentFactory.newDocumentBuilder();
+            MarshallingService<Resenje> marshallingService = new MarshallingService<>(Resenje.class);
+            String marshalled = marshallingService.marshallString(resenje);
+            marshalled = XUpdateUtil.clipStringTwo(marshalled);
+            System.out.println(marshalled);
+            InputSource is = new InputSource(new ByteArrayInputStream(marshalled.getBytes()));
+            document = builder.parse(is);
+
+            if (document != null)
+                System.out.println("[INFO] File parsed with no errors.");
+            else
+                System.out.println("[WARN] Document is null.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+
+        }
+
+        return document;
+    }
+
+    public org.w3c.dom.Document buildDocument(Izvestaj izvestaj) {
+
+        org.w3c.dom.Document document = null;
+        try {
+
+            DocumentBuilder builder = documentFactory.newDocumentBuilder();
+            MarshallingService<Izvestaj> marshallingService = new MarshallingService<>(Izvestaj.class);
+            String marshalled = marshallingService.marshallString(izvestaj);
+            marshalled = XUpdateUtil.clipStringTwo(marshalled);
+            System.out.println(marshalled);
+            InputSource is = new InputSource(new ByteArrayInputStream(marshalled.getBytes()));
+            document = builder.parse(is);
+
+            if (document != null)
+                System.out.println("[INFO] File parsed with no errors.");
+            else
+                System.out.println("[WARN] Document is null.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+
+        }
+
+        return document;
+    }
+
+    public void generateHTML(Zahtev zahtev, String htmlFilename) throws FileNotFoundException {
+        try {
             // Initialize Transformer instance
-            StreamSource transformSource = new StreamSource(new File(xslPath));
+            StreamSource transformSource = new StreamSource(new File("src/main/resources/xslt/zahtev.xsl"));
             Transformer transformer = transformerFactory.newTransformer(transformSource);
             transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -105,8 +155,9 @@ public class PDFService {
             transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
 
             // Transform DOM to HTML
+            zahtev.getInformacijeZavoda().setBrojPrijave(zahtev.getInformacijeZavoda().getBrojPrijave());
             DOMSource source = new DOMSource(buildDocument(zahtev));
-            StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(HTML_FILE)));
+            StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(htmlFilename)));
             System.out.println(source);
             System.out.println(result);
             transformer.transform(source, result);
@@ -116,26 +167,135 @@ public class PDFService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
-    public void generateFiles(TZahtev zahtev) {
-        File pdfFile = new File(OUTPUT_FILE);
+    public void generateHTML(Resenje resenje, String htmlFilename) throws FileNotFoundException {
+        try {
+            // Initialize Transformer instance
+            StreamSource transformSource = new StreamSource(new File("src/main/resources/xslt/resenje.xsl"));
+            Transformer transformer = transformerFactory.newTransformer(transformSource);
+            transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
-        if (!pdfFile.getParentFile().exists()) {
-            System.out.println("[INFO] A new directory is created: " + pdfFile.getParentFile().getAbsolutePath() + ".");
-            pdfFile.getParentFile().mkdir();
+            // Generate XHTML
+            transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
+
+            // Transform DOM to HTML
+            DOMSource source = new DOMSource(buildDocument(resenje));
+            StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(htmlFilename)));
+            System.out.println(source);
+            System.out.println(result);
+            transformer.transform(source, result);
+
+        } catch (TransformerFactoryConfigurationError | TransformerException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    public void generateHTML(Izvestaj izvestaj, String htmlFilename) {
+        try {
+            // Initialize Transformer instance
+            StreamSource transformSource = new StreamSource(new File("src/main/resources/xslt/izvestaj.xsl"));
+            Transformer transformer = transformerFactory.newTransformer(transformSource);
+            transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            // Generate XHTML
+            transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
+
+            // Transform DOM to HTML
+            DOMSource source = new DOMSource(buildDocument(izvestaj));
+            StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(htmlFilename)));
+            System.out.println(source);
+            System.out.println(result);
+            transformer.transform(source, result);
+        } catch (TransformerFactoryConfigurationError | TransformerException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ResponseEntity<Resource> exportToResource(Resenje resenje, MediaType type) {
+        File pdfFile = new File(OUTPUT_DIR);
+        if (!pdfFile.getParentFile().exists())
+            pdfFile.getParentFile().mkdir();
 
         try {
-            generateHTML(zahtev, XSL_FILE);
-            generatePDF(OUTPUT_FILE);
+            String brojPrijave = resenje.getZahtev().getBrojPrijave();
+            String htmlFilename = HTML_DIR +  "resenje-" + brojPrijave + ".html";
+            generateHTML(resenje, htmlFilename);
+
+            Path resourcePath;
+            if (type.equals(MediaType.APPLICATION_PDF)) {
+                String pdfFilename = OUTPUT_DIR + "resenje-" + brojPrijave + ".pdf";
+                generatePDF(pdfFilename, htmlFilename);
+                resourcePath = Paths.get(pdfFilename);
+            } else {
+                resourcePath = Paths.get(htmlFilename);
+            }
+
+            return ResponseEntity.ok()
+                                 .contentType(type)
+                                 .body(new UrlResource(resourcePath.toUri()));
+
         } catch (DocumentException | IOException e) {
             throw new RuntimeException(e);
         }
-
-        System.out.println("[INFO] File \"" + OUTPUT_FILE + "\" generated successfully.");
-
     }
 
+    public ResponseEntity<Resource> exportToResource(Zahtev zahtev, MediaType type) {
+        File pdfFile = new File(OUTPUT_DIR);
+        if (!pdfFile.getParentFile().exists())
+            pdfFile.getParentFile().mkdir();
+
+        try {
+            String brojPrijave = zahtev.getInformacijeZavoda().getBrojPrijave();
+            String htmlFilename = HTML_DIR + brojPrijave + ".html";
+            generateHTML(zahtev, htmlFilename);
+
+            Path resourcePath;
+            if (type.equals(MediaType.APPLICATION_PDF)) {
+                String pdfFilename = OUTPUT_DIR + brojPrijave + ".pdf";
+                generatePDF(pdfFilename, htmlFilename);
+                resourcePath = Paths.get(pdfFilename);
+            } else {
+                resourcePath = Paths.get(htmlFilename);
+            }
+
+            return ResponseEntity.ok()
+                    .contentType(type)
+                    .body(new UrlResource(resourcePath.toUri()));
+
+        } catch (DocumentException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ResponseEntity<Resource> exportToResource(Izvestaj izvestaj) {
+        File pdfFile = new File(OUTPUT_DIR);
+        if (!pdfFile.getParentFile().exists())
+            pdfFile.getParentFile().mkdir();
+
+        try {
+            String datumOd = df.format(izvestaj.getDatumOd().toGregorianCalendar().getTime());
+            String datumDo = df.format(izvestaj.getDatumDo().toGregorianCalendar().getTime());
+
+            String baseFilename = HTML_DIR + "izvestaj_" + datumOd + "_" + datumDo;
+            String htmlFilename = baseFilename + ".html";
+            String pdfFilename = baseFilename + ".pdf";
+
+            generateHTML(izvestaj, htmlFilename);
+            generatePDF(pdfFilename, htmlFilename);
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(new UrlResource(Paths.get(pdfFilename).toUri()));
+
+        } catch (DocumentException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

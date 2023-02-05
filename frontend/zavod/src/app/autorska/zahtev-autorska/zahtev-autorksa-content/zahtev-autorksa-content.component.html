@@ -1,0 +1,145 @@
+<div *ngIf="this.zahtev !== undefined">
+	<div style="display: flex; justify-content: center;">
+		<h1>
+			Zahtev broj {{humanReadable(zahtev?.informacije_zavoda.broj_prijave._text)}}
+		</h1>
+	</div>
+	<div style="padding: 30px;">
+		<div style="width: 100%; display: flex;">
+			<div style="width: 40%;" class="content">
+				<h2>Podnosilac</h2>
+				<table>
+					<tbody>
+						<tr *ngIf="zahtev?.podnosilac.ime">
+							<td><strong>Ime:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.ime._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.podnosilac.sediste">
+							<td><strong>Sedište:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.sediste._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.podnosilac.prezime">
+							<td><strong>Prezime:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.prezime._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.podnosilac.pseudonim">
+							<td><strong>Pseudonim:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.pseudonim._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.podnosilac.adresa">
+							<td><strong>Adresa:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.adresa._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.podnosilac.email">
+							<td><strong>Email:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.email._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.podnosilac.telefon">
+							<td><strong>Telefon:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.podnosilac.telefon._text}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.autori.podnosilac_je_autor._text === 'true'">
+							<td><strong>Podnosilac je autor:</strong></td>
+							<td>&nbsp;&nbsp;{{zahtev?.autori.podnosilac_je_autor._text ? "Da" : "Ne"}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="content">
+				<h2>Informacije zavoda</h2>
+				<table>
+					<tr><td><strong>Datum podnošenja:</strong></td><td>{{zahtev?.informacije_zavoda.datum_podnosenja._text}}</td></tr>
+				</table>
+			</div>
+			
+		</div>
+		<div style="display: flex;">
+			<div style="width: 40%;" class="content">
+				<h2>Delo</h2>
+				<table>
+					<tbody>
+						<tr><td><strong>Naslov:</strong></td><td> {{zahtev?.delo.naslov._text}}</td></tr>
+						<tr><td><strong>Alternativni naslov:</strong></td><td> {{zahtev?.delo.alternativni_naslov?._text}}</td></tr>
+						<tr><td><strong>Vrsta dela:</strong></td><td> {{zahtev?.delo.vrsta_dela._text}}</td></tr>
+						<tr><td><strong>Forma zapisa:</strong></td> <td> {{zahtev?.delo.forma_zapisa._text}}</td></tr>
+						<tr><td><strong>Način korišćenja:</strong></td><td> {{zahtev?.delo.nacin_koriscenja._text}}</td></tr>
+						<tr><td><strong>Stvoreno u radnom odnosu:</strong></td><td> {{zahtev?.delo.radni_odnos._text ? "Da" : "Ne"}}</td></tr>
+						<tr *ngIf="zahtev?.autori.autor_je_anoniman._text === 'true'">
+							<td><strong>Autor je anoniman:</strong></td>
+							<td>{{zahtev?.autori.autor_je_anoniman._text ? "Da" : "Ne"}}</td>
+						</tr>
+						<tr *ngIf="zahtev?.delo.prerada"><td><strong>Originalan naslov:</strong></td><td> {{zahtev?.delo.prerada.originalni_naslov._text}}</td></tr>
+						<tr *ngIf="zahtev?.delo.prerada"><td><strong>Ime originalnog autora:</strong></td><td> {{zahtev?.delo.prerada.originalni_autor.ime._text}}</td></tr>
+						<tr *ngIf="zahtev?.delo.prerada"><td><strong>Prezime originalnog autora:</strong></td><td> {{zahtev?.delo.prerada.originalni_autor.prezime._text}}</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="content">
+				<h2>Prilozi</h2>
+				<table>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.opis_dela.putanja._text"><td><strong>Opis dela:</strong></td><td> <button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.opis_dela.putanja._text)">Preuzmite</button></td></tr>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.primer_dela.putanja._text"><td><strong>Primer dela:</strong></td><td> <button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.primer_dela.putanja._text)">Preuzmite</button></td></tr>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.punomocje.putanja._text"><td><strong>Punomoćje:</strong></td><td> <button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.punomocje.putanja._text)">Preuzmite</button></td></tr>
+					<tr *ngIf="zahtev?.informacije_zavoda.prilozi.uplata.putanja._text"><td><strong>Uplata:</strong></td><td> <button mat-raised-button color="primary" (click)="download(zahtev?.informacije_zavoda.prilozi.uplata.putanja._text)">Preuzmite</button></td></tr>
+				</table>
+			</div>
+		</div>
+		<div style="display: flex;">
+			<div style="width: 40%;" class="content" *ngIf="zahtev?.punomocnik">
+				<h2>Punomoćnik</h2>
+				<table>
+					<tbody>
+						<tr><td><strong>Ime:</strong></td><td> {{zahtev?.punomocnik.ime._text}}</td></tr>
+						<tr><td><strong>Prezime:</strong></td><td> {{zahtev?.punomocnik.prezime._text}}</td></tr>
+						<tr><td><strong>Državljanstvo:</strong></td><td> {{zahtev?.punomocnik.drzavljanstvo._text}}</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div *ngFor="let autorce of zahtev.autori.autor; let i = index">
+			<div *ngIf="i % 2 === 0" style="display: flex;">
+				<div style="width: 40%;" class="content">
+					<h2>Autor</h2>
+					<table>
+						<tbody>
+							<tr><td><strong>Ime:</strong></td><td> {{zahtev?.autori.autor[i].ime._text}}</td></tr>
+							<tr><td><strong>Prezime:</strong></td><td> {{zahtev?.autori.autor[i].prezime._text}}</td></tr>
+							<tr *ngIf="zahtev?.autori.autor[i].pseudonim"><td><strong>Pseudonim:</strong></td><td> {{zahtev?.autori.autor[i].pseudonim?._text}}</td></tr>
+							<tr><td><strong>Drzavljanstvo:</strong></td><td> {{zahtev?.autori.autor[i].drzavljanstvo._text}}</td></tr>
+							<tr><td><strong>Adresa:</strong></td><td> {{zahtev?.autori.autor[i].adresa._text}}</td></tr>
+							<tr *ngIf="zahtev?.autori.autor[i].godina_smrti"><td><strong>Datum smrti:</strong></td><td> {{zahtev?.autori.autor[i].godina_smrti._text}}</td></tr>
+						</tbody>
+					</table>
+				</div>
+				<div style="width: 40%;" class="content" *ngIf="i + 1 < zahtev.autori.autor.length">
+					<h2>Autor</h2>
+					<table>
+						<tbody>
+							<tr><td><strong>Ime:</strong></td><td> {{zahtev?.autori.autor[i + 1].ime._text}}</td></tr>
+							<tr><td><strong>Prezime:</strong></td><td> {{zahtev?.autori.autor[i + 1].prezime._text}}</td></tr>
+							<tr *ngIf="zahtev?.autori.autor[i + 1].pseudonim"><td><strong>Pseudonim:</strong></td><td> {{zahtev?.autori.autor[i + 1].pseudonim?._text}}</td></tr>
+							<tr><td><strong>Drzavljanstvo:</strong></td><td> {{zahtev?.autori.autor[i + 1].drzavljanstvo._text}}</td></tr>
+							<tr><td><strong>Adresa:</strong></td><td> {{zahtev?.autori.autor[i + 1].adresa._text}}</td></tr>
+							<tr *ngIf="zahtev?.autori.autor[i + 1].godina_smrti"><td><strong>Datum smrti:</strong></td><td> {{zahtev?.autori.autor[i + 1].godina_smrti._text}}</td></tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		  
+
+	</div>
+	<div>
+		<div *ngIf="canExport" style="display: flex; margin-left: 45px; flex-direction: row-reverse;" class="btns">
+			<button mat-flat-button color="primary" (click)="exportRDF()">RDF</button>
+			<button mat-flat-button color="primary" (click)="exportJSON()">JSON</button>
+			<button mat-flat-button color="primary" (click)="exportHTML()">HTML</button>
+			<button mat-flat-button color="primary" (click)="exportPDF()">PDF</button>
+		</div>
+	</div>
+	
+	
+	
+</div>

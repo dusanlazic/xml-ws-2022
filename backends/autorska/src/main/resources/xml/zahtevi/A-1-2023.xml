@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a:Zahtev xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+ xmlns:a="http://www.zavod.com/Autorska"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.zavod.com/Autorska file:/home/pavle/Documents/XML/Projekat/xml-ws-2022/backends/autorska/src/main/resources/xml/a1.xsd">
+    <a:Podnosilac xsi:type="a:TPravno_Lice">
+        <a:ime>ime1</a:ime>
+        <a:sediste>sediste2</a:sediste>
+    </a:Podnosilac>
+    <a:Delo>
+        <a:naslov>naslov0</a:naslov>
+        <a:alternativni_naslov>alternativni_naslov0</a:alternativni_naslov>
+        <a:vrsta_dela>vrsta_dela0</a:vrsta_dela>
+        <a:forma_zapisa>forma_zapisa0</a:forma_zapisa>
+        <a:radni_odnos>false</a:radni_odnos>
+        <a:nacin_koriscenja>nacin_koriscenja0</a:nacin_koriscenja>
+    </a:Delo>
+    <a:Autori>
+        <a:podnosilac_je_autor>false</a:podnosilac_je_autor>
+        <a:autor_je_anoniman>false</a:autor_je_anoniman>
+        <a:Autor>
+            <a:ime>Ime</a:ime>
+            <a:prezime>Prezime</a:prezime>
+            <a:adresa>/</a:adresa>
+            <a:drzavljanstvo>Nepoznato</a:drzavljanstvo>
+            <a:godina_smrti>1984</a:godina_smrti>
+        </a:Autor>
+    </a:Autori>
+    <a:Informacije_Zavoda>
+        <a:broj_prijave>A-1-2023</a:broj_prijave>
+        <a:datum_podnosenja>2006-05-04</a:datum_podnosenja>
+        <a:status_resenja>NA_CEKANJU</a:status_resenja>
+        <a:prilozi>
+            <a:primer_dela>
+                <a:putanja>putanja0</a:putanja>
+                <a:naziv_datoteke>naziv_datoteke0</a:naziv_datoteke>
+            </a:primer_dela>
+            <a:opis_dela>
+                <a:putanja>putanja1</a:putanja>
+                <a:naziv_datoteke>naziv_datoteke1</a:naziv_datoteke>
+            </a:opis_dela>
+            <a:punomocje>
+                <a:putanja>putanja2</a:putanja>
+                <a:naziv_datoteke>naziv_datoteke2</a:naziv_datoteke>
+            </a:punomocje>
+            <a:uplata>
+                <a:putanja>putanja3</a:putanja>
+                <a:naziv_datoteke>naziv_datoteke3</a:naziv_datoteke>
+            </a:uplata>
+        </a:prilozi>
+    </a:Informacije_Zavoda>
+    <a:Informacije_Sistema>
+        <a:email>email0</a:email>
+    </a:Informacije_Sistema>
+</a:Zahtev>

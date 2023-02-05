@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
+    vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://www.zavod.com/Resenje"
+    xmlns:r="http://www.zavod.com/Resenje">
+    <xs:element name="Resenje" type="r:TResenje"/>
+    <xs:complexType name="TResenje">
+        <xs:sequence>
+            <xs:element name="sluzbenik" type="r:TSluzbenik"/>
+            <xs:element name="zahtev" type="r:TInformacije_o_Zahtevu"/>
+            <xs:element name="odluka" type="r:TOdluka"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TSluzbenik">
+        <xs:sequence>
+            <xs:element name="ime" type="xs:string"/>
+            <xs:element name="prezime" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TInformacije_o_Zahtevu">
+        <xs:sequence>
+            <xs:element name="broj_prijave">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="Z-[0-9]{4}-[0-9]{4}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType abstract="false" name="TOdluka">
+        <xs:sequence>
+            <xs:element name="datum" type="xs:date"/>
+            <xs:element name="obrazlozenje" type="xs:string"/>
+            <xs:element name="prihvacen" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

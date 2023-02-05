@@ -1,0 +1,25 @@
+<div style="margin-top: 2%;">
+	<mat-card class="mat-elevation-z5">
+		<mat-card-header>
+			<mat-card-title>
+				Zahtev
+			</mat-card-title>
+			<mat-card-subtitle>
+				<span *ngIf="rezultat?.podnosilac.poslovno_ime">
+					{{rezultat?.podnosilac.poslovno_ime._text}}
+				</span>
+				<span *ngIf="rezultat?.podnosilac.ime">
+					{{rezultat?.podnosilac.ime._text}} {{rezultat?.podnosilac.prezime._text}}
+				</span>
+			</mat-card-subtitle>
+		</mat-card-header>
+		<mat-card-content>
+			<div style="margin-left: 12px; font-size: x-large;">
+				{{humanReadable(rezultat?.informacije_zavoda.broj_prijave._text)}}
+			</div>
+		</mat-card-content>
+		<mat-card-actions style="margin-left: 12px;">
+			<button mat-stroked-button (click)="detailed()">Detalji</button>
+		</mat-card-actions>
+	</mat-card>
+</div>
