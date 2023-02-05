@@ -676,11 +676,11 @@ export class NoviZahtevZigComponent implements OnInit, AfterViewInit {
     delete model.tipPredstavnika;
     let tipPunomocnika =  model.tipPunomocnika;
     delete model.tipPunomocnika;
-    delete model.postojiPredstavnik;
-    delete model.postojiPunomocnik;
     
     model = this.resolveTypes(model, tipPodnosioca, tipPredstavnika, tipPunomocnika)
 
+    delete model.postojiPredstavnik;
+    delete model.postojiPunomocnik;
     delete model.dostavljanjePunomocja;
     this.uploadPriloziAndSend(model);
   }
@@ -804,7 +804,7 @@ export class NoviZahtevZigComponent implements OnInit, AfterViewInit {
         model.Predstavnik['_attributes'] = {'xsi:type': "TFizicko_Lice"}
       }
     } else {
-      delete model.Punomocnik;
+      delete model.Predstavnik;
     }
 
     if (model.postojiPunomocnik) {
@@ -814,7 +814,7 @@ export class NoviZahtevZigComponent implements OnInit, AfterViewInit {
         model.Punomocnik['_attributes'] = {'xsi:type': "TFizicko_Lice"}
       }
     } else {
-      delete model.Predstavnik;
+      delete model.Punomocnik;
     }
 
     model['Informacije_Zavoda'] = {

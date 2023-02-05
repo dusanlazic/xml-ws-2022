@@ -122,6 +122,16 @@
                                     <xsl:value-of select="//z:Podnosilac/z:prezime"></xsl:value-of>
                                 </xsl:otherwise>
                             </xsl:choose>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Podnosilac/z:adresa/z:ulica"></xsl:value-of>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Podnosilac/z:adresa/z:broj"></xsl:value-of>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Podnosilac/z:adresa/z:mesto"></xsl:value-of>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Podnosilac/z:adresa/z:postanski_broj"></xsl:value-of>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Podnosilac/z:adresa/z:drzava"></xsl:value-of>
                         </td>
                     </tr>
                     <tr>
@@ -148,6 +158,16 @@
                                     <xsl:value-of select="//z:Punomocnik/z:prezime"></xsl:value-of>
                                 </xsl:otherwise>
                             </xsl:choose>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Punomocnik/z:adresa/z:ulica"></xsl:value-of>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Punomocnik/z:adresa/z:broj"></xsl:value-of>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Punomocnik/z:adresa/z:mesto"></xsl:value-of>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Punomocnik/z:adresa/z:postanski_broj"></xsl:value-of>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Punomocnik/z:adresa/z:drzava"></xsl:value-of>
                         </td>
                     </tr>
                     <tr>
@@ -173,6 +193,16 @@
                                     <xsl:value-of select="//z:Predstavnik/z:prezime"></xsl:value-of>
                                 </xsl:otherwise>
                             </xsl:choose>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Predstavnik/z:adresa/z:ulica"></xsl:value-of>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Predstavnik/z:adresa/z:broj"></xsl:value-of>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Predstavnik/z:adresa/z:mesto"></xsl:value-of>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Predstavnik/z:adresa/z:postanski_broj"></xsl:value-of>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="//z:Predstavnik/z:adresa/z:drzava"></xsl:value-of>
                         </td>
                     </tr>
                     <tr>
