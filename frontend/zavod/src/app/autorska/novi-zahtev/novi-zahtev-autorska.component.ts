@@ -565,13 +565,27 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
   uploadPriloziAndSend(model: any) {
     // uplata punomocje primer opis
     let uplataInput: any = document.getElementById("uplataid");
+    if(!uplataInput.files[0]) {
+      this.toastr.error("Morate uneti uplatu");
+      return;
+    }
     let fileUplata = uplataInput.files[0];
 
 
     let primerInput: any = document.getElementById("primerid");
+    if(!primerInput.files[0]) {
+      this.toastr.error("Morate uneti primer dela");
+      return;
+    }
+
     let filePrimer = primerInput.files[0];
 
     let opisInput: any = document.getElementById("opisid");
+    if(!opisInput.files[0]) {
+      this.toastr.error("Morate uneti opis dela");
+      return;
+    }
+
     let fileOpis = opisInput.files[0];
 
     let files = [fileUplata, filePrimer, fileOpis];
@@ -579,6 +593,10 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
 
     if(model.postojiPunomocnik) {
       let punomocjeInput: any = document.getElementById("punomocjeid");
+      if(!punomocjeInput.files[0]) {
+        this.toastr.error("Morate uneti punomoćje");
+        return;
+      }
       let filePunomocje = punomocjeInput.files[0];
 
       files.push(filePunomocje);

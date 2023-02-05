@@ -64,7 +64,10 @@
 						<tr><td><strong>Forma zapisa:</strong></td> <td> {{zahtev?.delo.forma_zapisa._text}}</td></tr>
 						<tr><td><strong>Način korišćenja:</strong></td><td> {{zahtev?.delo.nacin_koriscenja._text}}</td></tr>
 						<tr><td><strong>Stvoreno u radnom odnosu:</strong></td><td> {{zahtev?.delo.radni_odnos._text ? "Da" : "Ne"}}</td></tr>
-						<tr><td><strong>Način korišćenja:</strong></td><td> {{zahtev?.delo.nacin_koriscenja._text}}</td></tr>
+						<tr *ngIf="zahtev?.autori.autor_je_anoniman._text === 'true'">
+							<td><strong>Autor je anoniman:</strong></td>
+							<td>{{zahtev?.autori.autor_je_anoniman._text ? "Da" : "Ne"}}</td>
+						</tr>
 						<tr *ngIf="zahtev?.delo.prerada"><td><strong>Originalan naslov:</strong></td><td> {{zahtev?.delo.prerada.originalni_naslov._text}}</td></tr>
 						<tr *ngIf="zahtev?.delo.prerada"><td><strong>Ime originalnog autora:</strong></td><td> {{zahtev?.delo.prerada.originalni_autor.ime._text}}</td></tr>
 						<tr *ngIf="zahtev?.delo.prerada"><td><strong>Prezime originalnog autora:</strong></td><td> {{zahtev?.delo.prerada.originalni_autor.prezime._text}}</td></tr>

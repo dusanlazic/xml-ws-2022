@@ -122,11 +122,11 @@
                             <p class="answer">
                                 <xsl:choose>
                                     <xsl:when test="//a:Punomocnik/a:ime">
-                                        <xsl:value-of select="//a:Podnosilac/a:ime" />
+                                        <xsl:value-of select="//a:Punomocnik/a:ime" />
                                         <xsl:text> </xsl:text>
-                                        <xsl:value-of select="//a:Podnosilac/a:prezime" />
+                                        <xsl:value-of select="//a:Punomocnik/a:prezime" />
                                         <xsl:text>, </xsl:text>
-                                        <xsl:value-of select="//a:Podnosilac/a:adresa" />
+                                        <xsl:value-of select="//a:Punomocnik/a:adresa" />
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:text>Nema punomoćnika</xsl:text>

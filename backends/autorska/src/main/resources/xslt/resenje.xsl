@@ -30,7 +30,7 @@
                     <tr>
                         <td>Odluka:</td>
                         <xsl:choose>
-                            <xsl:when test="//r:odluka/r:prihvacen">
+                            <xsl:when test="//r:odluka/r:prihvacen = 'true'">
                                 <td><xsl:text>Prihvacen</xsl:text></td>
                             </xsl:when>
                             <xsl:otherwise>

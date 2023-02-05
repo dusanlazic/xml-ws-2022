@@ -77,7 +77,7 @@ public class ResenjeService {
         if (podnosilac instanceof TFizickoLice) {
             prezime = ((TFizickoLice) podnosilac).getPrezime();
         }
-        KorisnikDTO korisnikDTO = new KorisnikDTO(0L, podnosilac.getIme(), prezime, zahtev.getInformacijeSistema().getEmail(), "gradjanin");
+        KorisnikDTO korisnikDTO = new KorisnikDTO(0L, zahtev.getInformacijeSistema().getEmail(), podnosilac.getIme(), prezime, "gradjanin");
         System.out.println("dodjem dovde");
         System.out.println(response.getBody());
         mailingService.sendResenjeMail(korisnikDTO, resenje, response.getBody().getFile());
