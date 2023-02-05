@@ -5,8 +5,10 @@ import com.zavod.dto.KorisnikDTO;
 import com.zavod.dto.KorisnikRegisterDTO;
 import com.zavod.dto.Kredencijali;
 import com.zavod.dto.TokenDTO;
+import com.zavod.exception.WrongCredentialsException;
 import com.zavod.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +33,11 @@ public class AuthController {
 
     @GetMapping(path = "/me", produces = MediaType.APPLICATION_XML_VALUE)
     public KorisnikDTO me(Authentication authentication) {
-        return (KorisnikDTO) authentication.getPrincipal();
+        try {
+            return (KorisnikDTO) authentication.getPrincipal();
+        } catch (Exception e) {
+            throw new WrongCredentialsException();
+        }
     }
 
 }
