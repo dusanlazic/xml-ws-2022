@@ -68,9 +68,4 @@ public class ResenjeService {
                 status.toString()
         );
     }
-
-    public ResponseEntity<byte[]> qrCodeToResource(String brojPrijave) throws BadElementException, IOException, WriterException {
-        String url = "http://localhost:8082/resenja/" + brojPrijave;
-        return QRCodeEncoder.generateQRCodeImage(url);
-    }
 }

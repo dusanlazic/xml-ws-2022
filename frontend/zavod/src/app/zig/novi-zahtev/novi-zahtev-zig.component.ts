@@ -620,7 +620,7 @@ export class NoviZahtevZigComponent implements OnInit, AfterViewInit {
               key: 'aktPrilog',
               type: 'file',
               props: {
-                label: 'Opšti akt o kolektivnom žigu garancije',
+                label: 'Opšti akt o kolektivnom žigu / žigu garancije',
                 fileid: 'aktId'
               },
             },

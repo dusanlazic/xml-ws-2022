@@ -5,7 +5,12 @@
 				Zahtev
 			</mat-card-title>
 			<mat-card-subtitle>
-				{{rezultat?.podnosilac.poslovno_ime._text}}
+				<span *ngIf="rezultat?.podnosilac.poslovno_ime">
+					{{rezultat?.podnosilac.poslovno_ime._text}}
+				</span>
+				<span *ngIf="rezultat?.podnosilac.ime">
+					{{rezultat?.podnosilac.ime._text}} {{rezultat?.podnosilac.prezime._text}}
+				</span>
 			</mat-card-subtitle>
 		</mat-card-header>
 		<mat-card-content>

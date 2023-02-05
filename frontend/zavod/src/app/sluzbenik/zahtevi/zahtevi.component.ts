@@ -40,6 +40,9 @@ export class ZahteviComponent implements OnInit {
         this.httpRequest.get(url + '/zahtevi/nereseni').subscribe({
           next: (data: any) => {
             let parsedData = this.parser.xml2js(data); 
+            if (!Array.isArray(parsedData.zahtevi.zahtev)) {
+              parsedData.zahtevi.zahtev = [parsedData.zahtevi.zahtev]
+            }
             this.mojiZahtevi = parsedData.zahtevi.zahtev;
           },
           error: (err) => {
@@ -63,9 +66,9 @@ export class ZahteviComponent implements OnInit {
   mojiZahtevi = [
     {
       informacije_zavoda :{
-        broj_prijave: {_text: 'A-0-23'},
-        datum_podnosenja: {_text: '2023-01-01'},
-        status_resenja: {_text: 'NA_CEKANJU'},
+        broj_prijave: {_text: '...'},
+        datum_podnosenja: {_text: '...'},
+        status_resenja: {_text: '...'},
       }
     },
     
