@@ -1,7 +1,7 @@
 <div *ngIf="this.zahtev !== undefined">
 	<div style="display: flex; justify-content: center;">
 		<h1>
-			Zahtev broj {{zahtev?.informacije_zavoda.broj_prijave._text}}
+			Zahtev broj {{humanReadable(zahtev?.informacije_zavoda.broj_prijave._text)}}
 		</h1>
 	</div>
 	<div style="padding: 30px;">

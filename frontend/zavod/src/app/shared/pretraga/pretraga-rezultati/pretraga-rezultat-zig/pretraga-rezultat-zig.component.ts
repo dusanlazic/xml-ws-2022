@@ -23,4 +23,10 @@ export class PretragaRezultatZigComponent implements OnInit {
     this.router.navigate(['zig/zahtev/' + brojPrijave])
   }
 
+  humanReadable(broj_prijave: string) {
+    return broj_prijave
+      .replace("Z", "Ž")
+      .replace("-", " ")
+      .replace("-", "/");
+  }
 }

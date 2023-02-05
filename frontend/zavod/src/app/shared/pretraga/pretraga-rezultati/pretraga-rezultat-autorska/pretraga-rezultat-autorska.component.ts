@@ -33,5 +33,10 @@ export class PretragaRezultatAutorskaComponent implements OnInit {
     this.router.navigate(['autorska/'+this.sluzbenikPrefix+'zahtev/' + brojPrijave])
   }
 
-
+  humanReadable(broj_prijave: string) {
+    let c = broj_prijave.lastIndexOf("-");
+    if (c != -1)
+      return broj_prijave.substring(0, c) + "/" + broj_prijave.substring(c + 1);
+    return broj_prijave
+  }
 }
