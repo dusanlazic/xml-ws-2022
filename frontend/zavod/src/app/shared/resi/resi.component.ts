@@ -105,7 +105,7 @@ export class ResiComponent implements OnInit {
 
   podnesi() {
     
-    let brojZahteva = this.router.url.split("/")[3];
+    let brojZahteva = this.getBrojZahteva();
 
     let resenje;
     if (this.serviceName == "autorska") {
@@ -144,7 +144,7 @@ export class ResiComponent implements OnInit {
   }
 
   getBrojZahteva() : string {
-    return this.router.url.split('/')[3];
+    return this.router.url.split('/')[4];
   }
 
 }

@@ -45,7 +45,7 @@
 							<td><strong>Osnovna taksa:</strong></td>
 							<td>&nbsp;&nbsp;{{zahtev?.placanje.osnovna_taksa._text}} rsd</td>
 						</tr>
-						<tr>
+						<tr *ngIf="zahtev?.zig.klase_robe.klasa">
 							<td><strong>Taksa za broj klasa (3+{{zahtev?.zig.klase_robe.klasa.length-3}}):</strong></td>
 							<td>&nbsp;&nbsp;{{zahtev?.placanje.taksa_klasa._text}} rsd</td>
 						</tr>
@@ -75,7 +75,7 @@
 						<tr><td><strong>Tip znaka:</strong></td><td> {{zahtev?.zig.tip_znaka._text}}</td></tr>
 						<tr><td><strong>Pravo prvenstva:</strong></td><td> {{zahtev?.zig.pravo_prvenstva._text}}</td></tr>
 						<tr><td><strong>Klase robe:</strong></td> 
-							<td>
+							<td *ngIf="zahtev?.zig.klasa_robe">
 								<span *ngFor="let klasa of zahtev?.zig.klase_robe.klasa">
 										{{klasa._text}}
 								</span>
@@ -90,7 +90,10 @@
 					<tr><td><strong>Datum podnošenja:</strong></td><td>{{zahtev?.informacije_zavoda.datum_podnosenja._text}}</td></tr>
 					<tr><td><strong>Generalno punomoćje ranije priloženo:</strong></td><td> {{zahtev?.informacije_zavoda.prilozi.generalno_punomocje_ranije_prilozeno._text ? "Da" : "Ne"}}</td></tr>
 					<tr><td><strong>Punomoćje će biti naknadno priloženo:</strong></td><td> {{zahtev?.informacije_zavoda.prilozi.punomocje_ce_biti_naknadno_dostavljeno._text ? "Da" : "Ne"}}</td></tr>
-					<tr><td><img style="width: 100px; height: 100px;" src="http://localhost:8082/zahtevi/qr/{{zahtev?.informacije_zavoda.broj_prijave._text}}.png"></td></tr>
+					<tr>
+						<td><img style="width: 100px; height: 100px;" src="http://localhost:8082/zahtevi/qr/{{zahtev?.informacije_zavoda.broj_prijave._text}}.png"></td>
+						<td><img style="width: 100px; height: 100px;" src="{{zahtev?.informacije_zavoda.prilozi.primerak_znaka.putanja._text}}" alt="Primerak znaka"></td>
+					</tr>
 				</table>
 			</div>
 		</div>

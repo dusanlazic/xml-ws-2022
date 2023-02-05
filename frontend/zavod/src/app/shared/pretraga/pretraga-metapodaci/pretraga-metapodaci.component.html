@@ -5,11 +5,20 @@
 	<div *ngFor="let condition of conditions; let i = index; trackBy: trackByFn" style="margin-left: 10%;">
 		<span style="display: flex; align-items: center; justify-content: start;">
 
-			<mat-form-field appearance="outline" style="margin-left: 3%; margin-top: 13px;">
+			<mat-form-field *ngIf="this.serviceName == 'autorska'" appearance="outline" style="margin-left: 3%; margin-top: 13px;">
 				<mat-label>Select</mat-label>
 				<mat-select [(value)]="condition.name" required="true">
 					<mat-option value="Naziv">Naziv</mat-option>
 					<mat-option value="Datum_podnosenja">Datum_podnosenja</mat-option>
+					<mat-option value="Broj_prijave">Broj_prijave</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+			<mat-form-field *ngIf="this.serviceName == 'zig'" appearance="outline" style="margin-left: 3%; margin-top: 13px;">
+				<mat-label>Select</mat-label>
+				<mat-select [(value)]="condition.name" required="true">
+					<mat-option value="Naziv">Naziv</mat-option>
+					<mat-option value="Datum_podnosenja">Bice</mat-option>
 					<mat-option value="Broj_prijave">Broj_prijave</mat-option>
 				</mat-select>
 			</mat-form-field>
