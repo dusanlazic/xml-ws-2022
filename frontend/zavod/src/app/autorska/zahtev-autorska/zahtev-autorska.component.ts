@@ -32,9 +32,9 @@ export class ZahtevAutorskaComponent implements OnInit {
       this.route.params.subscribe((params) => {
         let brojPrijave = params['broj_prijave'];
         this.httpRequestService.get(autorskaBackend + '/zahtevi/' +  brojPrijave).subscribe((data: any) => {
-          console.log(data);
+          
           this.zahtev = this.parser.xml2js(data);
-          console.log(this.zahtev);
+          
           
           if (this.zahtev.zahtev.informacije_zavoda.status_resenja._text === 'NA_CEKANJU' && this.loggedUser?.uloga === 'gradjanin') {
             this.showResenje = false;
@@ -42,8 +42,8 @@ export class ZahtevAutorskaComponent implements OnInit {
             this.showResenje = true;
           }
 
-          console.log("JOJOJOJOOJLJOJOJOJOJ");
-          console.log(this.zahtev);
+          
+          
           
           
         })

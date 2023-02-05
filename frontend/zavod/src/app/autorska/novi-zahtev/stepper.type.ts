@@ -37,7 +37,7 @@ export class FormlyFieldAutorskaStepper extends FieldType {
     super();
     autoriNoviZahtevService.number.asObservable().subscribe((data: any) => {
       this.number = data;
-      console.log(data);
+      
     });
 
     autoriNoviZahtevService.step.asObservable().subscribe((data: any) => {

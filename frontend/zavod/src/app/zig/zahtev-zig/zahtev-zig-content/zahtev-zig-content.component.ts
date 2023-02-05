@@ -41,7 +41,6 @@ export class ZahtevZigContentComponent implements OnInit, OnChanges {
     // method that downloads the file from url that is of any type and saves it to the local file system
     
     this.http.get(url, {responseType: 'blob'}).subscribe((data: any) => {
-      console.log(data);
       // set blob type based on the file extension
       let blob = new Blob([data], {type: 'application/' + ext});
       // save the file to the local file system
@@ -52,12 +51,10 @@ export class ZahtevZigContentComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if(!this.in) return;
     this.zahtev = _.cloneDeep(this.in.zahtev);
-    console.log(this.zahtev);
   }
 
   exportHTML() {
     this.httpRequestService.get(zigBackend + "/zahtevi/export/" + this.zahtev.informacije_zavoda.broj_prijave._text  + ".xhtml").subscribe((data: any) => {
-        console.log(data);
         let blob = new Blob([data], {type: 'text/html'});
         let url = window.URL.createObjectURL(blob);
         window.open(url);
@@ -67,7 +64,6 @@ export class ZahtevZigContentComponent implements OnInit, OnChanges {
 
   exportJSON() {
     this.httpRequestService.get(zigBackend + "/zahtevi/export/" + this.zahtev.informacije_zavoda.broj_prijave._text  + ".json").subscribe((data: any) => {
-        console.log(data);
         let blob = new Blob([data], {type: 'application/json'});
         saveAs(blob, this.zahtev.informacije_zavoda.broj_prijave._text + ".json");
       }
@@ -76,7 +72,6 @@ export class ZahtevZigContentComponent implements OnInit, OnChanges {
   
   exportRDF() {
     this.httpRequestService.get(zigBackend + "/zahtevi/export/" + this.zahtev.informacije_zavoda.broj_prijave._text + ".rdf").subscribe((data: any) => {
-        console.log(data);
         let blob = new Blob([data], {type: 'application/rdf+xml'});
         saveAs(blob, this.zahtev.informacije_zavoda.broj_prijave._text + ".rdf");
       }
@@ -85,7 +80,6 @@ export class ZahtevZigContentComponent implements OnInit, OnChanges {
 
   exportPDF() {
     this.http.get(zigBackend + "/zahtevi/export/" + this.zahtev.informacije_zavoda.broj_prijave._text + ".pdf", {responseType: 'blob'}).subscribe((data: any) => {
-      console.log(data);
       let blob = new Blob([data], {type: 'application/pdf'});
       saveAs(blob, this.zahtev.informacije_zavoda.broj_prijave._text + ".pdf");
     });

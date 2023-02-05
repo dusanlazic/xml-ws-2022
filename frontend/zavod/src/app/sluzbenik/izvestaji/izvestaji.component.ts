@@ -28,7 +28,6 @@ export class IzvestajiComponent implements OnInit {
   }
 
   generisanje() {
-    console.log(this.range.value);
     if(!this.range.value.start || !this.range.value.end) {
       this.toastr.error("Morate zadati opseg!");
       return;

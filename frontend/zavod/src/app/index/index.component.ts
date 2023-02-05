@@ -26,7 +26,7 @@ export class IndexComponent implements OnInit {
 
   constructor(private router: Router, public dialog: MatDialog, private authService: AuthService, private toastr: ToastrService) { 
     this.authService.getLoggedUser().subscribe((user: User | undefined) => {
-      console.log("USER SUBSCRIBED: ", user);
+      
       
       this.loggedUser = user;
     })
@@ -65,7 +65,7 @@ export class IndexComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      
       this.animal = result;
     });
   }

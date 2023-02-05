@@ -669,8 +669,7 @@ export class NoviZahtevZigComponent implements OnInit, AfterViewInit {
   submit() {
     let model = JSON.parse(JSON.stringify(this.model));
     let json = JSON.stringify(model);
-    console.log(model);
-    
+
     let tipPodnosioca =  model.tipPodnosioca;
     delete model.tipPodnosioca;
     let tipPredstavnika =  model.tipPredstavnika;
@@ -679,23 +678,11 @@ export class NoviZahtevZigComponent implements OnInit, AfterViewInit {
     delete model.tipPunomocnika;
     delete model.postojiPredstavnik;
     delete model.postojiPunomocnik;
-
-    console.log(model);
     
     model = this.resolveTypes(model, tipPodnosioca, tipPredstavnika, tipPunomocnika)
-    console.log(model);
 
     delete model.dostavljanjePunomocja;
     this.uploadPriloziAndSend(model);
-
-
-    let xml = this.parser.js2xml(model);
-    console.log(xml);
-
-
-    // this.httpRequestService.post("http://localhost:8081/zahtevi/", xml).subscribe(x => {
-    //   console.log(x);
-    // })
   }
 
   uploadPriloziAndSend(model: any) {
@@ -748,9 +735,6 @@ export class NoviZahtevZigComponent implements OnInit, AfterViewInit {
     this.uploadFile(current).subscribe({
       next: (event: any) => {
         let odg = this.parser.xml2js(event);
-        console.log("OJSAAAAA");
-        console.log(odg);
-        console.log(model);
         let filename = odg.fileuploadresponse.filename._text
         model.Zahtev.Informacije_Zavoda.prilozi[currentName].putanja = filename;
         model.Zahtev.Informacije_Zavoda.prilozi[currentName].naziv_datoteke = filename.split("/").pop();
@@ -760,7 +744,7 @@ export class NoviZahtevZigComponent implements OnInit, AfterViewInit {
           this.sendModel(model);
         }
       }, error(err) {
-          console.log(err);
+
       },
      
     });
@@ -769,7 +753,6 @@ export class NoviZahtevZigComponent implements OnInit, AfterViewInit {
   sendModel(model: any) {
     model.Zahtev.Informacije_Zavoda.status_resenja = "NA_CEKANJU";
     let xml = this.parser.js2xml(model);
-    console.log(xml);
     let that = this;
     this.httpRequestService.post("http://localhost:8082/zahtevi/", xml).subscribe({
       next(value) {

@@ -37,7 +37,6 @@ export class PretragaMetapodaciComponent implements OnInit {
 
   addNewCondition() {
     this.conditions.push({name: '', relation: '=', value: '', operator: 'I'});
-    console.log(this.conditions);
     
   }
 
@@ -63,7 +62,6 @@ export class PretragaMetapodaciComponent implements OnInit {
     
     this.httpService.post(this.backend + '/zahtevi/search-meta', xml).subscribe((data: any) => {
         let results = this.parser.xml2js(data);
-        console.log(results);
         this.resultService.setResult(results);
     });
     

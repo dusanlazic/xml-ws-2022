@@ -58,12 +58,10 @@ export class PretragaObicnaComponent {
     }
 
     const xml = this.parser.js2xml(parsed);
-    console.log(xml);
     let url = this.backend + "/zahtevi/search"
     
     this.httpService.post(url, xml).subscribe((data: any) => {
         let results = this.parser.xml2js(data);
-        console.log(results);
         this.resultService.setResult(results);
     });
   }

@@ -124,11 +124,7 @@ export class AuthService {
 
       if (user && user.uloga == 'sluzbenik') {
         if (this.router.url.indexOf(serviceName + "/sluzbenik") == -1) {
-          console.log(serviceName)
-          console.log("EVO GA JEBEM GA")
-          console.log(this.router.url)
           let target = this.router.url.replace(serviceName + "/", serviceName + "/sluzbenik/")
-          console.log(target);
           this.router.navigate([target]);
         }
       }

@@ -1,6 +1,6 @@
 <div style="display:flex; justify-content: center; width: 100%; height: 100%;">
 	<div style="height: 100%; display: flex; justify-content: center; width: 80%;">
-		<div style="max-width: 100%; height: fit-content; margin-top: 30px; display: flex; justify-content: start; flex-wrap: wrap;">
+		<div *ngIf="mojiZahtevi[0]" style="max-width: 100%; height: fit-content; margin-top: 30px; display: flex; justify-content: start; flex-wrap: wrap;">
 			<mat-card *ngFor="let zahtev of mojiZahtevi" style="width: 350px; height: 200px; margin-right: 10px; margin-bottom: 20px;">
 				<mat-card-header>
 					<mat-card-title>

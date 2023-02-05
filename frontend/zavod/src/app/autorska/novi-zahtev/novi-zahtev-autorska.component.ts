@@ -518,13 +518,13 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
 
 
   submit() {
-    console.log(this.model);
+    
     
     let model = JSON.parse(JSON.stringify(this.model));
     let json = JSON.stringify(model);
-    console.log(json);
     
-    console.log(model);
+    
+    
     
     let autorJePodnosilac = model.podnosilacJeAutor ? true : false
     let autorJeAnoniman = model.Autor.anoniman ? true : false
@@ -534,7 +534,7 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
     delete model.tipPodnosioca
     this.parseAutori(model);
 
-    console.log(model);
+    
     
     model = this.resolveTypes(model, tipPodnosioca)
 
@@ -548,17 +548,17 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
       ...model.Zahtev.Autori
     }
     
-    console.log(model);
+    
 
     this.uploadPriloziAndSend(model);
 
 
     let xml = this.parser.js2xml(model);
-    console.log(xml);
+    
 
 
     // this.httpRequestService.post("http://localhost:8081/zahtevi/", xml).subscribe(x => {
-    //   console.log(x);
+    //   
     // })
   }
 
@@ -595,8 +595,8 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
     this.uploadFile(current).subscribe({
       next: (event: any) => {
         let odg = this.parser.xml2js(event);
-        console.log(odg);
-        console.log(model);
+        
+        
         let filename = odg.fileuploadresponse.filename._text
         model.Zahtev.Informacije_Zavoda.prilozi[currentName].putanja = filename;
         model.Zahtev.Informacije_Zavoda.prilozi[currentName].naziv_datoteke = filename.split("/").pop();
@@ -606,7 +606,7 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
           this.sendModel(model);
         }
       }, error(err) {
-          console.log(err);
+          
       },
      
     });
@@ -615,7 +615,7 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
   sendModel(model: any) {
     model.Zahtev.Informacije_Zavoda.status_resenja = "NA_CEKANJU";
     let xml = this.parser.js2xml(model);
-    console.log(xml);
+    
     let that = this;
     this.httpRequestService.post("http://localhost:8081/zahtevi/", xml).subscribe({
       next(value) {
@@ -688,13 +688,13 @@ export class NoviZahtevAutorskaComponent implements OnInit, AfterViewInit {
       delete model.Punomocnik;
     }
 
-    console.log('here 2');
+    
     if (tipPodnosioca == 1) {
       model.Podnosilac['_attributes'] = {'xsi:type': "TPravno_Lice"}
     } else {
       model.Podnosilac['_attributes'] = {'xsi:type': "TFizicko_Lice"}
     }
-    console.log('here 3');
+    
 
     model['Informacije_Zavoda'] = {
       'broj_prijave': 'A-0000-00',

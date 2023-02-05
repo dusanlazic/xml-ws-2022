@@ -40,7 +40,6 @@ export class ResiComponent implements OnInit {
     private toastr: ToastrService) {
     this.authService.getLoggedUser().subscribe((user: User | undefined) => {
       this.loggedUser = user;
-      console.log(this.loggedUser);
       this.serviceName = this.router.url.split("/")[1];
       if(this.serviceName !== 'autorska') {
         this.podneoOpis = true;
@@ -70,10 +69,8 @@ export class ResiComponent implements OnInit {
       this.httpService.get(this.backend + '/resenja/' + this.zahtev.informacije_zavoda.broj_prijave._text).subscribe({
         next: (data) => {
           let resenje = that.parser.xml2js(data);
-          console.log(resenje);
           if (!resenje.resenje || !resenje.resenje.odluka) {
             that.cantModify = false;
-            console.log();
             
             return;
           }
@@ -131,7 +128,6 @@ export class ResiComponent implements OnInit {
     }
 
     let parsed = this.parser.js2xml(resenje);
-    console.log(parsed);
     
     this.httpService.post(this.backend + "/resenja/" + brojZahteva, parsed).subscribe({
       next: (data) => {

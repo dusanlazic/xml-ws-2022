@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   passwordConfirm: string = ""
   name: string = ""
   lastname: string = ""
+  uloga: string = ""
   loggedUser: User | undefined;
 
   constructor(
@@ -66,7 +67,7 @@ export class LoginComponent implements OnInit {
       lozinka: this.password,
       ime: this.name,
       prezime: this.lastname,
-      uloga: 'sluzbenik'
+      uloga: this.uloga
     }
 
     if(!this.validate(zahtevZaRegistraciju)) {
@@ -92,8 +93,6 @@ export class LoginComponent implements OnInit {
   }
 
   validate(zahtevZaRegistraciju: any) {
-    console.log(zahtevZaRegistraciju);
-    
     if(zahtevZaRegistraciju.email == "" || zahtevZaRegistraciju.lozinka == "" || zahtevZaRegistraciju.ime == "" || zahtevZaRegistraciju.prezime == "") {
       this.toastr.error("Morate popuniti sva polja!")
       return false;
