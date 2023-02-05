@@ -29,7 +29,7 @@ public class MetadataService {
 	String namespace = "http://www.zavod.com/Autorska/pred/";
 
 	Map<String, String> types = new HashMap<String, String>() {{
-
+		put("Datum_podnosenja", "xsd:date");
 	}};
 
 	public List<Zahtev> metaSearch(MetaSearchRequest request) throws XMLDBException {

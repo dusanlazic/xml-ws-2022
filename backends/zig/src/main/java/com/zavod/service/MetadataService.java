@@ -30,6 +30,7 @@ public class MetadataService {
 
 	Map<String, String> types = new HashMap<String, String>() {{
 		put("Ukupno_placeno", "xsd:float");
+		put("Datum_podnosenja", "xsd:date");
 	}};
 
 	public List<Zahtev> metaSearch(MetaSearchRequest request) throws XMLDBException {
