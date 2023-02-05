@@ -27,8 +27,6 @@ export class PretragaRezultatAutorskaComponent implements OnInit {
   }
 
   detailed() {
-    console.log(this.rezultat);
-    
     let brojPrijave = this.rezultat.informacije_zavoda.broj_prijave._text;
     this.router.navigate(['autorska/'+this.sluzbenikPrefix+'zahtev/' + brojPrijave])
   }

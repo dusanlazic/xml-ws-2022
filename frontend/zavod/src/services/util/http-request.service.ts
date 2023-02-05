@@ -24,15 +24,8 @@ export class HttpRequestService {
         });
 
         if (token) {
-            console.log("appends");
-            
             headers = headers.append("Authorization", "Bearer " + token)
         }
-        console.log(this.localStorageService.get("access_token"));
-        
-        console.log(headers);
-        
-
         return headers;
     }
 

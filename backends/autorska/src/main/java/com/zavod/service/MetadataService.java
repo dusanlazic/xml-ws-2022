@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 import org.xmldb.api.base.XMLDBException;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +28,9 @@ public class MetadataService {
 	String graphName = "<http://localhost:8080/fuseki-autorska/ZahteviDataset/data/zahtevi/metadata>";
 	String namespace = "http://www.zavod.com/Autorska/pred/";
 
+	Map<String, String> types = new HashMap<String, String>() {{
+		put("Datum_podnosenja", "xsd:date");
+	}};
 
 	public List<Zahtev> metaSearch(MetaSearchRequest request) throws XMLDBException {
 		return metaSearch(request, false);
@@ -68,15 +68,17 @@ public class MetadataService {
 		StringBuilder query = new StringBuilder();
 		Set<String> predicates = getUniquePredicates(request);
 
+		query.append("PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n");
 		query.append(queryType + " ?subject FROM ").append(graphName).append(" \nWHERE {  \n");
 		query.append("\t?subject ?predicate ?object . \n");
 		for (String predicate : predicates) {
 			query.append("\t?subject <").append(namespace).append(predicate).append("> ?").append(predicate).append(" . \n");
 		}
+		resolveTypes(request);
 		query.append("\tFILTER (");
 		for (MetaSearchQuery metaSearchQuery : request.getQuery()) {
-			query.append(" ( ?").append(metaSearchQuery.getPredicate()).append(metaSearchQuery.getRelation())
-				 .append(metaSearchQuery.getObject()).append(" ) ");
+			query.append(" ( ").append(metaSearchQuery.getPredicate()).append(metaSearchQuery.getRelation())
+					.append(metaSearchQuery.getObject()).append(" ) ");
 			if (request.getQuery().indexOf(metaSearchQuery) != request.getQuery().size() - 1) {
 				query.append(metaSearchQuery.getOperator());
 			}
@@ -84,6 +86,18 @@ public class MetadataService {
 		query.append(") \n}\n");
 		query.append("GROUP BY ?subject");
 		return query.toString();
+	}
+
+	private void resolveTypes(MetaSearchRequest request) {
+		request.getQuery().forEach(q -> {
+			if (types.containsKey(q.getPredicate())) {
+				String predicate = q.getPredicate();
+				q.setPredicate(types.get(predicate) + "(?" + predicate + ") ");
+				q.setObject(types.get(predicate) + "(" + q.getObject() + ") ");
+			} else {
+				q.setPredicate("?" + q.getPredicate());
+			}
+		});
 	}
 
 	public Set<String> getUniquePredicates(MetaSearchRequest request) {

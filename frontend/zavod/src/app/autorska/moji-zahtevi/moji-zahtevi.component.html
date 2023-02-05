@@ -1,6 +1,6 @@
 <div style="display:flex; justify-content: center; width: 100%; height: 100%;">
 	<div style="height: 100%; display: flex; justify-content: center; width: 80%;">
-		<div style="max-width: 100%; height: fit-content; margin-top: 30px; display: flex; justify-content: start; flex-wrap: wrap;">
+		<div *ngIf="mojiZahtevi[0]" style="max-width: 100%; height: fit-content; margin-top: 30px; display: flex; justify-content: start; flex-wrap: wrap;">
 			<mat-card *ngFor="let zahtev of mojiZahtevi" style="width: 350px; height: 200px; margin-right: 10px; margin-bottom: 20px;">
 				<mat-card-header>
 					<mat-card-title>
@@ -13,7 +13,7 @@
 						{{humanReadable(zahtev.informacije_zavoda.broj_prijave._text)}}
 					</div>
 					<div style="margin-top: 20px; font-weight: 700;"  [ngStyle]="{'color': (zahtev.informacije_zavoda.status_resenja._text === 'NA_CEKANJU') ? '#ffd444' : (zahtev.informacije_zavoda.status_resenja._text === 'ODBIJEN') ? 'red' : 'green'}">
-						{{zahtev.informacije_zavoda.status_resenja._text}}
+						{{humanReadableStatus(zahtev.informacije_zavoda.status_resenja._text)}}
 					</div>
 				</mat-card-content>
 				<mat-card-actions style="margin-left: 12px;">

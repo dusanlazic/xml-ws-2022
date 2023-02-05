@@ -10,10 +10,10 @@
 				</mat-card-header>
 				<mat-card-content style="margin-left: 12px;">
 					<div style="font-size: x-large;">
-						{{zahtev.informacije_zavoda.broj_prijave._text}}
+						{{humanReadable(zahtev.informacije_zavoda.broj_prijave._text)}}
 					</div>
 					<div style="margin-top: 20px; font-weight: 700;"  [ngStyle]="{'color': (zahtev.informacije_zavoda.status_resenja._text === 'NA_CEKANJU') ? '#ffd444' : (zahtev.informacije_zavoda.status_resenja._text === 'ODBIJEN') ? 'red' : 'green'}">
-						{{zahtev.informacije_zavoda.status_resenja._text}}
+						{{humanReadableStatus(zahtev.informacije_zavoda.status_resenja._text)}}
 					</div>
 				</mat-card-content>
 				<mat-card-actions style="margin-left: 12px;">

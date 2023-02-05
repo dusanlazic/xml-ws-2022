@@ -41,6 +41,10 @@
                 <xsl:apply-templates select="./a:Delo/a:vrsta_dela"></xsl:apply-templates>
             </pred:Vrsta_dela>
 
+            <pred:Status_resenja>
+                <xsl:apply-templates select="./a:Informacije_Zavoda/a:status_resenja"></xsl:apply-templates>
+            </pred:Status_resenja>
+
             <xsl:choose>
                 <xsl:when test="./a:Autori/a:podnosilac_je_autor = 'true'">
                     <pred:Autor>
