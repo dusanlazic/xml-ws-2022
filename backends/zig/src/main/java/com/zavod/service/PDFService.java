@@ -225,7 +225,7 @@ public class PDFService {
     }
 
     public ResponseEntity<byte[]> qrCodeToResource(String brojPrijave) throws BadElementException, IOException, WriterException {
-        String url = "http://localhost:8082/zahtevi/" + brojPrijave;
+        String url = "http://localhost:4200/zig/zahtev/" + brojPrijave;
         return QRCodeEncoder.generateQRCodeImage(url);
     }
 }
