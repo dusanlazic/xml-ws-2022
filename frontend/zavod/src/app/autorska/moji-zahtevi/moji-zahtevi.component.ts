@@ -41,6 +41,9 @@ export class MojiZahteviComponent implements OnInit {
         this.httpRequest.get(url + '/zahtevi/my').subscribe({
           next: (data: any) => {
             let parsedData = this.parser.xml2js(data); 
+            if (!Array.isArray(parsedData.zahtevi.zahtev)) {
+              parsedData.zahtevi.zahtev = [parsedData.zahtevi.zahtev]
+            }
             this.mojiZahtevi = parsedData.zahtevi.zahtev;
           },
           error: (err) => {
