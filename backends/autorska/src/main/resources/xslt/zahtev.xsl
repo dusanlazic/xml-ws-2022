@@ -8,8 +8,8 @@
         <html>
             <style>
                 body {
-                    display: flex;
-                    justify-content: center;
+                display: flex;
+                justify-content: center;
                 }
                 h1, h2 {
                 text-align: center;
@@ -28,9 +28,9 @@
                 color: navy;
                 }
                 .zahtev {
-                    max-width: 1000px;
-                    border: 2px solid black;
-                    height: 100%;
+                max-width: 1000px;
+                border: 2px solid black;
+                height: 100%;
                 }
             </style>
             <body>
@@ -85,12 +85,34 @@
                         <div class="item">
                             2) Pseudonim ili znak autora, (ako ga ima):
                             <p class="answer">
+
                                 <xsl:choose>
-                                    <xsl:when test="//a:Podnosilac/a:pseudonim">
-                                        <xsl:value-of select="//a:Podnosilac/a:pseudonim" />
-                                    </xsl:when>
-                                    <xsl:otherwise>
+                                    <xsl:when test="//a:Autori/a:autor_je_anoniman = 'true'">
                                         <xsl:text>Nema pseudonima</xsl:text>
+                                    </xsl:when>
+
+                                    <xsl:when test="//a:Autori/a:podnosilac_je_autor = 'true'">
+                                        <xsl:choose>
+                                            <xsl:when test="//a:Podnosilac/a:pseudonim">
+                                                <xsl:value-of select="//a:Podnosilac/a:pseudonim" ></xsl:value-of>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:text>Nema pseudonima</xsl:text>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:when>
+
+                                    <xsl:otherwise>
+                                        <xsl:for-each select="//a:Autori/a:Autor">
+                                            <xsl:choose>
+                                                <xsl:when test="a:pseudonim">
+                                                    <xsl:value-of select="a:pseudonim" ></xsl:value-of> <xsl:text>  </xsl:text>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:text>Nema pseudonima</xsl:text><xsl:text>  </xsl:text>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:for-each>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </p>
@@ -205,10 +227,20 @@
                     <div class="section1">
                         <strong>Prilozi uz prijavu:</strong>
                         <div>
-                            Opis autorskog dela <xsl:value-of select="//a:Informacije_Zavoda/a:prilozi/a:opis_dela/a:putanja"></xsl:value-of>
+                            <a>
+                                <xsl:attribute name="href">
+                                    <xsl:value-of select="//a:Informacije_Zavoda/a:prilozi/a:opis_dela/a:putanja"></xsl:value-of>
+                                </xsl:attribute>
+                                Opis autorskog dela
+                            </a>
                         </div>
                         <div>
-                            Primer autorskog dela <xsl:value-of select="//a:Informacije_Zavoda/a:prilozi/a:primer_dela/a:putanja"></xsl:value-of>
+                            <a>
+                                <xsl:attribute name="href">
+                                    <xsl:value-of select="//a:Informacije_Zavoda/a:prilozi/a:primer_dela/a:putanja"></xsl:value-of>
+                                </xsl:attribute>
+                                Primer autorskog dela
+                            </a>
                         </div>
                     </div>
                     <br />
